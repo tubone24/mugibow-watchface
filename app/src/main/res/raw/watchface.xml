@@ -41,11 +41,9 @@
         <!-- ===================================== -->
         <PartText x="100" y="50" width="250" height="55" name="Weather">
             <Text align="CENTER">
-                <Font family="fredoka" size="36" color="#FFFFFF" />
-                <Template>
-                    <![CDATA[%d°C]]>
-                    <Parameter expression="[WEATHER.TEMPERATURE]" />
-                </Template>
+                <Font family="fredoka" size="36" color="#FFFFFF">
+                    <Template><![CDATA[%d°C]]><Parameter expression="[WEATHER.TEMPERATURE]" /></Template>
+                </Font>
             </Text>
             <Variant mode="AMBIENT" target="alpha" value="180" />
         </PartText>
