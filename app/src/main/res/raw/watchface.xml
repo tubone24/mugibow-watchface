@@ -27,21 +27,43 @@
             <Character name=":" resource="digit_colon" width="60" height="100" />
         </BitmapFont>
         <!-- Weather condition icons (indexed by WEATHER.CONDITION value) -->
-        <BitmapFont name="weather_icons">
+        <!-- Day icons -->
+        <BitmapFont name="weather_icons_day">
             <Character name="0" resource="ic_unknown" width="96" height="96" />
-            <Character name="1" resource="ic_sunny" width="96" height="96" />
-            <Character name="2" resource="ic_clear" width="96" height="96" />
-            <Character name="3" resource="ic_partly_cloudy_day" width="96" height="96" />
-            <Character name="4" resource="ic_partly_cloudy_day" width="96" height="96" />
-            <Character name="5" resource="ic_cloudy" width="96" height="96" />
+            <Character name="1" resource="ic_clear" width="96" height="96" />
+            <Character name="2" resource="ic_cloudy" width="96" height="96" />
+            <Character name="3" resource="ic_fog" width="96" height="96" />
+            <Character name="4" resource="ic_heavy_rain" width="96" height="96" />
+            <Character name="5" resource="ic_heavy_snow" width="96" height="96" />
             <Character name="6" resource="ic_rain" width="96" height="96" />
-            <Character name="7" resource="ic_heavy_rain" width="96" height="96" />
-            <Character name="8" resource="ic_snow" width="96" height="96" />
-            <Character name="9" resource="ic_heavy_snow" width="96" height="96" />
-            <Character name="A" resource="ic_thunderstorm" width="96" height="96" />
-            <Character name="B" resource="ic_sleet" width="96" height="96" />
-            <Character name="C" resource="ic_fog" width="96" height="96" />
-            <Character name="D" resource="ic_windy" width="96" height="96" />
+            <Character name="7" resource="ic_snow" width="96" height="96" />
+            <Character name="8" resource="ic_sunny" width="96" height="96" />
+            <Character name="9" resource="ic_thunderstorm" width="96" height="96" />
+            <Word name="10" resource="ic_sleet" width="96" height="96" />
+            <Word name="11" resource="ic_snow" width="96" height="96" />
+            <Word name="12" resource="ic_rain" width="96" height="96" />
+            <Word name="13" resource="ic_fog" width="96" height="96" />
+            <Word name="14" resource="ic_partly_cloudy_day" width="96" height="96" />
+            <Word name="15" resource="ic_windy" width="96" height="96" />
+        </BitmapFont>
+        <!-- Night icons -->
+        <BitmapFont name="weather_icons_night">
+            <Character name="0" resource="ic_unknown" width="96" height="96" />
+            <Character name="1" resource="ic_clear" width="96" height="96" />
+            <Character name="2" resource="ic_cloudy" width="96" height="96" />
+            <Character name="3" resource="ic_fog" width="96" height="96" />
+            <Character name="4" resource="ic_heavy_rain" width="96" height="96" />
+            <Character name="5" resource="ic_heavy_snow" width="96" height="96" />
+            <Character name="6" resource="ic_rain" width="96" height="96" />
+            <Character name="7" resource="ic_snow" width="96" height="96" />
+            <Character name="8" resource="ic_sunny" width="96" height="96" />
+            <Character name="9" resource="ic_thunderstorm" width="96" height="96" />
+            <Word name="10" resource="ic_sleet" width="96" height="96" />
+            <Word name="11" resource="ic_snow" width="96" height="96" />
+            <Word name="12" resource="ic_rain" width="96" height="96" />
+            <Word name="13" resource="ic_fog" width="96" height="96" />
+            <Word name="14" resource="ic_partly_cloudy_night" width="96" height="96" />
+            <Word name="15" resource="ic_windy" width="96" height="96" />
         </BitmapFont>
     </BitmapFonts>
 
@@ -62,20 +84,39 @@
             </Expressions>
             <Compare expression="weather_available">
                 <Case value="TRUE">
-                    <!-- Weather icon using BitmapFont -->
-                    <PartText x="130" y="30" width="96" height="50" name="WeatherIcon">
-                        <Text align="CENTER">
-                            <BitmapFont family="weather_icons" size="40" color="#FFFFFF">
-                                <Template>%X<Parameter expression="clamp([WEATHER.CONDITION], 0, 13)" /></Template>
-                            </BitmapFont>
-                        </Text>
-                        <Variant mode="AMBIENT" target="alpha" value="180" />
-                    </PartText>
+                    <!-- Weather icon - Day/Night switching -->
+                    <Condition>
+                        <Expressions>
+                            <Expression name="is_day">[WEATHER.IS_DAY]</Expression>
+                        </Expressions>
+                        <Compare expression="is_day">
+                            <Case value="TRUE">
+                                <PartText x="135" y="25" width="50" height="50" name="WeatherIconDay">
+                                    <Text align="CENTER">
+                                        <BitmapFont family="weather_icons_day" size="45">
+                                            <Template><![CDATA[%s]]><Parameter expression="[WEATHER.CONDITION] &lt;= 15 ? [WEATHER.CONDITION] : 0" /></Template>
+                                        </BitmapFont>
+                                    </Text>
+                                    <Variant mode="AMBIENT" target="alpha" value="180" />
+                                </PartText>
+                            </Case>
+                        </Compare>
+                        <Default>
+                            <PartText x="135" y="25" width="50" height="50" name="WeatherIconNight">
+                                <Text align="CENTER">
+                                    <BitmapFont family="weather_icons_night" size="45">
+                                        <Template><![CDATA[%s]]><Parameter expression="[WEATHER.CONDITION] &lt;= 15 ? [WEATHER.CONDITION] : 0" /></Template>
+                                    </BitmapFont>
+                                </Text>
+                                <Variant mode="AMBIENT" target="alpha" value="180" />
+                            </PartText>
+                        </Default>
+                    </Condition>
                     <!-- Temperature -->
-                    <PartText x="210" y="40" width="130" height="50" name="WeatherTemp">
+                    <PartText x="190" y="35" width="130" height="40" name="WeatherTemp">
                         <Text align="START">
-                            <Font family="fredoka" size="32" color="#FFFFFF">
-                                <Template><![CDATA[%d°C]]><Parameter expression="[WEATHER.TEMPERATURE]" /></Template>
+                            <Font family="fredoka" size="30" color="#FFFFFF">
+                                <Template><![CDATA[%s°C]]><Parameter expression="[WEATHER.TEMPERATURE]" /></Template>
                             </Font>
                         </Text>
                         <Variant mode="AMBIENT" target="alpha" value="180" />
@@ -84,7 +125,7 @@
             </Compare>
             <Default>
                 <!-- Weather not available -->
-                <PartText x="100" y="40" width="250" height="50" name="WeatherUnavailable">
+                <PartText x="100" y="35" width="250" height="40" name="WeatherUnavailable">
                     <Text align="CENTER">
                         <Font family="fredoka" size="28" color="#888888">
                             <Template>--°C</Template>
@@ -94,6 +135,18 @@
                 </PartText>
             </Default>
         </Condition>
+
+        <!-- ===================================== -->
+        <!-- NEXT EVENT (Calendar)                 -->
+        <!-- ===================================== -->
+        <PartText x="50" y="75" width="350" height="30" name="NextEvent">
+            <Text align="CENTER">
+                <Font family="fredoka" size="16" color="#AAAAAA">
+                    <Template><![CDATA[📅 %s]]><Parameter expression="[NEXT_EVENT.TITLE]" /></Template>
+                </Font>
+            </Text>
+            <Variant mode="AMBIENT" target="alpha" value="100" />
+        </PartText>
 
         <!-- ===================================== -->
         <!-- CENTER: Digital Clock (PartText + BitmapFont) -->
@@ -161,20 +214,6 @@
         <!-- ===================================== -->
         <!-- PROGRESS ARCS                         -->
         <!-- ===================================== -->
-
-        <!-- Step Progress Arc -->
-        <PartDraw x="0" y="0" width="450" height="450" name="StepArc">
-            <Arc x="10" y="10" width="430" height="430"
-                startAngle="135" endAngle="180" direction="CLOCKWISE">
-                <Stroke color="#333333" thickness="10" cap="ROUND" />
-            </Arc>
-            <Arc x="10" y="10" width="430" height="430"
-                startAngle="135" direction="CLOCKWISE">
-                <Stroke color="#90EE90" thickness="10" cap="ROUND" />
-                <Transform target="endAngle" value="135 + ([STEP_COUNT] / 10000.0) * 45" />
-            </Arc>
-            <Variant mode="AMBIENT" target="alpha" value="0" />
-        </PartDraw>
 
         <!-- Battery Progress Arc -->
         <PartDraw x="0" y="0" width="450" height="450" name="BatteryArc">
