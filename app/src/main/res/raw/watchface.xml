@@ -26,6 +26,23 @@
             <Character name="9" resource="digit_9" width="60" height="100" />
             <Character name=":" resource="digit_colon" width="60" height="100" />
         </BitmapFont>
+        <!-- Weather condition icons (indexed by WEATHER.CONDITION value) -->
+        <BitmapFont name="weather_icons">
+            <Character name="0" resource="ic_unknown" width="96" height="96" />
+            <Character name="1" resource="ic_sunny" width="96" height="96" />
+            <Character name="2" resource="ic_clear" width="96" height="96" />
+            <Character name="3" resource="ic_partly_cloudy_day" width="96" height="96" />
+            <Character name="4" resource="ic_partly_cloudy_day" width="96" height="96" />
+            <Character name="5" resource="ic_cloudy" width="96" height="96" />
+            <Character name="6" resource="ic_rain" width="96" height="96" />
+            <Character name="7" resource="ic_heavy_rain" width="96" height="96" />
+            <Character name="8" resource="ic_snow" width="96" height="96" />
+            <Character name="9" resource="ic_heavy_snow" width="96" height="96" />
+            <Character name="A" resource="ic_thunderstorm" width="96" height="96" />
+            <Character name="B" resource="ic_sleet" width="96" height="96" />
+            <Character name="C" resource="ic_fog" width="96" height="96" />
+            <Character name="D" resource="ic_windy" width="96" height="96" />
+        </BitmapFont>
     </BitmapFonts>
 
     <Scene>
@@ -37,7 +54,7 @@
         </PartImage>
 
         <!-- ===================================== -->
-        <!-- TOP: Weather with emoji + temperature -->
+        <!-- TOP: Weather icon + temperature       -->
         <!-- ===================================== -->
         <Condition>
             <Expressions>
@@ -45,11 +62,20 @@
             </Expressions>
             <Compare expression="weather_available">
                 <Case value="TRUE">
-                    <!-- Weather emoji based on condition -->
-                    <PartText x="100" y="45" width="250" height="60" name="WeatherEmoji">
+                    <!-- Weather icon using BitmapFont -->
+                    <PartText x="130" y="30" width="96" height="50" name="WeatherIcon">
                         <Text align="CENTER">
+                            <BitmapFont family="weather_icons" size="40" color="#FFFFFF">
+                                <Template>%X<Parameter expression="clamp([WEATHER.CONDITION], 0, 13)" /></Template>
+                            </BitmapFont>
+                        </Text>
+                        <Variant mode="AMBIENT" target="alpha" value="180" />
+                    </PartText>
+                    <!-- Temperature -->
+                    <PartText x="210" y="40" width="130" height="50" name="WeatherTemp">
+                        <Text align="START">
                             <Font family="fredoka" size="32" color="#FFFFFF">
-                                <Template><![CDATA[%s %d°C]]><Parameter expression="(([WEATHER.CONDITION] == 1) ? '☀️' : (([WEATHER.CONDITION] == 2) ? '⛅' : (([WEATHER.CONDITION] == 3) ? '🌥️' : (([WEATHER.CONDITION] == 4) ? '☁️' : (([WEATHER.CONDITION] == 5) ? '🌧️' : (([WEATHER.CONDITION] == 6) ? '🌧️' : (([WEATHER.CONDITION] == 7) ? '❄️' : (([WEATHER.CONDITION] == 8) ? '❄️' : (([WEATHER.CONDITION] == 9) ? '⛈️' : (([WEATHER.CONDITION] == 10) ? '🌫️' : '🌡️'))))))))))" /><Parameter expression="[WEATHER.TEMPERATURE]" /></Template>
+                                <Template><![CDATA[%d°C]]><Parameter expression="[WEATHER.TEMPERATURE]" /></Template>
                             </Font>
                         </Text>
                         <Variant mode="AMBIENT" target="alpha" value="180" />
@@ -58,10 +84,10 @@
             </Compare>
             <Default>
                 <!-- Weather not available -->
-                <PartText x="100" y="45" width="250" height="60" name="WeatherUnavailable">
+                <PartText x="100" y="40" width="250" height="50" name="WeatherUnavailable">
                     <Text align="CENTER">
-                        <Font family="fredoka" size="32" color="#888888">
-                            <Template>🌡️ --°C</Template>
+                        <Font family="fredoka" size="28" color="#888888">
+                            <Template>--°C</Template>
                         </Font>
                     </Text>
                     <Variant mode="AMBIENT" target="alpha" value="180" />
