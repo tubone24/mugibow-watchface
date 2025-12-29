@@ -2,5 +2,5 @@
 // Watch Face Format (WFF) project for Pixel Watch 2
 
 plugins {
-    id("com.android.application") version "8.2.2" apply false
+    id("com.android.application") apply false
 }
