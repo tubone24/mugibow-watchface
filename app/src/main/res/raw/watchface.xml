@@ -6,25 +6,6 @@
 <WatchFace width="450" height="450" clipShape="CIRCLE">
 
     <!-- ========================================= -->
-    <!-- BITMAP FONTS DEFINITION                   -->
-    <!-- ========================================= -->
-    <BitmapFonts>
-        <BitmapFont name="custom_digits">
-            <Character name="0" resource="digit_0" width="60" height="100" />
-            <Character name="1" resource="digit_1" width="60" height="100" />
-            <Character name="2" resource="digit_2" width="60" height="100" />
-            <Character name="3" resource="digit_3" width="60" height="100" />
-            <Character name="4" resource="digit_4" width="60" height="100" />
-            <Character name="5" resource="digit_5" width="60" height="100" />
-            <Character name="6" resource="digit_6" width="60" height="100" />
-            <Character name="7" resource="digit_7" width="60" height="100" />
-            <Character name="8" resource="digit_8" width="60" height="100" />
-            <Character name="9" resource="digit_9" width="60" height="100" />
-            <Character name=":" resource="digit_colon" width="30" height="100" />
-        </BitmapFont>
-    </BitmapFonts>
-
-    <!-- ========================================= -->
     <!-- MAIN SCENE                                -->
     <!-- ========================================= -->
     <Scene>
@@ -32,61 +13,69 @@
         <!-- BACKGROUND -->
         <PartImage x="0" y="0" width="450" height="450" name="Background">
             <Image resource="background" />
-            <Variant mode="AMBIENT" target="alpha" value="128" />
+            <Variant mode="AMBIENT" target="alpha" value="100" />
         </PartImage>
 
         <!-- ===================================== -->
-        <!-- TOP: Weather (simple version)         -->
+        <!-- TOP: Weather                          -->
         <!-- ===================================== -->
-        <PartText x="125" y="50" width="200" height="50" name="Weather">
+        <PartText x="100" y="55" width="250" height="50" name="Weather">
             <Text align="CENTER">
-                <Font family="SYNC_TO_DEVICE" size="20" color="#87CEEB" />
+                <Font family="SYNC_TO_DEVICE" size="32" color="#FFFFFF">
+                    <Outline color="#000000" width="2" />
+                </Font>
                 <Template>
-                    <![CDATA[%d°]]>
+                    <![CDATA[%d°C]]>
                     <Parameter expression="[WEATHER.TEMPERATURE]" />
                 </Template>
             </Text>
-            <Variant mode="AMBIENT" target="alpha" value="150" />
+            <Variant mode="AMBIENT" target="alpha" value="180" />
         </PartText>
 
         <!-- ===================================== -->
-        <!-- CENTER: Digital Clock                 -->
+        <!-- CENTER: Digital Clock (BIG!)          -->
         <!-- ===================================== -->
-        <DigitalClock x="75" y="160" width="300" height="100">
+        <DigitalClock x="25" y="140" width="400" height="130">
             <TimeText
                 x="0"
                 y="0"
-                width="300"
-                height="90"
+                width="400"
+                height="120"
                 format="HH:mm"
                 hourFormat="SYNC_TO_DEVICE"
                 align="CENTER">
-                <BitmapFont family="custom_digits" size="90" />
+                <Font family="SYNC_TO_DEVICE" size="100" color="#FFFFFF">
+                    <Outline color="#000000" width="3" />
+                </Font>
             </TimeText>
-            <Variant mode="AMBIENT" target="alpha" value="220" />
+            <Variant mode="AMBIENT" target="alpha" value="255" />
         </DigitalClock>
 
-        <!-- Date -->
-        <PartText x="125" y="260" width="200" height="30" name="Date">
+        <!-- Date (bigger) -->
+        <PartText x="100" y="265" width="250" height="45" name="Date">
             <Text align="CENTER">
-                <Font family="SYNC_TO_DEVICE" size="22" color="#FFFFFF" />
+                <Font family="SYNC_TO_DEVICE" size="28" color="#FFFFFF">
+                    <Outline color="#000000" width="2" />
+                </Font>
                 <Template>
                     %s %d
                     <Parameter expression="[DAY_OF_WEEK_S]" />
                     <Parameter expression="[DAY]" />
                 </Template>
             </Text>
-            <Variant mode="AMBIENT" target="alpha" value="150" />
+            <Variant mode="AMBIENT" target="alpha" value="180" />
         </PartText>
 
         <!-- ===================================== -->
-        <!-- BOTTOM: Step, Heart, Battery          -->
+        <!-- BOTTOM ROW: Step, Heart, Battery      -->
         <!-- ===================================== -->
 
         <!-- Step Count -->
-        <PartText x="50" y="310" width="100" height="50" name="Steps">
+        <PartText x="30" y="320" width="120" height="70" name="Steps">
             <Text align="CENTER">
-                <Font family="SYNC_TO_DEVICE" size="16" color="#90EE90" />
+                <Font family="SYNC_TO_DEVICE" size="24" color="#90EE90">
+                    <Outline color="#000000" width="1.5" />
+                </Font>
                 <Template>
                     %d
                     <Parameter expression="[STEP_COUNT]" />
@@ -96,11 +85,13 @@
         </PartText>
 
         <!-- Heart Rate -->
-        <PartText x="175" y="310" width="100" height="50" name="Heart">
+        <PartText x="165" y="320" width="120" height="70" name="Heart">
             <Text align="CENTER">
-                <Font family="SYNC_TO_DEVICE" size="16" color="#FF6B6B" />
+                <Font family="SYNC_TO_DEVICE" size="24" color="#FF6B6B">
+                    <Outline color="#000000" width="1.5" />
+                </Font>
                 <Template>
-                    %d bpm
+                    %d
                     <Parameter expression="[HEART_RATE]" />
                 </Template>
             </Text>
@@ -108,9 +99,11 @@
         </PartText>
 
         <!-- Battery -->
-        <PartText x="300" y="310" width="100" height="50" name="Battery">
+        <PartText x="300" y="320" width="120" height="70" name="Battery">
             <Text align="CENTER">
-                <Font family="SYNC_TO_DEVICE" size="16" color="#FFD700" />
+                <Font family="SYNC_TO_DEVICE" size="24" color="#FFD700">
+                    <Outline color="#000000" width="1.5" />
+                </Font>
                 <Template>
                     <![CDATA[%d%%]]>
                     <Parameter expression="[BATTERY_PERCENT]" />
@@ -120,33 +113,33 @@
         </PartText>
 
         <!-- ===================================== -->
-        <!-- PROGRESS ARCS                         -->
+        <!-- PROGRESS ARCS (thicker)               -->
         <!-- ===================================== -->
 
         <!-- Step Progress Arc -->
         <PartDraw x="0" y="0" width="450" height="450" name="StepArc">
-            <Arc x="15" y="15" width="420" height="420"
-                startAngle="140" endAngle="180" direction="CLOCKWISE">
-                <Stroke color="#333333" thickness="6" cap="ROUND" />
+            <Arc x="10" y="10" width="430" height="430"
+                startAngle="135" endAngle="180" direction="CLOCKWISE">
+                <Stroke color="#33333380" thickness="10" cap="ROUND" />
             </Arc>
-            <Arc x="15" y="15" width="420" height="420"
-                startAngle="140" direction="CLOCKWISE">
-                <Stroke color="#90EE90" thickness="6" cap="ROUND" />
-                <Transform target="endAngle" value="140 + ([STEP_COUNT] / 10000.0) * 40" />
+            <Arc x="10" y="10" width="430" height="430"
+                startAngle="135" direction="CLOCKWISE">
+                <Stroke color="#90EE90" thickness="10" cap="ROUND" />
+                <Transform target="endAngle" value="135 + ([STEP_COUNT] / 10000.0) * 45" />
             </Arc>
             <Variant mode="AMBIENT" target="alpha" value="0" />
         </PartDraw>
 
         <!-- Battery Progress Arc -->
         <PartDraw x="0" y="0" width="450" height="450" name="BatteryArc">
-            <Arc x="15" y="15" width="420" height="420"
-                startAngle="0" endAngle="40" direction="CLOCKWISE">
-                <Stroke color="#333333" thickness="6" cap="ROUND" />
+            <Arc x="10" y="10" width="430" height="430"
+                startAngle="0" endAngle="45" direction="CLOCKWISE">
+                <Stroke color="#33333380" thickness="10" cap="ROUND" />
             </Arc>
-            <Arc x="15" y="15" width="420" height="420"
+            <Arc x="10" y="10" width="430" height="430"
                 startAngle="0" direction="CLOCKWISE">
-                <Stroke color="#FFD700" thickness="6" cap="ROUND" />
-                <Transform target="endAngle" value="([BATTERY_PERCENT] / 100.0) * 40" />
+                <Stroke color="#FFD700" thickness="10" cap="ROUND" />
+                <Transform target="endAngle" value="([BATTERY_PERCENT] / 100.0) * 45" />
             </Arc>
             <Variant mode="AMBIENT" target="alpha" value="0" />
         </PartDraw>
