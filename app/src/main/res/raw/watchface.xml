@@ -76,20 +76,20 @@
         </PartImage>
 
         <!-- ===================================== -->
-        <!-- TOP: Weather icon + temperature       -->
+        <!-- TOP: Weather icon + temperature + sunrise/sunset -->
         <!-- ===================================== -->
         <Condition>
             <Expressions>
                 <Expression name="weather_available">[WEATHER.IS_AVAILABLE]</Expression>
             </Expressions>
             <Compare expression="weather_available">
-                <!-- Weather icon - Day/Night switching -->
+                <!-- Weather icon - Day/Night switching (centered) -->
                 <Condition>
                     <Expressions>
                         <Expression name="is_day">[WEATHER.IS_DAY]</Expression>
                     </Expressions>
                     <Compare expression="is_day">
-                        <PartText x="135" y="25" width="50" height="50" name="WeatherIconDay">
+                        <PartText x="95" y="25" width="50" height="50" name="WeatherIconDay">
                             <Text align="CENTER">
                                 <BitmapFont family="weather_icons_day" size="45">
                                     <Template><![CDATA[%s]]><Parameter expression="[WEATHER.CONDITION] &lt;= 15 ? [WEATHER.CONDITION] : 0" /></Template>
@@ -99,7 +99,7 @@
                         </PartText>
                     </Compare>
                     <Default>
-                        <PartText x="135" y="25" width="50" height="50" name="WeatherIconNight">
+                        <PartText x="95" y="25" width="50" height="50" name="WeatherIconNight">
                             <Text align="CENTER">
                                 <BitmapFont family="weather_icons_night" size="45">
                                     <Template><![CDATA[%s]]><Parameter expression="[WEATHER.CONDITION] &lt;= 15 ? [WEATHER.CONDITION] : 0" /></Template>
@@ -110,20 +110,48 @@
                     </Default>
                 </Condition>
                 <!-- Temperature -->
-                <PartText x="190" y="35" width="130" height="40" name="WeatherTemp">
+                <PartText x="145" y="30" width="80" height="40" name="WeatherTemp">
                     <Text align="START">
-                        <Font family="fredoka" size="30" color="#FFFFFF">
+                        <Font family="fredoka" size="28" color="#FFFFFF">
                             <Template><![CDATA[%s°C]]><Parameter expression="[WEATHER.TEMPERATURE]" /></Template>
                         </Font>
                     </Text>
                     <Variant mode="AMBIENT" target="alpha" value="180" />
                 </PartText>
+                <!-- Sunrise/Sunset -->
+                <Condition>
+                    <Expressions>
+                        <Expression name="is_day_sun">[WEATHER.IS_DAY]</Expression>
+                    </Expressions>
+                    <Compare expression="is_day_sun">
+                        <!-- Daytime: show sunset -->
+                        <PartText x="225" y="30" width="130" height="40" name="Sunset">
+                            <Text align="START">
+                                <Font family="fredoka" size="18" color="#FF9966">
+                                    <Template><![CDATA[🌅%s]]><Parameter expression="icuText('HH:mm', [WEATHER.SUNSET])" /></Template>
+                                </Font>
+                            </Text>
+                            <Variant mode="AMBIENT" target="alpha" value="150" />
+                        </PartText>
+                    </Compare>
+                    <Default>
+                        <!-- Nighttime: show sunrise -->
+                        <PartText x="225" y="30" width="130" height="40" name="Sunrise">
+                            <Text align="START">
+                                <Font family="fredoka" size="18" color="#FFCC66">
+                                    <Template><![CDATA[🌄%s]]><Parameter expression="icuText('HH:mm', [WEATHER.SUNRISE])" /></Template>
+                                </Font>
+                            </Text>
+                            <Variant mode="AMBIENT" target="alpha" value="150" />
+                        </PartText>
+                    </Default>
+                </Condition>
             </Compare>
             <Default>
                 <!-- Weather not available -->
-                <PartText x="100" y="35" width="250" height="40" name="WeatherUnavailable">
+                <PartText x="150" y="35" width="150" height="40" name="WeatherUnavailable">
                     <Text align="CENTER">
-                        <Font family="fredoka" size="28" color="#888888">
+                        <Font family="fredoka" size="24" color="#888888">
                             <Template>--°C</Template>
                         </Font>
                     </Text>
@@ -133,16 +161,23 @@
         </Condition>
 
         <!-- ===================================== -->
-        <!-- NEXT EVENT (Calendar)                 -->
+        <!-- NEXT EVENT (Calendar) - only if available -->
         <!-- ===================================== -->
-        <PartText x="50" y="75" width="350" height="30" name="NextEvent">
-            <Text align="CENTER">
-                <Font family="fredoka" size="16" color="#AAAAAA">
-                    <Template><![CDATA[📅 %s]]><Parameter expression="[NEXT_EVENT.TITLE]" /></Template>
-                </Font>
-            </Text>
-            <Variant mode="AMBIENT" target="alpha" value="100" />
-        </PartText>
+        <Condition>
+            <Expressions>
+                <Expression name="event_available">[NEXT_EVENT.IS_VISIBLE]</Expression>
+            </Expressions>
+            <Compare expression="event_available">
+                <PartText x="50" y="75" width="350" height="30" name="NextEvent">
+                    <Text align="CENTER">
+                        <Font family="fredoka" size="14" color="#AAAAAA">
+                            <Template><![CDATA[📅 %s]]><Parameter expression="[NEXT_EVENT.TITLE]" /></Template>
+                        </Font>
+                    </Text>
+                    <Variant mode="AMBIENT" target="alpha" value="100" />
+                </PartText>
+            </Compare>
+        </Condition>
 
         <!-- ===================================== -->
         <!-- CENTER: Digital Clock (PartText + BitmapFont) -->
