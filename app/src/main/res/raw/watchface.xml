@@ -51,21 +51,16 @@
         </PartText>
 
         <!-- ===================================== -->
-        <!-- CENTER: Digital Clock (BitmapFont!)   -->
+        <!-- CENTER: Digital Clock (PartText + BitmapFont) -->
         <!-- ===================================== -->
-        <DigitalClock x="25" y="140" width="400" height="100">
-            <TimeText
-                x="0"
-                y="0"
-                width="400"
-                height="100"
-                format="HH:mm"
-                hourFormat="SYNC_TO_DEVICE"
-                align="CENTER">
-                <BitmapFont family="custom_digits" size="100" color="#FFFFFF" />
-            </TimeText>
+        <PartText x="25" y="140" width="400" height="100" name="Time">
+            <Text align="CENTER">
+                <BitmapFont family="custom_digits" size="100" color="#FFFFFF">
+                    <Template>%02d:%02d<Parameter expression="[HOUR_0_23]" /><Parameter expression="[MINUTE]" /></Template>
+                </BitmapFont>
+            </Text>
             <Variant mode="AMBIENT" target="alpha" value="255" />
-        </DigitalClock>
+        </PartText>
 
         <!-- Date (Fredoka font) - English weekday fixed -->
         <PartText x="100" y="250" width="250" height="50" name="Date">
