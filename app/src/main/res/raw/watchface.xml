@@ -53,29 +53,30 @@
         <!-- ===================================== -->
         <!-- CENTER: Digital Clock (BitmapFont!)   -->
         <!-- ===================================== -->
-        <DigitalClock x="25" y="130" width="400" height="120">
+        <DigitalClock x="25" y="140" width="400" height="100">
             <TimeText
                 x="0"
                 y="0"
                 width="400"
-                height="110"
+                height="100"
                 format="HH:mm"
                 hourFormat="SYNC_TO_DEVICE"
                 align="CENTER">
-                <BitmapFont family="custom_digits" size="110" />
+                <BitmapFont family="custom_digits" size="100" color="#FFFFFF" />
             </TimeText>
             <Variant mode="AMBIENT" target="alpha" value="255" />
         </DigitalClock>
 
-        <!-- Date (Fredoka font) -->
-        <PartText x="100" y="255" width="250" height="50" name="Date">
+        <!-- Date (Fredoka font) - English weekday fixed -->
+        <PartText x="100" y="250" width="250" height="50" name="Date">
             <Text align="CENTER">
-                <Font family="fredoka" size="32" color="#FFFFFF" />
-                <Template>
-                    %s %d
-                    <Parameter expression="[DAY_OF_WEEK_S]" />
-                    <Parameter expression="[DAY]" />
-                </Template>
+                <Font family="fredoka" size="32" color="#FFFFFF">
+                    <Template>
+                        <![CDATA[%s %d]]>
+                        <Parameter expression="(([DAY_OF_WEEK] == 1) ? 'Sun' : (([DAY_OF_WEEK] == 2) ? 'Mon' : (([DAY_OF_WEEK] == 3) ? 'Tue' : (([DAY_OF_WEEK] == 4) ? 'Wed' : (([DAY_OF_WEEK] == 5) ? 'Thu' : (([DAY_OF_WEEK] == 6) ? 'Fri' : 'Sat'))))))" />
+                        <Parameter expression="[DAY]" />
+                    </Template>
+                </Font>
             </Text>
             <Variant mode="AMBIENT" target="alpha" value="180" />
         </PartText>
