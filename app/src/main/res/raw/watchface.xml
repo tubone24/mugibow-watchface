@@ -37,16 +37,37 @@
         </PartImage>
 
         <!-- ===================================== -->
-        <!-- TOP: Weather (Fredoka font)           -->
+        <!-- TOP: Weather with emoji + temperature -->
         <!-- ===================================== -->
-        <PartText x="100" y="50" width="250" height="55" name="Weather">
-            <Text align="CENTER">
-                <Font family="fredoka" size="36" color="#FFFFFF">
-                    <Template><![CDATA[%d°C]]><Parameter expression="[WEATHER.TEMPERATURE]" /></Template>
-                </Font>
-            </Text>
-            <Variant mode="AMBIENT" target="alpha" value="180" />
-        </PartText>
+        <Condition>
+            <Expressions>
+                <Expression name="weather_available">[WEATHER.IS_AVAILABLE]</Expression>
+            </Expressions>
+            <Compare expression="weather_available">
+                <Case value="TRUE">
+                    <!-- Weather emoji based on condition -->
+                    <PartText x="100" y="45" width="250" height="60" name="WeatherEmoji">
+                        <Text align="CENTER">
+                            <Font family="fredoka" size="32" color="#FFFFFF">
+                                <Template><![CDATA[%s %d°C]]><Parameter expression="(([WEATHER.CONDITION] == 1) ? '☀️' : (([WEATHER.CONDITION] == 2) ? '⛅' : (([WEATHER.CONDITION] == 3) ? '🌥️' : (([WEATHER.CONDITION] == 4) ? '☁️' : (([WEATHER.CONDITION] == 5) ? '🌧️' : (([WEATHER.CONDITION] == 6) ? '🌧️' : (([WEATHER.CONDITION] == 7) ? '❄️' : (([WEATHER.CONDITION] == 8) ? '❄️' : (([WEATHER.CONDITION] == 9) ? '⛈️' : (([WEATHER.CONDITION] == 10) ? '🌫️' : '🌡️'))))))))))" /><Parameter expression="[WEATHER.TEMPERATURE]" /></Template>
+                            </Font>
+                        </Text>
+                        <Variant mode="AMBIENT" target="alpha" value="180" />
+                    </PartText>
+                </Case>
+            </Compare>
+            <Default>
+                <!-- Weather not available -->
+                <PartText x="100" y="45" width="250" height="60" name="WeatherUnavailable">
+                    <Text align="CENTER">
+                        <Font family="fredoka" size="32" color="#888888">
+                            <Template>🌡️ --°C</Template>
+                        </Font>
+                    </Text>
+                    <Variant mode="AMBIENT" target="alpha" value="180" />
+                </PartText>
+            </Default>
+        </Condition>
 
         <!-- ===================================== -->
         <!-- CENTER: Digital Clock (PartText + BitmapFont) -->
