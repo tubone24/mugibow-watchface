@@ -83,45 +83,41 @@
                 <Expression name="weather_available">[WEATHER.IS_AVAILABLE]</Expression>
             </Expressions>
             <Compare expression="weather_available">
-                <Case value="TRUE">
-                    <!-- Weather icon - Day/Night switching -->
-                    <Condition>
-                        <Expressions>
-                            <Expression name="is_day">[WEATHER.IS_DAY]</Expression>
-                        </Expressions>
-                        <Compare expression="is_day">
-                            <Case value="TRUE">
-                                <PartText x="135" y="25" width="50" height="50" name="WeatherIconDay">
-                                    <Text align="CENTER">
-                                        <BitmapFont family="weather_icons_day" size="45">
-                                            <Template><![CDATA[%s]]><Parameter expression="[WEATHER.CONDITION] &lt;= 15 ? [WEATHER.CONDITION] : 0" /></Template>
-                                        </BitmapFont>
-                                    </Text>
-                                    <Variant mode="AMBIENT" target="alpha" value="180" />
-                                </PartText>
-                            </Case>
-                        </Compare>
-                        <Default>
-                            <PartText x="135" y="25" width="50" height="50" name="WeatherIconNight">
-                                <Text align="CENTER">
-                                    <BitmapFont family="weather_icons_night" size="45">
-                                        <Template><![CDATA[%s]]><Parameter expression="[WEATHER.CONDITION] &lt;= 15 ? [WEATHER.CONDITION] : 0" /></Template>
-                                    </BitmapFont>
-                                </Text>
-                                <Variant mode="AMBIENT" target="alpha" value="180" />
-                            </PartText>
-                        </Default>
-                    </Condition>
-                    <!-- Temperature -->
-                    <PartText x="190" y="35" width="130" height="40" name="WeatherTemp">
-                        <Text align="START">
-                            <Font family="fredoka" size="30" color="#FFFFFF">
-                                <Template><![CDATA[%s°C]]><Parameter expression="[WEATHER.TEMPERATURE]" /></Template>
-                            </Font>
-                        </Text>
-                        <Variant mode="AMBIENT" target="alpha" value="180" />
-                    </PartText>
-                </Case>
+                <!-- Weather icon - Day/Night switching -->
+                <Condition>
+                    <Expressions>
+                        <Expression name="is_day">[WEATHER.IS_DAY]</Expression>
+                    </Expressions>
+                    <Compare expression="is_day">
+                        <PartText x="135" y="25" width="50" height="50" name="WeatherIconDay">
+                            <Text align="CENTER">
+                                <BitmapFont family="weather_icons_day" size="45">
+                                    <Template><![CDATA[%s]]><Parameter expression="[WEATHER.CONDITION] &lt;= 15 ? [WEATHER.CONDITION] : 0" /></Template>
+                                </BitmapFont>
+                            </Text>
+                            <Variant mode="AMBIENT" target="alpha" value="180" />
+                        </PartText>
+                    </Compare>
+                    <Default>
+                        <PartText x="135" y="25" width="50" height="50" name="WeatherIconNight">
+                            <Text align="CENTER">
+                                <BitmapFont family="weather_icons_night" size="45">
+                                    <Template><![CDATA[%s]]><Parameter expression="[WEATHER.CONDITION] &lt;= 15 ? [WEATHER.CONDITION] : 0" /></Template>
+                                </BitmapFont>
+                            </Text>
+                            <Variant mode="AMBIENT" target="alpha" value="180" />
+                        </PartText>
+                    </Default>
+                </Condition>
+                <!-- Temperature -->
+                <PartText x="190" y="35" width="130" height="40" name="WeatherTemp">
+                    <Text align="START">
+                        <Font family="fredoka" size="30" color="#FFFFFF">
+                            <Template><![CDATA[%s°C]]><Parameter expression="[WEATHER.TEMPERATURE]" /></Template>
+                        </Font>
+                    </Text>
+                    <Variant mode="AMBIENT" target="alpha" value="180" />
+                </PartText>
             </Compare>
             <Default>
                 <!-- Weather not available -->
