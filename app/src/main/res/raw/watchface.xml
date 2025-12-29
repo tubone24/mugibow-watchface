@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Mugibow Watch Face - Watch Face Format (WFF) v2
+    Compatible with Pixel Watch 2 and other Wear OS 4+ devices
+
+    Required images (place in res/drawable/):
+    - background.png      : 450x450px background image
+    - background_ambient.png : 450x450px ambient mode background (optional, darker)
+    - preview.png         : 450x450px preview for watch face picker
+    - digit_0.png ~ digit_9.png : Custom digit images (same height recommended)
+    - digit_colon.png     : Colon separator image
+-->
+<WatchFace width="450" height="450" clipShape="CIRCLE">
+
+    <!-- ========================================= -->
+    <!-- BITMAP FONTS DEFINITION                   -->
+    <!-- Custom image-based digits for the clock   -->
+    <!-- ========================================= -->
+    <BitmapFonts>
+        <BitmapFont name="custom_digits">
+            <!-- Digits 0-9 -->
+            <Character name="0" resource="digit_0" width="60" height="100" />
+            <Character name="1" resource="digit_1" width="60" height="100" />
+            <Character name="2" resource="digit_2" width="60" height="100" />
+            <Character name="3" resource="digit_3" width="60" height="100" />
+            <Character name="4" resource="digit_4" width="60" height="100" />
+            <Character name="5" resource="digit_5" width="60" height="100" />
+            <Character name="6" resource="digit_6" width="60" height="100" />
+            <Character name="7" resource="digit_7" width="60" height="100" />
+            <Character name="8" resource="digit_8" width="60" height="100" />
+            <Character name="9" resource="digit_9" width="60" height="100" />
+            <!-- Separator -->
+            <Character name=":" resource="digit_colon" width="30" height="100" />
+        </BitmapFont>
+    </BitmapFonts>
+
+    <!-- ========================================= -->
+    <!-- MAIN SCENE                                -->
+    <!-- ========================================= -->
+    <Scene>
+
+        <!-- ===================================== -->
+        <!-- BACKGROUND IMAGE                      -->
+        <!-- ===================================== -->
+        <PartImage x="0" y="0" width="450" height="450" name="Background">
+            <!-- Normal mode: show full color background -->
+            <Image resource="background" />
+            <!-- Ambient mode: reduce brightness or use alternate background -->
+            <Variant mode="AMBIENT" target="alpha" value="128" />
+        </PartImage>
+
+        <!-- Optional: Separate ambient background -->
+        <!-- Uncomment if you have a separate ambient background image -->
+        <!--
+        <PartImage x="0" y="0" width="450" height="450" name="AmbientBackground" alpha="0">
+            <Image resource="background_ambient" />
+            <Variant mode="AMBIENT" target="alpha" value="255" />
+        </PartImage>
+        -->
+
+        <!-- ===================================== -->
+        <!-- DIGITAL CLOCK                         -->
+        <!-- Using custom bitmap font              -->
+        <!-- ===================================== -->
+        <DigitalClock x="60" y="160" width="330" height="130">
+            <!-- Time display: HH:MM format -->
+            <TimeText
+                x="0"
+                y="0"
+                width="330"
+                height="100"
+                format="HH:mm"
+                hourFormat="SYNC_TO_DEVICE"
+                align="CENTER">
+                <!-- Use custom bitmap font for digits -->
+                <BitmapFont family="custom_digits" size="100" />
+            </TimeText>
+
+            <!-- Ambient mode: slightly reduce opacity -->
+            <Variant mode="AMBIENT" target="alpha" value="200" />
+        </DigitalClock>
+
+        <!-- ===================================== -->
+        <!-- SECONDS (Optional - Interactive mode) -->
+        <!-- Uncomment if you want seconds display -->
+        <!-- ===================================== -->
+        <!--
+        <DigitalClock x="175" y="270" width="100" height="40">
+            <TimeText
+                x="0"
+                y="0"
+                width="100"
+                height="40"
+                format="ss"
+                align="CENTER">
+                <Font family="SYNC_TO_DEVICE" size="32" color="#FFFFFF" />
+            </TimeText>
+            <Variant mode="AMBIENT" target="alpha" value="0" />
+        </DigitalClock>
+        -->
+
+        <!-- ===================================== -->
+        <!-- DATE DISPLAY                          -->
+        <!-- ===================================== -->
+        <PartText x="125" y="290" width="200" height="40" name="Date">
+            <Text
+                align="CENTER">
+                <Font family="SYNC_TO_DEVICE" size="28" color="#FFFFFF" />
+                <Template>
+                    %s %02d
+                    <Parameter expression="[DAY_OF_WEEK_S]" />
+                    <Parameter expression="[DAY]" />
+                </Template>
+            </Text>
+            <!-- Ambient mode: dim the date -->
+            <Variant mode="AMBIENT" target="alpha" value="150" />
+        </PartText>
+
+        <!-- ===================================== -->
+        <!-- BATTERY INDICATOR (Optional)          -->
+        <!-- ===================================== -->
+        <PartText x="175" y="340" width="100" height="30" name="Battery">
+            <Text align="CENTER">
+                <Font family="SYNC_TO_DEVICE" size="20" color="#AAFFAA" />
+                <Template>
+                    %d%%
+                    <Parameter expression="[BATTERY_PERCENT]" />
+                </Template>
+            </Text>
+            <!-- Hide in ambient mode to save power -->
+            <Variant mode="AMBIENT" target="alpha" value="0" />
+        </PartText>
+
+    </Scene>
+
+</WatchFace>
