@@ -3,6 +3,16 @@
 Pixel Watch 2 対応のカスタムウォッチフェイスプロジェクトです。
 Watch Face Format (WFF) v2 を使用しており、Wear OS 4以降のデバイスで動作します。
 
+## 機能
+
+- **カスタムデジタル時計**: 自分で用意した数字画像で時刻を表示
+- **歩数**: 今日の歩数とプログレスアーク
+- **心拍数**: リアルタイム心拍数表示
+- **天気・気温**: 現在の天気状態と気温 (WFF v2)
+- **バッテリー**: バッテリー残量とプログレスアーク
+- **日付**: 曜日と日付表示
+- **アンビエントモード対応**: バッテリー節約のための暗い表示モード
+
 ## 対応デバイス
 
 - Pixel Watch 2
@@ -128,10 +138,34 @@ mugibow-watchface/
 └── README.md
 ```
 
+## 表示されるデータソース
+
+| データ | 表現式 | 説明 |
+|-------|--------|------|
+| 歩数 | `[STEP_COUNT]` | 今日の歩数 |
+| 心拍数 | `[HEART_RATE]` | 最新の心拍数 (bpm) |
+| バッテリー | `[BATTERY_PERCENT]` | バッテリー残量 (%) |
+| 天気状態 | `[WEATHER.CONDITION_NAME]` | 現在の天気 (晴れ、曇りなど) |
+| 気温 | `[WEATHER.TEMPERATURE]` | 現在の気温 |
+| 日付 | `[DAY]`, `[DAY_OF_WEEK_S]` | 日付と曜日 |
+
+### 利用可能なその他のデータソース
+
+WFF v2以降で利用可能な追加データソース:
+
+- **天気予報**: `[WEATHER.HOURS.1.TEMPERATURE]` (1時間後の気温)
+- **降水確率**: `[WEATHER.CHANCE_OF_PRECIPITATION]`
+- **UV指数**: `[WEATHER.UV_INDEX]`
+- **湿度**: `[WEATHER.HUMIDITY]`
+- **風速**: `[WEATHER.WIND_SPEED]`
+- **月の満ち欠け**: `[MOON_PHASE]`
+- **日の出/日の入り**: `[SUNRISE]`, `[SUNSET]`
+
 ## 参考リンク
 
 - [Watch Face Format 公式ドキュメント](https://developer.android.com/training/wearables/wff)
 - [Watch Face Format セットアップ](https://developer.android.com/training/wearables/wff/setup)
+- [天気データ](https://developer.android.com/training/wearables/wff/weather)
 - [BitmapFont リファレンス](https://developer.android.com/reference/wear-os/wff/group/part/text/bitmap-font)
 - [Google Watch Face サンプル](https://github.com/google/watchface)
 

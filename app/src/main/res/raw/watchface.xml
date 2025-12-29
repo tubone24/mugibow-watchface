@@ -9,6 +9,9 @@
     - preview.png         : 450x450px preview for watch face picker
     - digit_0.png ~ digit_9.png : Custom digit images (same height recommended)
     - digit_colon.png     : Colon separator image
+
+    Optional weather icons (place in res/drawable/):
+    - weather_sunny.png, weather_cloudy.png, weather_rainy.png, etc.
 -->
 <WatchFace width="450" height="450" clipShape="CIRCLE">
 
@@ -43,27 +46,45 @@
         <!-- BACKGROUND IMAGE                      -->
         <!-- ===================================== -->
         <PartImage x="0" y="0" width="450" height="450" name="Background">
-            <!-- Normal mode: show full color background -->
             <Image resource="background" />
-            <!-- Ambient mode: reduce brightness or use alternate background -->
             <Variant mode="AMBIENT" target="alpha" value="128" />
         </PartImage>
 
-        <!-- Optional: Separate ambient background -->
-        <!-- Uncomment if you have a separate ambient background image -->
-        <!--
-        <PartImage x="0" y="0" width="450" height="450" name="AmbientBackground" alpha="0">
-            <Image resource="background_ambient" />
-            <Variant mode="AMBIENT" target="alpha" value="255" />
-        </PartImage>
-        -->
+        <!-- ===================================== -->
+        <!-- WEATHER & TEMPERATURE (Top)           -->
+        <!-- WFF v2 feature                        -->
+        <!-- ===================================== -->
+        <Group x="125" y="55" width="200" height="50" name="WeatherGroup">
+            <!-- Weather condition text -->
+            <PartText x="0" y="0" width="200" height="25" name="WeatherCondition">
+                <Text align="CENTER">
+                    <Font family="SYNC_TO_DEVICE" size="18" color="#87CEEB" />
+                    <Template>
+                        %s
+                        <Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.CONDITION_NAME] : '---'" />
+                    </Template>
+                </Text>
+                <Variant mode="AMBIENT" target="alpha" value="150" />
+            </PartText>
+
+            <!-- Temperature -->
+            <PartText x="0" y="25" width="200" height="25" name="Temperature">
+                <Text align="CENTER">
+                    <Font family="SYNC_TO_DEVICE" size="22" color="#FFFFFF" />
+                    <Template>
+                        %s
+                        <Parameter expression="[WEATHER.IS_AVAILABLE] ? (round([WEATHER.TEMPERATURE]) + '°') : '--°'" />
+                    </Template>
+                </Text>
+                <Variant mode="AMBIENT" target="alpha" value="150" />
+            </PartText>
+        </Group>
 
         <!-- ===================================== -->
-        <!-- DIGITAL CLOCK                         -->
+        <!-- DIGITAL CLOCK (Center)                -->
         <!-- Using custom bitmap font              -->
         <!-- ===================================== -->
-        <DigitalClock x="60" y="160" width="330" height="130">
-            <!-- Time display: HH:MM format -->
+        <DigitalClock x="60" y="145" width="330" height="110">
             <TimeText
                 x="0"
                 y="0"
@@ -72,64 +93,155 @@
                 format="HH:mm"
                 hourFormat="SYNC_TO_DEVICE"
                 align="CENTER">
-                <!-- Use custom bitmap font for digits -->
                 <BitmapFont family="custom_digits" size="100" />
             </TimeText>
-
-            <!-- Ambient mode: slightly reduce opacity -->
             <Variant mode="AMBIENT" target="alpha" value="200" />
         </DigitalClock>
 
         <!-- ===================================== -->
-        <!-- SECONDS (Optional - Interactive mode) -->
-        <!-- Uncomment if you want seconds display -->
-        <!-- ===================================== -->
-        <!--
-        <DigitalClock x="175" y="270" width="100" height="40">
-            <TimeText
-                x="0"
-                y="0"
-                width="100"
-                height="40"
-                format="ss"
-                align="CENTER">
-                <Font family="SYNC_TO_DEVICE" size="32" color="#FFFFFF" />
-            </TimeText>
-            <Variant mode="AMBIENT" target="alpha" value="0" />
-        </DigitalClock>
-        -->
-
-        <!-- ===================================== -->
         <!-- DATE DISPLAY                          -->
         <!-- ===================================== -->
-        <PartText x="125" y="290" width="200" height="40" name="Date">
-            <Text
-                align="CENTER">
-                <Font family="SYNC_TO_DEVICE" size="28" color="#FFFFFF" />
+        <PartText x="100" y="255" width="250" height="35" name="Date">
+            <Text align="CENTER">
+                <Font family="SYNC_TO_DEVICE" size="24" color="#FFFFFF" />
                 <Template>
-                    %s %02d
+                    %s %d
                     <Parameter expression="[DAY_OF_WEEK_S]" />
                     <Parameter expression="[DAY]" />
                 </Template>
             </Text>
-            <!-- Ambient mode: dim the date -->
             <Variant mode="AMBIENT" target="alpha" value="150" />
         </PartText>
 
         <!-- ===================================== -->
-        <!-- BATTERY INDICATOR (Optional)          -->
+        <!-- STEP COUNT (Bottom Left)              -->
         <!-- ===================================== -->
-        <PartText x="175" y="340" width="100" height="30" name="Battery">
-            <Text align="CENTER">
-                <Font family="SYNC_TO_DEVICE" size="20" color="#AAFFAA" />
-                <Template>
-                    %d%%
-                    <Parameter expression="[BATTERY_PERCENT]" />
-                </Template>
-            </Text>
-            <!-- Hide in ambient mode to save power -->
+        <Group x="45" y="300" width="110" height="60" name="StepCountGroup">
+            <!-- Step icon label -->
+            <PartText x="0" y="0" width="110" height="20" name="StepLabel">
+                <Text align="CENTER">
+                    <Font family="SYNC_TO_DEVICE" size="14" color="#90EE90" />
+                    <Template>STEPS</Template>
+                </Text>
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+            </PartText>
+
+            <!-- Step count value -->
+            <PartText x="0" y="20" width="110" height="35" name="StepCount">
+                <Text align="CENTER">
+                    <Font family="SYNC_TO_DEVICE" size="22" color="#90EE90" />
+                    <Template>
+                        %d
+                        <Parameter expression="[STEP_COUNT]" />
+                    </Template>
+                </Text>
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+            </PartText>
+        </Group>
+
+        <!-- ===================================== -->
+        <!-- HEART RATE (Bottom Center)            -->
+        <!-- ===================================== -->
+        <Group x="165" y="300" width="120" height="60" name="HeartRateGroup">
+            <!-- Heart rate label -->
+            <PartText x="0" y="0" width="120" height="20" name="HeartLabel">
+                <Text align="CENTER">
+                    <Font family="SYNC_TO_DEVICE" size="14" color="#FF6B6B" />
+                    <Template>HEART</Template>
+                </Text>
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+            </PartText>
+
+            <!-- Heart rate value -->
+            <PartText x="0" y="20" width="120" height="35" name="HeartRate">
+                <Text align="CENTER">
+                    <Font family="SYNC_TO_DEVICE" size="22" color="#FF6B6B" />
+                    <Template>
+                        %s bpm
+                        <Parameter expression="[HEART_RATE] > 0 ? [HEART_RATE] : '--'" />
+                    </Template>
+                </Text>
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+            </PartText>
+        </Group>
+
+        <!-- ===================================== -->
+        <!-- BATTERY (Bottom Right)                -->
+        <!-- ===================================== -->
+        <Group x="295" y="300" width="110" height="60" name="BatteryGroup">
+            <!-- Battery label -->
+            <PartText x="0" y="0" width="110" height="20" name="BatteryLabel">
+                <Text align="CENTER">
+                    <Font family="SYNC_TO_DEVICE" size="14" color="#FFD700" />
+                    <Template>BATTERY</Template>
+                </Text>
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+            </PartText>
+
+            <!-- Battery value -->
+            <PartText x="0" y="20" width="110" height="35" name="BatteryValue">
+                <Text align="CENTER">
+                    <Font family="SYNC_TO_DEVICE" size="22" color="#FFD700" />
+                    <Template>
+                        %d%%
+                        <Parameter expression="[BATTERY_PERCENT]" />
+                    </Template>
+                </Text>
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+            </PartText>
+        </Group>
+
+        <!-- ===================================== -->
+        <!-- STEP PROGRESS ARC (Optional)          -->
+        <!-- Visual step goal progress indicator   -->
+        <!-- ===================================== -->
+        <PartDraw x="0" y="0" width="450" height="450" name="StepProgressArc">
+            <!-- Background arc (track) -->
+            <Arc
+                x="25" y="25"
+                width="400" height="400"
+                startAngle="150"
+                endAngle="210"
+                direction="CLOCKWISE">
+                <Stroke color="#333333" thickness="8" cap="ROUND" />
+            </Arc>
+            <!-- Progress arc -->
+            <Arc
+                x="25" y="25"
+                width="400" height="400"
+                startAngle="150"
+                direction="CLOCKWISE">
+                <Stroke color="#90EE90" thickness="8" cap="ROUND" />
+                <!-- Progress based on step percentage (max 100%) -->
+                <Transform target="endAngle" value="150 + (clamp([STEP_COUNT] / 10000.0, 0, 1) * 60)" />
+            </Arc>
             <Variant mode="AMBIENT" target="alpha" value="0" />
-        </PartText>
+        </PartDraw>
+
+        <!-- ===================================== -->
+        <!-- BATTERY PROGRESS ARC                  -->
+        <!-- ===================================== -->
+        <PartDraw x="0" y="0" width="450" height="450" name="BatteryProgressArc">
+            <!-- Background arc (track) -->
+            <Arc
+                x="25" y="25"
+                width="400" height="400"
+                startAngle="330"
+                endAngle="30"
+                direction="CLOCKWISE">
+                <Stroke color="#333333" thickness="8" cap="ROUND" />
+            </Arc>
+            <!-- Progress arc -->
+            <Arc
+                x="25" y="25"
+                width="400" height="400"
+                startAngle="330"
+                direction="CLOCKWISE">
+                <Stroke color="#FFD700" thickness="8" cap="ROUND" />
+                <Transform target="endAngle" value="330 + ([BATTERY_PERCENT] / 100.0 * 60)" />
+            </Arc>
+            <Variant mode="AMBIENT" target="alpha" value="0" />
+        </PartDraw>
 
     </Scene>
 
