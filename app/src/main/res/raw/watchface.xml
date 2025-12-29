@@ -2,8 +2,31 @@
 <!--
     Mugibow Watch Face - Watch Face Format (WFF) v2
     Compatible with Pixel Watch 2 and other Wear OS 4+ devices
+
+    Using:
+    - Custom digit images (digit_0.png ~ digit_9.png, digit_colon.png)
+    - Fredoka font for text elements
 -->
 <WatchFace width="450" height="450" clipShape="CIRCLE">
+
+    <!-- ========================================= -->
+    <!-- BITMAP FONTS - Custom digit images        -->
+    <!-- ========================================= -->
+    <BitmapFonts>
+        <BitmapFont name="custom_digits">
+            <Character name="0" resource="digit_0" width="60" height="100" />
+            <Character name="1" resource="digit_1" width="60" height="100" />
+            <Character name="2" resource="digit_2" width="60" height="100" />
+            <Character name="3" resource="digit_3" width="60" height="100" />
+            <Character name="4" resource="digit_4" width="60" height="100" />
+            <Character name="5" resource="digit_5" width="60" height="100" />
+            <Character name="6" resource="digit_6" width="60" height="100" />
+            <Character name="7" resource="digit_7" width="60" height="100" />
+            <Character name="8" resource="digit_8" width="60" height="100" />
+            <Character name="9" resource="digit_9" width="60" height="100" />
+            <Character name=":" resource="digit_colon" width="60" height="100" />
+        </BitmapFont>
+    </BitmapFonts>
 
     <Scene>
 
@@ -14,11 +37,11 @@
         </PartImage>
 
         <!-- ===================================== -->
-        <!-- TOP: Weather                          -->
+        <!-- TOP: Weather (Fredoka font)           -->
         <!-- ===================================== -->
-        <PartText x="100" y="55" width="250" height="50" name="Weather">
+        <PartText x="100" y="50" width="250" height="55" name="Weather">
             <Text align="CENTER">
-                <Font family="SYNC_TO_DEVICE" size="32" color="#FFFFFF" />
+                <Font family="fredoka" size="36" color="#FFFFFF" />
                 <Template>
                     <![CDATA[%d°C]]>
                     <Parameter expression="[WEATHER.TEMPERATURE]" />
@@ -28,26 +51,26 @@
         </PartText>
 
         <!-- ===================================== -->
-        <!-- CENTER: Digital Clock (BIG!)          -->
+        <!-- CENTER: Digital Clock (BitmapFont!)   -->
         <!-- ===================================== -->
-        <DigitalClock x="25" y="140" width="400" height="130">
+        <DigitalClock x="25" y="130" width="400" height="120">
             <TimeText
                 x="0"
                 y="0"
                 width="400"
-                height="120"
+                height="110"
                 format="HH:mm"
                 hourFormat="SYNC_TO_DEVICE"
                 align="CENTER">
-                <Font family="SYNC_TO_DEVICE" size="100" color="#FFFFFF" />
+                <BitmapFont family="custom_digits" size="110" />
             </TimeText>
             <Variant mode="AMBIENT" target="alpha" value="255" />
         </DigitalClock>
 
-        <!-- Date -->
-        <PartText x="100" y="265" width="250" height="45" name="Date">
+        <!-- Date (Fredoka font) -->
+        <PartText x="100" y="255" width="250" height="50" name="Date">
             <Text align="CENTER">
-                <Font family="SYNC_TO_DEVICE" size="28" color="#FFFFFF" />
+                <Font family="fredoka" size="32" color="#FFFFFF" />
                 <Template>
                     %s %d
                     <Parameter expression="[DAY_OF_WEEK_S]" />
@@ -59,12 +82,13 @@
 
         <!-- ===================================== -->
         <!-- BOTTOM ROW: Step, Heart, Battery      -->
+        <!-- (Fredoka font)                        -->
         <!-- ===================================== -->
 
         <!-- Step Count -->
-        <PartText x="30" y="320" width="120" height="70" name="Steps">
+        <PartText x="30" y="315" width="120" height="75" name="Steps">
             <Text align="CENTER">
-                <Font family="SYNC_TO_DEVICE" size="24" color="#90EE90" />
+                <Font family="fredoka" size="28" color="#90EE90" />
                 <Template>
                     %d
                     <Parameter expression="[STEP_COUNT]" />
@@ -74,9 +98,9 @@
         </PartText>
 
         <!-- Heart Rate -->
-        <PartText x="165" y="320" width="120" height="70" name="Heart">
+        <PartText x="165" y="315" width="120" height="75" name="Heart">
             <Text align="CENTER">
-                <Font family="SYNC_TO_DEVICE" size="24" color="#FF6B6B" />
+                <Font family="fredoka" size="28" color="#FF6B6B" />
                 <Template>
                     %d
                     <Parameter expression="[HEART_RATE]" />
@@ -86,9 +110,9 @@
         </PartText>
 
         <!-- Battery -->
-        <PartText x="300" y="320" width="120" height="70" name="Battery">
+        <PartText x="300" y="315" width="120" height="75" name="Battery">
             <Text align="CENTER">
-                <Font family="SYNC_TO_DEVICE" size="24" color="#FFD700" />
+                <Font family="fredoka" size="28" color="#FFD700" />
                 <Template>
                     <![CDATA[%d%%]]>
                     <Parameter expression="[BATTERY_PERCENT]" />
