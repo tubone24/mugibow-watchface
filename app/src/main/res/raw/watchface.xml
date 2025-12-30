@@ -80,11 +80,24 @@
 
     <Scene>
 
-        <!-- BACKGROUND -->
-        <PartImage x="0" y="0" width="450" height="450" name="Background">
-            <Image resource="background" />
-            <Variant mode="AMBIENT" target="alpha" value="100" />
-        </PartImage>
+        <!-- BACKGROUND (Day/Night switching) -->
+        <Condition>
+            <Expressions>
+                <Expression name="is_daytime">[WEATHER.IS_DAY]</Expression>
+            </Expressions>
+            <Compare expression="is_daytime">
+                <PartImage x="0" y="0" width="450" height="450" name="BackgroundDay">
+                    <Image resource="background_day" />
+                    <Variant mode="AMBIENT" target="alpha" value="100" />
+                </PartImage>
+            </Compare>
+            <Default>
+                <PartImage x="0" y="0" width="450" height="450" name="BackgroundNight">
+                    <Image resource="background_night" />
+                    <Variant mode="AMBIENT" target="alpha" value="100" />
+                </PartImage>
+            </Default>
+        </Condition>
 
         <!-- ===================================== -->
         <!-- TOP: Weather icon + temperature (tap to open weather) -->
