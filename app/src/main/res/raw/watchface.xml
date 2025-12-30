@@ -233,7 +233,7 @@
         <!-- ===================================== -->
 
         <!-- Step Count with circular arc (left) -->
-        <PartDraw x="25" y="315" width="80" height="80" name="StepArc">
+        <PartDraw x="55" y="315" width="80" height="80" name="StepArc">
             <!-- Background track -->
             <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="150">
                 <Stroke thickness="6" color="#333333" cap="ROUND"/>
@@ -245,27 +245,46 @@
             </Arc>
             <Variant mode="AMBIENT" target="alpha" value="0" />
         </PartDraw>
-        <PartText x="25" y="340" width="80" height="30" name="StepText">
+        <PartImage x="79" y="325" width="32" height="32" name="StepIcon">
+            <Image resource="ic_step" />
+            <Variant mode="AMBIENT" target="alpha" value="0" />
+        </PartImage>
+        <PartText x="55" y="355" width="80" height="25" name="StepText">
             <Text align="CENTER">
-                <Font family="fredoka" size="20" color="#90EE90">
+                <Font family="fredoka" size="18" color="#90EE90">
                     <Template><![CDATA[%d]]><Parameter expression="[STEP_COUNT]" /></Template>
                 </Font>
             </Text>
             <Variant mode="AMBIENT" target="alpha" value="0" />
         </PartText>
 
-        <!-- Heart Rate (center, no arc) -->
-        <PartText x="160" y="340" width="130" height="50" name="Heart">
+        <!-- Heart Rate with circular arc (center) -->
+        <PartDraw x="185" y="315" width="80" height="80" name="HeartArc">
+            <!-- Background track -->
+            <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="150">
+                <Stroke thickness="6" color="#333333" cap="ROUND"/>
+            </Arc>
+            <!-- Heart rate indicator (always full, decorative) -->
+            <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="150">
+                <Stroke thickness="6" color="#FF6B6B" cap="ROUND"/>
+            </Arc>
+            <Variant mode="AMBIENT" target="alpha" value="0" />
+        </PartDraw>
+        <PartImage x="209" y="325" width="32" height="32" name="HeartIcon">
+            <Image resource="ic_heart" />
+            <Variant mode="AMBIENT" target="alpha" value="0" />
+        </PartImage>
+        <PartText x="185" y="355" width="80" height="25" name="HeartText">
             <Text align="CENTER">
-                <Font family="fredoka" size="28" color="#FF6B6B">
-                    <Template><![CDATA[❤️%d]]><Parameter expression="[HEART_RATE]" /></Template>
+                <Font family="fredoka" size="18" color="#FF6B6B">
+                    <Template><![CDATA[%d]]><Parameter expression="[HEART_RATE]" /></Template>
                 </Font>
             </Text>
             <Variant mode="AMBIENT" target="alpha" value="0" />
         </PartText>
 
         <!-- Battery with circular arc (right) -->
-        <PartDraw x="345" y="315" width="80" height="80" name="BatteryArc">
+        <PartDraw x="315" y="315" width="80" height="80" name="BatteryArc">
             <!-- Background track -->
             <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="150">
                 <Stroke thickness="6" color="#333333" cap="ROUND"/>
@@ -277,9 +296,13 @@
             </Arc>
             <Variant mode="AMBIENT" target="alpha" value="0" />
         </PartDraw>
-        <PartText x="345" y="340" width="80" height="30" name="BatteryText">
+        <PartImage x="339" y="325" width="32" height="32" name="BatteryIcon">
+            <Image resource="ic_battery" />
+            <Variant mode="AMBIENT" target="alpha" value="0" />
+        </PartImage>
+        <PartText x="315" y="355" width="80" height="25" name="BatteryText">
             <Text align="CENTER">
-                <Font family="fredoka" size="20" color="#FFD700">
+                <Font family="fredoka" size="18" color="#FFD700">
                     <Template><![CDATA[%d%%]]><Parameter expression="[BATTERY_PERCENT]" /></Template>
                 </Font>
             </Text>
