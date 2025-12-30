@@ -4,6 +4,9 @@
     <!-- Required for Wear OS watch face -->
     <uses-feature android:name="android.hardware.type.watch" />
 
+    <!-- Permissions for watch face data sources -->
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+
     <!-- WFF is resource-only, no code execution -->
     <application
         android:allowBackup="true"
