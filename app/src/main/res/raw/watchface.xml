@@ -133,23 +133,34 @@
         </Condition>
 
         <!-- ===================================== -->
-        <!-- NEXT EVENT (Calendar) - only if available -->
+        <!-- COMPLICATION SLOT: Calendar/Alarm (top) -->
+        <!-- User can select: Next Event, Next Alarm, etc. -->
         <!-- ===================================== -->
-        <Condition>
-            <Expressions>
-                <Expression name="event_available">[NEXT_EVENT.IS_VISIBLE]</Expression>
-            </Expressions>
-            <Compare expression="event_available">
-                <PartText x="50" y="75" width="350" height="30" name="NextEvent">
+        <ComplicationSlot x="125" y="70" width="200" height="35" slotId="1"
+            displayName="top_slot" supportedTypes="SHORT_TEXT LONG_TEXT EMPTY">
+            <BoundingRoundBox x="0" y="0" width="200" height="35" cornerRadius="8" outlinePadding="2"/>
+            <DefaultProviderPolicy defaultSystemProvider="NEXT_EVENT" primaryProvider="NEXT_EVENT"/>
+            <Complication type="SHORT_TEXT">
+                <PartText x="0" y="0" width="200" height="35">
                     <Text align="CENTER">
-                        <Font family="fredoka" size="14" color="#AAAAAA">
-                            <Template><![CDATA[📅 %s]]><Parameter expression="[NEXT_EVENT.TITLE]" /></Template>
+                        <Font family="fredoka" size="16" color="#AAAAAA">
+                            <Template><![CDATA[%s]]><Parameter expression="[COMPLICATION.TEXT]"/></Template>
                         </Font>
                     </Text>
                     <Variant mode="AMBIENT" target="alpha" value="100" />
                 </PartText>
-            </Compare>
-        </Condition>
+            </Complication>
+            <Complication type="LONG_TEXT">
+                <PartText x="0" y="0" width="200" height="35">
+                    <Text align="CENTER">
+                        <Font family="fredoka" size="14" color="#AAAAAA">
+                            <Template><![CDATA[%s]]><Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                        </Font>
+                    </Text>
+                    <Variant mode="AMBIENT" target="alpha" value="100" />
+                </PartText>
+            </Complication>
+        </ComplicationSlot>
 
         <!-- ===================================== -->
         <!-- CENTER: Digital Clock (PartText + BitmapFont) -->
@@ -163,8 +174,24 @@
             <Variant mode="AMBIENT" target="alpha" value="255" />
         </PartText>
 
-        <!-- Note: NEXT_ALARM is NOT available in WFF data sources -->
-        <!-- Alarm display would require a Complication slot instead -->
+        <!-- ===================================== -->
+        <!-- COMPLICATION SLOT: Alarm/Info (above date) -->
+        <!-- ===================================== -->
+        <ComplicationSlot x="150" y="235" width="150" height="25" slotId="2"
+            displayName="alarm_slot" supportedTypes="SHORT_TEXT EMPTY">
+            <BoundingRoundBox x="0" y="0" width="150" height="25" cornerRadius="5" outlinePadding="2"/>
+            <DefaultProviderPolicy defaultSystemProvider="NEXT_ALARM"/>
+            <Complication type="SHORT_TEXT">
+                <PartText x="0" y="0" width="150" height="25">
+                    <Text align="CENTER">
+                        <Font family="fredoka" size="14" color="#AAAAAA">
+                            <Template><![CDATA[⏰ %s]]><Parameter expression="[COMPLICATION.TEXT]"/></Template>
+                        </Font>
+                    </Text>
+                    <Variant mode="AMBIENT" target="alpha" value="150" />
+                </PartText>
+            </Complication>
+        </ComplicationSlot>
 
         <!-- Date (Fredoka font) - Format: 2025/12/30 Tue -->
         <PartText x="118" y="265" width="165" height="50" name="DateNumbers">
