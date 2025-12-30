@@ -163,26 +163,8 @@
             <Variant mode="AMBIENT" target="alpha" value="255" />
         </PartText>
 
-        <!-- Next Alarm (if set) -->
-        <Condition>
-            <Expressions>
-                <Expression name="alarm_set">[NEXT_ALARM.HAS_VALUE]</Expression>
-            </Expressions>
-            <Compare expression="alarm_set">
-                <PartImage x="155" y="240" width="20" height="20" name="AlarmIcon">
-                    <Image resource="ic_alarm" />
-                    <Variant mode="AMBIENT" target="alpha" value="150" />
-                </PartImage>
-                <PartText x="175" y="238" width="120" height="25" name="AlarmText">
-                    <Text align="START">
-                        <Font family="fredoka" size="18" color="#AAAAAA">
-                            <Template><![CDATA[%s]]><Parameter expression="[NEXT_ALARM.LABEL]" /></Template>
-                        </Font>
-                    </Text>
-                    <Variant mode="AMBIENT" target="alpha" value="150" />
-                </PartText>
-            </Compare>
-        </Condition>
+        <!-- Note: NEXT_ALARM is NOT available in WFF data sources -->
+        <!-- Alarm display would require a Complication slot instead -->
 
         <!-- Date (Fredoka font) - Format: 2025/12/30 Tue -->
         <PartText x="118" y="265" width="165" height="50" name="DateNumbers">
@@ -264,7 +246,7 @@
                 <!-- Step progress toward goal -->
                 <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="-150">
                     <Stroke thickness="6" color="#90EE90" cap="ROUND"/>
-                    <Transform target="endAngle" value="-150 + (clamp([STEP_COUNT], 0, [STEP_DAILY_GOAL]) / [STEP_DAILY_GOAL]) * 300"/>
+                    <Transform target="endAngle" value="-150 + (clamp([STEP_COUNT], 0, [STEP_GOAL]) / [STEP_GOAL]) * 300"/>
                 </Arc>
             </PartDraw>
             <PartImage x="24" y="10" width="32" height="32" name="StepIcon">
