@@ -198,7 +198,7 @@
         <!-- ===================================== -->
         <!-- COMPLICATION SLOT: Alarm/Info (above date) -->
         <!-- ===================================== -->
-        <ComplicationSlot x="150" y="245" width="150" height="25" slotId="2"
+        <ComplicationSlot x="150" y="250" width="150" height="25" slotId="2"
             displayName="alarm_slot" supportedTypes="SHORT_TEXT EMPTY">
             <BoundingRoundBox x="0" y="0" width="150" height="25" cornerRadius="5" outlinePadding="2"/>
             <DefaultProviderPolicy defaultSystemProvider="NEXT_ALARM"/>
@@ -283,7 +283,7 @@
         </Condition>
 
         <!-- Moon Phase Icon (after day of week) -->
-        <PartText x="320" y="250" width="64" height="64" name="MoonPhaseIcon">
+        <PartText x="335" y="250" width="64" height="64" name="MoonPhaseIcon">
             <Text align="CENTER">
                 <BitmapFont family="moon_icons" size="64">
                     <Template><![CDATA[%s]]><Parameter expression="[MOON_PHASE_TYPE]" /></Template>
