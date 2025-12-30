@@ -232,9 +232,9 @@
         <!-- ===================================== -->
 
         <!-- Step Count (left) -->
-        <PartText x="50" y="330" width="110" height="50" name="Steps">
+        <PartText x="30" y="330" width="130" height="50" name="Steps">
             <Text align="CENTER">
-                <Font family="fredoka" size="22" color="#90EE90">
+                <Font family="fredoka" size="28" color="#90EE90">
                     <Template><![CDATA[👣%d]]><Parameter expression="[STEP_COUNT]" /></Template>
                 </Font>
             </Text>
@@ -242,9 +242,9 @@
         </PartText>
 
         <!-- Heart Rate (center) -->
-        <PartText x="170" y="330" width="110" height="50" name="Heart">
+        <PartText x="160" y="330" width="130" height="50" name="Heart">
             <Text align="CENTER">
-                <Font family="fredoka" size="22" color="#FF6B6B">
+                <Font family="fredoka" size="28" color="#FF6B6B">
                     <Template><![CDATA[❤️%d]]><Parameter expression="[HEART_RATE]" /></Template>
                 </Font>
             </Text>
@@ -252,9 +252,9 @@
         </PartText>
 
         <!-- Battery (right) -->
-        <PartText x="290" y="330" width="110" height="50" name="Battery">
+        <PartText x="290" y="330" width="130" height="50" name="Battery">
             <Text align="CENTER">
-                <Font family="fredoka" size="22" color="#FFD700">
+                <Font family="fredoka" size="28" color="#FFD700">
                     <Template><![CDATA[🔋%d%%]]><Parameter expression="[BATTERY_PERCENT]" /></Template>
                 </Font>
             </Text>
