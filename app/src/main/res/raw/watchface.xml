@@ -256,6 +256,16 @@
             </Compare>
         </Condition>
 
+        <!-- Moon Phase -->
+        <PartText x="125" y="295" width="200" height="25" name="MoonPhase">
+            <Text align="CENTER">
+                <Font family="fredoka" size="14" color="#AAAAAA">
+                    <Template><![CDATA[🌙 %s]]><Parameter expression="[MOON_PHASE_TYPE_STRING]" /></Template>
+                </Font>
+            </Text>
+            <Variant mode="AMBIENT" target="alpha" value="100" />
+        </PartText>
+
         <!-- ===================================== -->
         <!-- AMBIENT-HIDDEN ELEMENTS               -->
         <!-- (alpha=0 in ambient mode)             -->
