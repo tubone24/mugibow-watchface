@@ -232,18 +232,30 @@
         <!-- Placed at end for memory optimization -->
         <!-- ===================================== -->
 
-        <!-- Step Count (left) -->
-        <PartText x="30" y="330" width="130" height="50" name="Steps">
+        <!-- Step Count with circular arc (left) -->
+        <PartDraw x="25" y="315" width="80" height="80" name="StepArc">
+            <!-- Background track -->
+            <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="150">
+                <Stroke thickness="6" color="#333333" cap="ROUND"/>
+            </Arc>
+            <!-- Step progress toward goal -->
+            <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="-150">
+                <Stroke thickness="6" color="#90EE90" cap="ROUND"/>
+                <Transform target="endAngle" value="-150 + (clamp([STEP_COUNT], 0, [STEP_DAILY_GOAL]) / [STEP_DAILY_GOAL]) * 300"/>
+            </Arc>
+            <Variant mode="AMBIENT" target="alpha" value="0" />
+        </PartDraw>
+        <PartText x="25" y="340" width="80" height="30" name="StepText">
             <Text align="CENTER">
-                <Font family="fredoka" size="28" color="#90EE90">
-                    <Template><![CDATA[👣%d]]><Parameter expression="[STEP_COUNT]" /></Template>
+                <Font family="fredoka" size="20" color="#90EE90">
+                    <Template><![CDATA[%d]]><Parameter expression="[STEP_COUNT]" /></Template>
                 </Font>
             </Text>
             <Variant mode="AMBIENT" target="alpha" value="0" />
         </PartText>
 
-        <!-- Heart Rate (center) -->
-        <PartText x="160" y="330" width="130" height="50" name="Heart">
+        <!-- Heart Rate (center, no arc) -->
+        <PartText x="160" y="340" width="130" height="50" name="Heart">
             <Text align="CENTER">
                 <Font family="fredoka" size="28" color="#FF6B6B">
                     <Template><![CDATA[❤️%d]]><Parameter expression="[HEART_RATE]" /></Template>
@@ -252,35 +264,27 @@
             <Variant mode="AMBIENT" target="alpha" value="0" />
         </PartText>
 
-        <!-- Battery (right) -->
-        <PartText x="290" y="330" width="130" height="50" name="Battery">
+        <!-- Battery with circular arc (right) -->
+        <PartDraw x="345" y="315" width="80" height="80" name="BatteryArc">
+            <!-- Background track -->
+            <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="150">
+                <Stroke thickness="6" color="#333333" cap="ROUND"/>
+            </Arc>
+            <!-- Battery level indicator -->
+            <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="-150">
+                <Stroke thickness="6" color="#FFD700" cap="ROUND"/>
+                <Transform target="endAngle" value="-150 + ([BATTERY_PERCENT] / 100.0) * 300"/>
+            </Arc>
+            <Variant mode="AMBIENT" target="alpha" value="0" />
+        </PartDraw>
+        <PartText x="345" y="340" width="80" height="30" name="BatteryText">
             <Text align="CENTER">
-                <Font family="fredoka" size="28" color="#FFD700">
-                    <Template><![CDATA[🔋%d%%]]><Parameter expression="[BATTERY_PERCENT]" /></Template>
+                <Font family="fredoka" size="20" color="#FFD700">
+                    <Template><![CDATA[%d%%]]><Parameter expression="[BATTERY_PERCENT]" /></Template>
                 </Font>
             </Text>
             <Variant mode="AMBIENT" target="alpha" value="0" />
         </PartText>
-
-        <!-- ===================================== -->
-        <!-- PROGRESS ARCS                         -->
-        <!-- ===================================== -->
-
-        <!-- Battery Progress Arc (top right, 315° to 45°) -->
-        <PartDraw x="0" y="0" width="450" height="450" name="BatteryArc">
-            <!-- Background track -->
-            <Arc x="10" y="10" width="430" height="430"
-                startAngle="315" endAngle="45" direction="CLOCKWISE">
-                <Stroke color="#333333" thickness="8" cap="ROUND" />
-            </Arc>
-            <!-- Battery level indicator -->
-            <Arc x="10" y="10" width="430" height="430"
-                startAngle="315" endAngle="315" direction="CLOCKWISE">
-                <Stroke color="#FFD700" thickness="8" cap="ROUND" />
-                <Transform target="endAngle" value="315 + ([BATTERY_PERCENT] / 100.0) * 90" />
-            </Arc>
-            <Variant mode="AMBIENT" target="alpha" value="0" />
-        </PartDraw>
 
     </Scene>
 
