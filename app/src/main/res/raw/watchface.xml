@@ -152,9 +152,14 @@
             <BoundingRoundBox x="0" y="0" width="200" height="35" cornerRadius="8" outlinePadding="2"/>
             <DefaultProviderPolicy defaultSystemProvider="NEXT_EVENT" primaryProvider="NEXT_EVENT"/>
             <Complication type="SHORT_TEXT">
+                <PartDraw x="0" y="0" width="200" height="35">
+                    <RoundRectangle x="0" y="0" width="200" height="35" cornerRadius="8">
+                        <Fill color="#80000000"/>
+                    </RoundRectangle>
+                </PartDraw>
                 <PartText x="0" y="0" width="200" height="35">
                     <Text align="CENTER">
-                        <Font family="fredoka" size="16" color="#AAAAAA">
+                        <Font family="fredoka" size="16" color="#FFFFFF">
                             <Template><![CDATA[%s]]><Parameter expression="[COMPLICATION.TEXT]"/></Template>
                         </Font>
                     </Text>
@@ -162,9 +167,14 @@
                 </PartText>
             </Complication>
             <Complication type="LONG_TEXT">
+                <PartDraw x="0" y="0" width="200" height="35">
+                    <RoundRectangle x="0" y="0" width="200" height="35" cornerRadius="8">
+                        <Fill color="#80000000"/>
+                    </RoundRectangle>
+                </PartDraw>
                 <PartText x="0" y="0" width="200" height="35">
                     <Text align="CENTER">
-                        <Font family="fredoka" size="14" color="#AAAAAA">
+                        <Font family="fredoka" size="14" color="#FFFFFF">
                             <Template><![CDATA[%s]]><Parameter expression="[COMPLICATION.TEXT]"/></Template>
                         </Font>
                     </Text>
@@ -193,9 +203,14 @@
             <BoundingRoundBox x="0" y="0" width="150" height="25" cornerRadius="5" outlinePadding="2"/>
             <DefaultProviderPolicy defaultSystemProvider="NEXT_ALARM"/>
             <Complication type="SHORT_TEXT">
+                <PartDraw x="0" y="0" width="150" height="25">
+                    <RoundRectangle x="0" y="0" width="150" height="25" cornerRadius="5">
+                        <Fill color="#80000000"/>
+                    </RoundRectangle>
+                </PartDraw>
                 <PartText x="0" y="0" width="150" height="25">
                     <Text align="CENTER">
-                        <Font family="fredoka" size="14" color="#AAAAAA">
+                        <Font family="fredoka" size="14" color="#FFFFFF">
                             <Template><![CDATA[⏰ %s]]><Parameter expression="[COMPLICATION.TEXT]"/></Template>
                         </Font>
                     </Text>
