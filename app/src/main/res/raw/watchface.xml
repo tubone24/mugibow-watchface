@@ -260,6 +260,7 @@
         </Group>
 
         <!-- Heart Rate with circular arc (center) - Tap to open Fitbit -->
+        <!-- Max heart rate: ~200bpm (general human maximum) -->
         <Group x="185" y="315" width="80" height="80" name="HeartGroup">
             <Launcher target="HEALTH"/>
             <PartDraw x="0" y="0" width="80" height="80" name="HeartArc">
@@ -267,9 +268,10 @@
                 <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="150">
                     <Stroke thickness="6" color="#333333" cap="ROUND"/>
                 </Arc>
-                <!-- Heart rate indicator (always full, decorative) -->
-                <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="150">
+                <!-- Heart rate indicator (0-200bpm range) -->
+                <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="-150">
                     <Stroke thickness="6" color="#FF6B6B" cap="ROUND"/>
+                    <Transform target="endAngle" value="-150 + (clamp([HEART_RATE], 0, 200) / 200.0) * 300"/>
                 </Arc>
             </PartDraw>
             <PartImage x="24" y="10" width="32" height="32" name="HeartIcon">
