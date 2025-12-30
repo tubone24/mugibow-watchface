@@ -232,82 +232,84 @@
         <!-- Placed at end for memory optimization -->
         <!-- ===================================== -->
 
-        <!-- Step Count with circular arc (left) -->
-        <PartDraw x="55" y="315" width="80" height="80" name="StepArc">
-            <!-- Background track -->
-            <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="150">
-                <Stroke thickness="6" color="#333333" cap="ROUND"/>
-            </Arc>
-            <!-- Step progress toward goal -->
-            <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="-150">
-                <Stroke thickness="6" color="#90EE90" cap="ROUND"/>
-                <Transform target="endAngle" value="-150 + (clamp([STEP_COUNT], 0, [STEP_DAILY_GOAL]) / [STEP_DAILY_GOAL]) * 300"/>
-            </Arc>
+        <!-- Step Count with circular arc (left) - Tap to open Fitbit -->
+        <Group x="55" y="315" width="80" height="80" name="StepGroup">
+            <Launcher target="HEALTH"/>
+            <PartDraw x="0" y="0" width="80" height="80" name="StepArc">
+                <!-- Background track -->
+                <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="150">
+                    <Stroke thickness="6" color="#333333" cap="ROUND"/>
+                </Arc>
+                <!-- Step progress toward goal -->
+                <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="-150">
+                    <Stroke thickness="6" color="#90EE90" cap="ROUND"/>
+                    <Transform target="endAngle" value="-150 + (clamp([STEP_COUNT], 0, [STEP_DAILY_GOAL]) / [STEP_DAILY_GOAL]) * 300"/>
+                </Arc>
+            </PartDraw>
+            <PartImage x="24" y="10" width="32" height="32" name="StepIcon">
+                <Image resource="ic_step" />
+            </PartImage>
+            <PartText x="0" y="40" width="80" height="25" name="StepText">
+                <Text align="CENTER">
+                    <Font family="fredoka" size="18" color="#90EE90">
+                        <Template><![CDATA[%d]]><Parameter expression="[STEP_COUNT]" /></Template>
+                    </Font>
+                </Text>
+            </PartText>
             <Variant mode="AMBIENT" target="alpha" value="0" />
-        </PartDraw>
-        <PartImage x="79" y="325" width="32" height="32" name="StepIcon">
-            <Image resource="ic_step" />
-            <Variant mode="AMBIENT" target="alpha" value="0" />
-        </PartImage>
-        <PartText x="55" y="355" width="80" height="25" name="StepText">
-            <Text align="CENTER">
-                <Font family="fredoka" size="18" color="#90EE90">
-                    <Template><![CDATA[%d]]><Parameter expression="[STEP_COUNT]" /></Template>
-                </Font>
-            </Text>
-            <Variant mode="AMBIENT" target="alpha" value="0" />
-        </PartText>
+        </Group>
 
-        <!-- Heart Rate with circular arc (center) -->
-        <PartDraw x="185" y="315" width="80" height="80" name="HeartArc">
-            <!-- Background track -->
-            <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="150">
-                <Stroke thickness="6" color="#333333" cap="ROUND"/>
-            </Arc>
-            <!-- Heart rate indicator (always full, decorative) -->
-            <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="150">
-                <Stroke thickness="6" color="#FF6B6B" cap="ROUND"/>
-            </Arc>
+        <!-- Heart Rate with circular arc (center) - Tap to open Fitbit -->
+        <Group x="185" y="315" width="80" height="80" name="HeartGroup">
+            <Launcher target="HEALTH"/>
+            <PartDraw x="0" y="0" width="80" height="80" name="HeartArc">
+                <!-- Background track -->
+                <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="150">
+                    <Stroke thickness="6" color="#333333" cap="ROUND"/>
+                </Arc>
+                <!-- Heart rate indicator (always full, decorative) -->
+                <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="150">
+                    <Stroke thickness="6" color="#FF6B6B" cap="ROUND"/>
+                </Arc>
+            </PartDraw>
+            <PartImage x="24" y="10" width="32" height="32" name="HeartIcon">
+                <Image resource="ic_heart" />
+            </PartImage>
+            <PartText x="0" y="40" width="80" height="25" name="HeartText">
+                <Text align="CENTER">
+                    <Font family="fredoka" size="18" color="#FF6B6B">
+                        <Template><![CDATA[%d]]><Parameter expression="[HEART_RATE]" /></Template>
+                    </Font>
+                </Text>
+            </PartText>
             <Variant mode="AMBIENT" target="alpha" value="0" />
-        </PartDraw>
-        <PartImage x="209" y="325" width="32" height="32" name="HeartIcon">
-            <Image resource="ic_heart" />
-            <Variant mode="AMBIENT" target="alpha" value="0" />
-        </PartImage>
-        <PartText x="185" y="355" width="80" height="25" name="HeartText">
-            <Text align="CENTER">
-                <Font family="fredoka" size="18" color="#FF6B6B">
-                    <Template><![CDATA[%d]]><Parameter expression="[HEART_RATE]" /></Template>
-                </Font>
-            </Text>
-            <Variant mode="AMBIENT" target="alpha" value="0" />
-        </PartText>
+        </Group>
 
         <!-- Battery with circular arc (right) -->
-        <PartDraw x="315" y="315" width="80" height="80" name="BatteryArc">
-            <!-- Background track -->
-            <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="150">
-                <Stroke thickness="6" color="#333333" cap="ROUND"/>
-            </Arc>
-            <!-- Battery level indicator -->
-            <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="-150">
-                <Stroke thickness="6" color="#FFD700" cap="ROUND"/>
-                <Transform target="endAngle" value="-150 + ([BATTERY_PERCENT] / 100.0) * 300"/>
-            </Arc>
+        <Group x="315" y="315" width="80" height="80" name="BatteryGroup">
+            <PartDraw x="0" y="0" width="80" height="80" name="BatteryArc">
+                <!-- Background track -->
+                <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="150">
+                    <Stroke thickness="6" color="#333333" cap="ROUND"/>
+                </Arc>
+                <!-- Battery level indicator -->
+                <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="-150">
+                    <Stroke thickness="6" color="#FFD700" cap="ROUND"/>
+                    <Transform target="endAngle" value="-150 + ([BATTERY_PERCENT] / 100.0) * 300"/>
+                </Arc>
+            </PartDraw>
+            <PartImage x="24" y="10" width="32" height="32" name="BatteryIcon">
+                <Image resource="ic_battery" />
+            </PartImage>
+            <PartText x="0" y="40" width="80" height="25" name="BatteryText">
+                <Text align="CENTER">
+                    <Font family="fredoka" size="18" color="#FFD700">
+                        <Template><![CDATA[%d%%]]><Parameter expression="[BATTERY_PERCENT]" /></Template>
+                    </Font>
+                </Text>
+            </PartText>
             <Variant mode="AMBIENT" target="alpha" value="0" />
-        </PartDraw>
-        <PartImage x="339" y="325" width="32" height="32" name="BatteryIcon">
-            <Image resource="ic_battery" />
-            <Variant mode="AMBIENT" target="alpha" value="0" />
-        </PartImage>
-        <PartText x="315" y="355" width="80" height="25" name="BatteryText">
-            <Text align="CENTER">
-                <Font family="fredoka" size="18" color="#FFD700">
-                    <Template><![CDATA[%d%%]]><Parameter expression="[BATTERY_PERCENT]" /></Template>
-                </Font>
-            </Text>
-            <Variant mode="AMBIENT" target="alpha" value="0" />
-        </PartText>
+        </Group>
 
     </Scene>
 
