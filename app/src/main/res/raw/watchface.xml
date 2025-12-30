@@ -268,7 +268,7 @@
         </Condition>
 
         <!-- Moon Phase Icon (after day of week) -->
-        <PartText x="328" y="263" width="36" height="36" name="MoonPhaseIcon">
+        <PartText x="328" y="265" width="36" height="36" name="MoonPhaseIcon">
             <Text align="CENTER">
                 <BitmapFont family="moon_icons" size="32">
                     <Template><![CDATA[%s]]><Parameter expression="[MOON_PHASE_TYPE]" /></Template>
