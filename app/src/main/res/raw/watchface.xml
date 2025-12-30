@@ -147,6 +147,41 @@
         </Group>
 
         <!-- ===================================== -->
+        <!-- Weather Details (Low/High, Precipitation, UV) -->
+        <!-- ===================================== -->
+        <Condition>
+            <Expressions>
+                <Expression name="weather_avail">[WEATHER.IS_AVAILABLE]</Expression>
+            </Expressions>
+            <Compare expression="weather_avail">
+                <!-- Low / High Temperature -->
+                <PartText x="125" y="70" width="200" height="25" name="WeatherTempRange">
+                    <Text align="CENTER">
+                        <Font family="fredoka" size="14" color="#AAAAAA">
+                            <Template><![CDATA[%s°C / %s°C]]>
+                                <Parameter expression="[WEATHER.DAY_TEMPERATURE_LOW]" />
+                                <Parameter expression="[WEATHER.DAY_TEMPERATURE_HIGH]" />
+                            </Template>
+                        </Font>
+                    </Text>
+                    <Variant mode="AMBIENT" target="alpha" value="100" />
+                </PartText>
+                <!-- Precipitation % / UV Index -->
+                <PartText x="125" y="90" width="200" height="25" name="WeatherPrecipUV">
+                    <Text align="CENTER">
+                        <Font family="fredoka" size="14" color="#AAAAAA">
+                            <Template><![CDATA[💧%s%%  ☀UV%s]]>
+                                <Parameter expression="[WEATHER.CHANCE_OF_PRECIPITATION]" />
+                                <Parameter expression="[WEATHER.UV_INDEX]" />
+                            </Template>
+                        </Font>
+                    </Text>
+                    <Variant mode="AMBIENT" target="alpha" value="100" />
+                </PartText>
+            </Compare>
+        </Condition>
+
+        <!-- ===================================== -->
         <!-- CENTER: Digital Clock (PartText + BitmapFont) -->
         <!-- ===================================== -->
         <PartText x="0" y="130" width="450" height="130" name="Time">
