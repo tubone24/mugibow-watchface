@@ -338,7 +338,13 @@
             <PartImage x="24" y="10" width="32" height="32" name="StepIcon">
                 <Image resource="ic_step" />
             </PartImage>
-            <PartText x="0" y="40" width="80" height="25" name="StepText">
+            <!-- Text background -->
+            <PartDraw x="10" y="40" width="60" height="26">
+                <RoundRectangle x="0" y="0" width="60" height="26" cornerRadius="6">
+                    <Fill color="#99000000"/>
+                </RoundRectangle>
+            </PartDraw>
+            <PartText x="0" y="42" width="80" height="25" name="StepText">
                 <Text align="CENTER">
                     <Font family="fredoka" size="18" color="#90EE90">
                         <Template><![CDATA[%d]]><Parameter expression="[STEP_COUNT]" /></Template>
@@ -350,7 +356,7 @@
 
         <!-- Heart Rate with circular arc (center) - Tap to open Fitbit -->
         <!-- Max heart rate: ~200bpm (general human maximum) -->
-        <Group x="185" y="315" width="80" height="80" name="HeartGroup">
+        <Group x="185" y="320" width="80" height="80" name="HeartGroup">
             <Launcher target="HEALTH"/>
             <PartDraw x="0" y="0" width="80" height="80" name="HeartArc">
                 <!-- Background track -->
@@ -366,7 +372,13 @@
             <PartImage x="24" y="10" width="32" height="32" name="HeartIcon">
                 <Image resource="ic_heart" />
             </PartImage>
-            <PartText x="0" y="40" width="80" height="25" name="HeartText">
+            <!-- Text background -->
+            <PartDraw x="10" y="40" width="60" height="26">
+                <RoundRectangle x="0" y="0" width="60" height="26" cornerRadius="6">
+                    <Fill color="#99000000"/>
+                </RoundRectangle>
+            </PartDraw>
+            <PartText x="0" y="42" width="80" height="25" name="HeartText">
                 <Text align="CENTER">
                     <Font family="fredoka" size="18" color="#FF6B6B">
                         <Template><![CDATA[%d]]><Parameter expression="[HEART_RATE]" /></Template>
@@ -392,7 +404,13 @@
             <PartImage x="24" y="10" width="32" height="32" name="BatteryIcon">
                 <Image resource="ic_battery" />
             </PartImage>
-            <PartText x="0" y="40" width="80" height="25" name="BatteryText">
+            <!-- Text background -->
+            <PartDraw x="10" y="40" width="60" height="26">
+                <RoundRectangle x="0" y="0" width="60" height="26" cornerRadius="6">
+                    <Fill color="#99000000"/>
+                </RoundRectangle>
+            </PartDraw>
+            <PartText x="0" y="42" width="80" height="25" name="BatteryText">
                 <Text align="CENTER">
                     <Font family="fredoka" size="18" color="#FFD700">
                         <Template><![CDATA[%d%%]]><Parameter expression="[BATTERY_PERCENT]" /></Template>
