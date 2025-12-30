@@ -163,6 +163,27 @@
             <Variant mode="AMBIENT" target="alpha" value="255" />
         </PartText>
 
+        <!-- Next Alarm (if set) -->
+        <Condition>
+            <Expressions>
+                <Expression name="alarm_set">[NEXT_ALARM.IS_SET]</Expression>
+            </Expressions>
+            <Compare expression="alarm_set">
+                <PartImage x="155" y="240" width="20" height="20" name="AlarmIcon">
+                    <Image resource="ic_alarm" />
+                    <Variant mode="AMBIENT" target="alpha" value="150" />
+                </PartImage>
+                <PartText x="175" y="238" width="120" height="25" name="AlarmText">
+                    <Text align="START">
+                        <Font family="fredoka" size="18" color="#AAAAAA">
+                            <Template><![CDATA[%s]]><Parameter expression="[NEXT_ALARM.LABEL]" /></Template>
+                        </Font>
+                    </Text>
+                    <Variant mode="AMBIENT" target="alpha" value="150" />
+                </PartText>
+            </Compare>
+        </Condition>
+
         <!-- Date (Fredoka font) - Format: 2025/12/30 Tue -->
         <PartText x="118" y="265" width="165" height="50" name="DateNumbers">
             <Text align="START">
