@@ -216,7 +216,7 @@
         <PartText x="50" y="330" width="110" height="50" name="Steps">
             <Text align="CENTER">
                 <Font family="fredoka" size="22" color="#90EE90">
-                    <Template><![CDATA[🚶%d]]><Parameter expression="[STEP_COUNT]" /></Template>
+                    <Template><![CDATA[👣%d]]><Parameter expression="[STEP_COUNT]" /></Template>
                 </Font>
             </Text>
             <Variant mode="AMBIENT" target="alpha" value="0" />
