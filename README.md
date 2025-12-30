@@ -4,8 +4,7 @@ A custom watch face for Pixel Watch using Watch Face Format (WFF) v2, compatible
 
 ## Demo
 
-<!-- Add your demo screenshots here -->
-![Watch Face Demo](demo.png)
+![Watch Face Demo](docs/images/demo.JPG)
 
 ## Features
 
