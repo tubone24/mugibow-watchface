@@ -227,8 +227,9 @@
         </Condition>
 
         <!-- ===================================== -->
-        <!-- BOTTOM ROW: Step, Heart, Battery      -->
-        <!-- (Fredoka font)                        -->
+        <!-- AMBIENT-HIDDEN ELEMENTS               -->
+        <!-- (alpha=0 in ambient mode)             -->
+        <!-- Placed at end for memory optimization -->
         <!-- ===================================== -->
 
         <!-- Step Count (left) -->
