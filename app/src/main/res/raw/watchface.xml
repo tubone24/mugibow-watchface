@@ -102,7 +102,7 @@
         <!-- ===================================== -->
         <!-- TOP: Weather icon + temperature (tap to open weather) -->
         <!-- ===================================== -->
-        <Group x="150" y="20" width="150" height="60" name="WeatherGroup">
+        <Group x="150" y="15" width="150" height="60" name="WeatherGroup">
             <Launcher target="WEATHER"/>
             <Condition>
                 <Expressions>
@@ -168,13 +168,13 @@
             </Expressions>
             <Compare expression="weather_avail">
                 <!-- Background -->
-                <PartDraw x="125" y="70" width="200" height="58">
+                <PartDraw x="125" y="65" width="200" height="58">
                     <RoundRectangle x="0" y="0" width="200" height="58" cornerRadius="8">
                         <Fill color="#80000000"/>
                     </RoundRectangle>
                 </PartDraw>
                 <!-- Low / High Temperature -->
-                <PartText x="125" y="70" width="200" height="28" name="WeatherTempRange">
+                <PartText x="125" y="65" width="200" height="28" name="WeatherTempRange">
                     <Text align="CENTER">
                         <Font family="fredoka" size="22" color="#FFFFFF">
                             <Template><![CDATA[%s°C / %s°C]]>
@@ -186,7 +186,7 @@
                     <Variant mode="AMBIENT" target="alpha" value="150" />
                 </PartText>
                 <!-- Precipitation % / UV Index -->
-                <PartText x="125" y="100" width="200" height="28" name="WeatherPrecipUV">
+                <PartText x="125" y="95" width="200" height="28" name="WeatherPrecipUV">
                     <Text align="CENTER">
                         <Font family="fredoka" size="22" color="#FFFFFF">
                             <Template><![CDATA[💧%s%%  ☀UV%s]]>
@@ -203,47 +203,23 @@
         <!-- ===================================== -->
         <!-- CENTER: Digital Clock (PartText + BitmapFont) -->
         <!-- ===================================== -->
-        <PartText x="0" y="130" width="450" height="130" name="Time">
+        <PartText x="0" y="125" width="450" height="140" name="Time">
             <Text align="CENTER">
-                <BitmapFont family="custom_digits" size="120" color="#FFFFFF">
+                <BitmapFont family="custom_digits" size="130" color="#FFFFFF">
                     <Template>%02d:%02d<Parameter expression="[HOUR_0_23]" /><Parameter expression="[MINUTE]" /></Template>
                 </BitmapFont>
             </Text>
             <Variant mode="AMBIENT" target="alpha" value="255" />
         </PartText>
 
-        <!-- ===================================== -->
-        <!-- COMPLICATION SLOT: Alarm/Info (above date) -->
-        <!-- ===================================== -->
-        <ComplicationSlot x="150" y="250" width="150" height="25" slotId="2"
-            displayName="alarm_slot" supportedTypes="SHORT_TEXT EMPTY">
-            <BoundingRoundBox x="0" y="0" width="150" height="25" cornerRadius="5" outlinePadding="2"/>
-            <DefaultProviderPolicy defaultSystemProvider="NEXT_ALARM"/>
-            <Complication type="SHORT_TEXT">
-                <PartDraw x="0" y="0" width="150" height="25">
-                    <RoundRectangle x="0" y="0" width="150" height="25" cornerRadius="5">
-                        <Fill color="#80000000"/>
-                    </RoundRectangle>
-                </PartDraw>
-                <PartText x="0" y="0" width="150" height="25">
-                    <Text align="CENTER">
-                        <Font family="fredoka" size="14" color="#FFFFFF">
-                            <Template><![CDATA[⏰ %s]]><Parameter expression="[COMPLICATION.TEXT]"/></Template>
-                        </Font>
-                    </Text>
-                    <Variant mode="AMBIENT" target="alpha" value="150" />
-                </PartText>
-            </Complication>
-        </ComplicationSlot>
-
-        <!-- Date Background -->
-        <PartDraw x="115" y="278" width="215" height="35">
+        <!-- Date Background (centered) -->
+        <PartDraw x="117" y="260" width="215" height="35">
             <RoundRectangle x="0" y="0" width="215" height="35" cornerRadius="8">
                 <Fill color="#80000000"/>
             </RoundRectangle>
         </PartDraw>
         <!-- Date (Fredoka font) - Format: 2025/12/30 Tue -->
-        <PartText x="118" y="281" width="165" height="35" name="DateNumbers">
+        <PartText x="120" y="263" width="165" height="35" name="DateNumbers">
             <Text align="START">
                 <Font family="fredoka" size="28" color="#FFFFFF">
                     <Template>
@@ -262,43 +238,43 @@
                 <Expression name="dow">[DAY_OF_WEEK]</Expression>
             </Expressions>
             <Compare expression="dow" eq="1">
-                <PartText x="283" y="281" width="50" height="35" name="DaySun">
+                <PartText x="285" y="263" width="50" height="35" name="DaySun">
                     <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Sun</Template></Font></Text>
                     <Variant mode="AMBIENT" target="alpha" value="180" />
                 </PartText>
             </Compare>
             <Compare expression="dow" eq="2">
-                <PartText x="283" y="281" width="50" height="35" name="DayMon">
+                <PartText x="285" y="263" width="50" height="35" name="DayMon">
                     <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Mon</Template></Font></Text>
                     <Variant mode="AMBIENT" target="alpha" value="180" />
                 </PartText>
             </Compare>
             <Compare expression="dow" eq="3">
-                <PartText x="283" y="281" width="50" height="35" name="DayTue">
+                <PartText x="285" y="263" width="50" height="35" name="DayTue">
                     <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Tue</Template></Font></Text>
                     <Variant mode="AMBIENT" target="alpha" value="180" />
                 </PartText>
             </Compare>
             <Compare expression="dow" eq="4">
-                <PartText x="283" y="281" width="50" height="35" name="DayWed">
+                <PartText x="285" y="263" width="50" height="35" name="DayWed">
                     <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Wed</Template></Font></Text>
                     <Variant mode="AMBIENT" target="alpha" value="180" />
                 </PartText>
             </Compare>
             <Compare expression="dow" eq="5">
-                <PartText x="283" y="281" width="50" height="35" name="DayThu">
+                <PartText x="285" y="263" width="50" height="35" name="DayThu">
                     <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Thu</Template></Font></Text>
                     <Variant mode="AMBIENT" target="alpha" value="180" />
                 </PartText>
             </Compare>
             <Compare expression="dow" eq="6">
-                <PartText x="283" y="281" width="50" height="35" name="DayFri">
+                <PartText x="285" y="263" width="50" height="35" name="DayFri">
                     <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Fri</Template></Font></Text>
                     <Variant mode="AMBIENT" target="alpha" value="180" />
                 </PartText>
             </Compare>
             <Compare expression="dow" eq="7">
-                <PartText x="283" y="281" width="50" height="35" name="DaySat">
+                <PartText x="285" y="263" width="50" height="35" name="DaySat">
                     <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Sat</Template></Font></Text>
                     <Variant mode="AMBIENT" target="alpha" value="180" />
                 </PartText>
@@ -306,7 +282,7 @@
         </Condition>
 
         <!-- Moon Phase Icon (after day of week) -->
-        <PartText x="335" y="250" width="64" height="64" name="MoonPhaseIcon">
+        <PartText x="335" y="245" width="64" height="64" name="MoonPhaseIcon">
             <Text align="CENTER">
                 <BitmapFont family="moon_icons" size="64">
                     <Template><![CDATA[%s]]><Parameter expression="[MOON_PHASE_TYPE]" /></Template>
