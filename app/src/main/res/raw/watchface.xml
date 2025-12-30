@@ -89,7 +89,7 @@
                         <Expression name="is_day">[WEATHER.IS_DAY]</Expression>
                     </Expressions>
                     <Compare expression="is_day">
-                        <PartText x="95" y="25" width="50" height="50" name="WeatherIconDay">
+                        <PartText x="160" y="25" width="50" height="50" name="WeatherIconDay">
                             <Text align="CENTER">
                                 <BitmapFont family="weather_icons_day" size="45">
                                     <Template><![CDATA[%s]]><Parameter expression="[WEATHER.CONDITION] &lt;= 15 ? [WEATHER.CONDITION] : 0" /></Template>
@@ -99,7 +99,7 @@
                         </PartText>
                     </Compare>
                     <Default>
-                        <PartText x="95" y="25" width="50" height="50" name="WeatherIconNight">
+                        <PartText x="160" y="25" width="50" height="50" name="WeatherIconNight">
                             <Text align="CENTER">
                                 <BitmapFont family="weather_icons_night" size="45">
                                     <Template><![CDATA[%s]]><Parameter expression="[WEATHER.CONDITION] &lt;= 15 ? [WEATHER.CONDITION] : 0" /></Template>
@@ -110,7 +110,7 @@
                     </Default>
                 </Condition>
                 <!-- Temperature -->
-                <PartText x="145" y="30" width="80" height="40" name="WeatherTemp">
+                <PartText x="210" y="30" width="80" height="40" name="WeatherTemp">
                     <Text align="START">
                         <Font family="fredoka" size="28" color="#FFFFFF">
                             <Template><![CDATA[%s°C]]><Parameter expression="[WEATHER.TEMPERATURE]" /></Template>
@@ -164,20 +164,67 @@
         </PartText>
 
         <!-- Date (Fredoka font) - Format: 2025/12/30 Tue -->
-        <PartText x="50" y="265" width="350" height="50" name="Date">
-            <Text align="CENTER">
+        <PartText x="118" y="265" width="165" height="50" name="DateNumbers">
+            <Text align="START">
                 <Font family="fredoka" size="28" color="#FFFFFF">
                     <Template>
-                        <![CDATA[%d/%02d/%02d %s]]>
+                        <![CDATA[%d/%02d/%02d ]]>
                         <Parameter expression="[YEAR]" />
                         <Parameter expression="[MONTH]" />
                         <Parameter expression="[DAY]" />
-                        <Parameter expression="[DAY_OF_WEEK_S]" />
                     </Template>
                 </Font>
             </Text>
             <Variant mode="AMBIENT" target="alpha" value="180" />
         </PartText>
+        <!-- Day of week in English (locale-independent) -->
+        <Condition>
+            <Expressions>
+                <Expression name="dow">[DAY_OF_WEEK]</Expression>
+            </Expressions>
+            <Compare expression="dow" eq="1">
+                <PartText x="283" y="265" width="50" height="50" name="DaySun">
+                    <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Sun</Template></Font></Text>
+                    <Variant mode="AMBIENT" target="alpha" value="180" />
+                </PartText>
+            </Compare>
+            <Compare expression="dow" eq="2">
+                <PartText x="283" y="265" width="50" height="50" name="DayMon">
+                    <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Mon</Template></Font></Text>
+                    <Variant mode="AMBIENT" target="alpha" value="180" />
+                </PartText>
+            </Compare>
+            <Compare expression="dow" eq="3">
+                <PartText x="283" y="265" width="50" height="50" name="DayTue">
+                    <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Tue</Template></Font></Text>
+                    <Variant mode="AMBIENT" target="alpha" value="180" />
+                </PartText>
+            </Compare>
+            <Compare expression="dow" eq="4">
+                <PartText x="283" y="265" width="50" height="50" name="DayWed">
+                    <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Wed</Template></Font></Text>
+                    <Variant mode="AMBIENT" target="alpha" value="180" />
+                </PartText>
+            </Compare>
+            <Compare expression="dow" eq="5">
+                <PartText x="283" y="265" width="50" height="50" name="DayThu">
+                    <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Thu</Template></Font></Text>
+                    <Variant mode="AMBIENT" target="alpha" value="180" />
+                </PartText>
+            </Compare>
+            <Compare expression="dow" eq="6">
+                <PartText x="283" y="265" width="50" height="50" name="DayFri">
+                    <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Fri</Template></Font></Text>
+                    <Variant mode="AMBIENT" target="alpha" value="180" />
+                </PartText>
+            </Compare>
+            <Compare expression="dow" eq="7">
+                <PartText x="283" y="265" width="50" height="50" name="DaySat">
+                    <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Sat</Template></Font></Text>
+                    <Variant mode="AMBIENT" target="alpha" value="180" />
+                </PartText>
+            </Compare>
+        </Condition>
 
         <!-- ===================================== -->
         <!-- BOTTOM ROW: Step, Heart, Battery      -->
