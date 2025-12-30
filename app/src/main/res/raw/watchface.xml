@@ -155,9 +155,9 @@
             </Expressions>
             <Compare expression="weather_avail">
                 <!-- Low / High Temperature -->
-                <PartText x="125" y="70" width="200" height="26" name="WeatherTempRange">
+                <PartText x="125" y="70" width="200" height="28" name="WeatherTempRange">
                     <Text align="CENTER">
-                        <Font family="fredoka" size="18" color="#FFFFFF">
+                        <Font family="fredoka" size="20" color="#FFFFFF">
                             <Template><![CDATA[%s°C / %s°C]]>
                                 <Parameter expression="[WEATHER.DAY_TEMPERATURE_LOW]" />
                                 <Parameter expression="[WEATHER.DAY_TEMPERATURE_HIGH]" />
@@ -167,9 +167,9 @@
                     <Variant mode="AMBIENT" target="alpha" value="150" />
                 </PartText>
                 <!-- Precipitation % / UV Index -->
-                <PartText x="125" y="96" width="200" height="26" name="WeatherPrecipUV">
+                <PartText x="125" y="98" width="200" height="28" name="WeatherPrecipUV">
                     <Text align="CENTER">
-                        <Font family="fredoka" size="18" color="#FFFFFF">
+                        <Font family="fredoka" size="20" color="#FFFFFF">
                             <Template><![CDATA[💧%s%%  ☀UV%s]]>
                                 <Parameter expression="[WEATHER.CHANCE_OF_PRECIPITATION]" />
                                 <Parameter expression="[WEATHER.UV_INDEX]" />
