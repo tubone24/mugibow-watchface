@@ -203,9 +203,9 @@
         <!-- ===================================== -->
         <!-- CENTER: Digital Clock (PartText + BitmapFont) -->
         <!-- ===================================== -->
-        <PartText x="0" y="125" width="450" height="140" name="Time">
+        <PartText x="0" y="118" width="450" height="145" name="Time">
             <Text align="CENTER">
-                <BitmapFont family="custom_digits" size="130" color="#FFFFFF">
+                <BitmapFont family="custom_digits" size="138" color="#FFFFFF">
                     <Template>%02d:%02d<Parameter expression="[HOUR_0_23]" /><Parameter expression="[MINUTE]" /></Template>
                 </BitmapFont>
             </Text>
