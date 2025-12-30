@@ -1,0 +1,20 @@
+# Gradle files
+.gradle/
+build/
+local.properties
+
+# IDE
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Signing configs
+*.jks
+*.keystore
+
+# Generated
+/captures
+/app/release/

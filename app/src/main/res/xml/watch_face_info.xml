@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WatchFaceInfo>
+    <!-- Preview image shown in watch face picker -->
+    <Preview value="@drawable/preview" />
+
+    <!-- Allow only one instance of this watch face -->
+    <MultipleInstancesAllowed value="false" />
+
+    <!-- Enable customization on watch -->
+    <Editable value="true" />
+</WatchFaceInfo>

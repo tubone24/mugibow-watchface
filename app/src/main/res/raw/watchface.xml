@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Mugibow Watch Face - Watch Face Format (WFF) v2
+    Compatible with Pixel Watch 2 and other Wear OS 4+ devices
+
+    Using:
+    - Custom digit images (digit_0.png ~ digit_9.png, digit_colon.png)
+    - Fredoka font for text elements
+-->
+<WatchFace width="450" height="450" clipShape="CIRCLE">
+
+    <!-- ========================================= -->
+    <!-- BITMAP FONTS - Custom digit images        -->
+    <!-- ========================================= -->
+    <BitmapFonts>
+        <BitmapFont name="custom_digits">
+            <Character name="0" resource="digit_0" width="60" height="100" />
+            <Character name="1" resource="digit_1" width="60" height="100" />
+            <Character name="2" resource="digit_2" width="60" height="100" />
+            <Character name="3" resource="digit_3" width="60" height="100" />
+            <Character name="4" resource="digit_4" width="60" height="100" />
+            <Character name="5" resource="digit_5" width="60" height="100" />
+            <Character name="6" resource="digit_6" width="60" height="100" />
+            <Character name="7" resource="digit_7" width="60" height="100" />
+            <Character name="8" resource="digit_8" width="60" height="100" />
+            <Character name="9" resource="digit_9" width="60" height="100" />
+            <Character name=":" resource="digit_colon" width="60" height="100" />
+        </BitmapFont>
+        <!-- Weather condition icons (indexed by WEATHER.CONDITION value) -->
+        <!-- Day icons -->
+        <BitmapFont name="weather_icons_day">
+            <Character name="0" resource="ic_unknown" width="96" height="96" />
+            <Character name="1" resource="ic_clear" width="96" height="96" />
+            <Character name="2" resource="ic_cloudy" width="96" height="96" />
+            <Character name="3" resource="ic_fog" width="96" height="96" />
+            <Character name="4" resource="ic_heavy_rain" width="96" height="96" />
+            <Character name="5" resource="ic_heavy_snow" width="96" height="96" />
+            <Character name="6" resource="ic_rain" width="96" height="96" />
+            <Character name="7" resource="ic_snow" width="96" height="96" />
+            <Character name="8" resource="ic_sunny" width="96" height="96" />
+            <Character name="9" resource="ic_thunderstorm" width="96" height="96" />
+            <Word name="10" resource="ic_sleet" width="96" height="96" />
+            <Word name="11" resource="ic_snow" width="96" height="96" />
+            <Word name="12" resource="ic_rain" width="96" height="96" />
+            <Word name="13" resource="ic_fog" width="96" height="96" />
+            <Word name="14" resource="ic_partly_cloudy_day" width="96" height="96" />
+            <Word name="15" resource="ic_windy" width="96" height="96" />
+        </BitmapFont>
+        <!-- Moon phase icons (0-7) -->
+        <BitmapFont name="moon_icons">
+            <Character name="0" resource="ic_moon_0" width="64" height="64" />
+            <Character name="1" resource="ic_moon_1" width="64" height="64" />
+            <Character name="2" resource="ic_moon_2" width="64" height="64" />
+            <Character name="3" resource="ic_moon_3" width="64" height="64" />
+            <Character name="4" resource="ic_moon_4" width="64" height="64" />
+            <Character name="5" resource="ic_moon_5" width="64" height="64" />
+            <Character name="6" resource="ic_moon_6" width="64" height="64" />
+            <Character name="7" resource="ic_moon_7" width="64" height="64" />
+        </BitmapFont>
+        <!-- Night icons -->
+        <BitmapFont name="weather_icons_night">
+            <Character name="0" resource="ic_unknown" width="96" height="96" />
+            <Character name="1" resource="ic_clear" width="96" height="96" />
+            <Character name="2" resource="ic_cloudy" width="96" height="96" />
+            <Character name="3" resource="ic_fog" width="96" height="96" />
+            <Character name="4" resource="ic_heavy_rain" width="96" height="96" />
+            <Character name="5" resource="ic_heavy_snow" width="96" height="96" />
+            <Character name="6" resource="ic_rain" width="96" height="96" />
+            <Character name="7" resource="ic_snow" width="96" height="96" />
+            <Character name="8" resource="ic_sunny" width="96" height="96" />
+            <Character name="9" resource="ic_thunderstorm" width="96" height="96" />
+            <Word name="10" resource="ic_sleet" width="96" height="96" />
+            <Word name="11" resource="ic_snow" width="96" height="96" />
+            <Word name="12" resource="ic_rain" width="96" height="96" />
+            <Word name="13" resource="ic_fog" width="96" height="96" />
+            <Word name="14" resource="ic_partly_cloudy_night" width="96" height="96" />
+            <Word name="15" resource="ic_windy" width="96" height="96" />
+        </BitmapFont>
+    </BitmapFonts>
+
+    <Scene>
+
+        <!-- BACKGROUND (Day/Night switching) -->
+        <Condition>
+            <Expressions>
+                <Expression name="is_daytime">[WEATHER.IS_DAY]</Expression>
+            </Expressions>
+            <Compare expression="is_daytime">
+                <PartImage x="0" y="0" width="450" height="450" name="BackgroundDay">
+                    <Image resource="background_day" />
+                    <Variant mode="AMBIENT" target="alpha" value="100" />
+                </PartImage>
+            </Compare>
+            <Default>
+                <PartImage x="0" y="0" width="450" height="450" name="BackgroundNight">
+                    <Image resource="background_night" />
+                    <Variant mode="AMBIENT" target="alpha" value="100" />
+                </PartImage>
+            </Default>
+        </Condition>
+
+        <!-- ===================================== -->
+        <!-- TOP: Weather icon + temperature (tap to open weather) -->
+        <!-- ===================================== -->
+        <Group x="150" y="15" width="150" height="60" name="WeatherGroup">
+            <Launcher target="WEATHER"/>
+            <Condition>
+                <Expressions>
+                    <Expression name="weather_available">[WEATHER.IS_AVAILABLE]</Expression>
+                </Expressions>
+                <Compare expression="weather_available">
+                    <!-- Weather icon - Day/Night switching (centered) -->
+                    <Condition>
+                        <Expressions>
+                            <Expression name="is_day">[WEATHER.IS_DAY]</Expression>
+                        </Expressions>
+                        <Compare expression="is_day">
+                            <PartText x="10" y="5" width="50" height="50" name="WeatherIconDay">
+                                <Text align="CENTER">
+                                    <BitmapFont family="weather_icons_day" size="45">
+                                        <Template><![CDATA[%s]]><Parameter expression="[WEATHER.CONDITION] == 1 ? 8 : ([WEATHER.CONDITION] &lt;= 15 ? [WEATHER.CONDITION] : 0)" /></Template>
+                                    </BitmapFont>
+                                </Text>
+                                <Variant mode="AMBIENT" target="alpha" value="180" />
+                            </PartText>
+                        </Compare>
+                        <Default>
+                            <PartText x="10" y="5" width="50" height="50" name="WeatherIconNight">
+                                <Text align="CENTER">
+                                    <BitmapFont family="weather_icons_night" size="45">
+                                        <Template><![CDATA[%s]]><Parameter expression="[WEATHER.CONDITION] &lt;= 15 ? [WEATHER.CONDITION] : 0" /></Template>
+                                    </BitmapFont>
+                                </Text>
+                                <Variant mode="AMBIENT" target="alpha" value="180" />
+                            </PartText>
+                        </Default>
+                    </Condition>
+                    <!-- Temperature -->
+                    <PartText x="60" y="10" width="80" height="40" name="WeatherTemp">
+                        <Text align="START">
+                            <Font family="fredoka" size="28" color="#FFFFFF">
+                                <Template><![CDATA[%s°C]]><Parameter expression="[WEATHER.TEMPERATURE]" /></Template>
+                            </Font>
+                        </Text>
+                        <Variant mode="AMBIENT" target="alpha" value="180" />
+                    </PartText>
+                </Compare>
+                <Default>
+                    <!-- Weather not available -->
+                    <PartText x="0" y="15" width="150" height="40" name="WeatherUnavailable">
+                        <Text align="CENTER">
+                            <Font family="fredoka" size="24" color="#888888">
+                                <Template>--°C</Template>
+                            </Font>
+                        </Text>
+                        <Variant mode="AMBIENT" target="alpha" value="180" />
+                    </PartText>
+                </Default>
+            </Condition>
+        </Group>
+
+        <!-- ===================================== -->
+        <!-- Weather Details (Low/High, Precipitation, UV) -->
+        <!-- ===================================== -->
+        <Condition>
+            <Expressions>
+                <Expression name="weather_avail">[WEATHER.IS_AVAILABLE]</Expression>
+            </Expressions>
+            <Compare expression="weather_avail">
+                <!-- Background -->
+                <PartDraw x="125" y="65" width="200" height="58">
+                    <RoundRectangle x="0" y="0" width="200" height="58" cornerRadius="8">
+                        <Fill color="#80000000"/>
+                    </RoundRectangle>
+                </PartDraw>
+                <!-- Low / High Temperature -->
+                <PartText x="125" y="65" width="200" height="28" name="WeatherTempRange">
+                    <Text align="CENTER">
+                        <Font family="fredoka" size="22" color="#FFFFFF">
+                            <Template><![CDATA[%s°C / %s°C]]>
+                                <Parameter expression="[WEATHER.DAY_TEMPERATURE_LOW]" />
+                                <Parameter expression="[WEATHER.DAY_TEMPERATURE_HIGH]" />
+                            </Template>
+                        </Font>
+                    </Text>
+                    <Variant mode="AMBIENT" target="alpha" value="150" />
+                </PartText>
+                <!-- Precipitation % / UV Index -->
+                <PartText x="125" y="95" width="200" height="28" name="WeatherPrecipUV">
+                    <Text align="CENTER">
+                        <Font family="fredoka" size="22" color="#FFFFFF">
+                            <Template><![CDATA[💧%s%%  ☀UV%s]]>
+                                <Parameter expression="[WEATHER.CHANCE_OF_PRECIPITATION]" />
+                                <Parameter expression="[WEATHER.UV_INDEX]" />
+                            </Template>
+                        </Font>
+                    </Text>
+                    <Variant mode="AMBIENT" target="alpha" value="150" />
+                </PartText>
+            </Compare>
+        </Condition>
+
+        <!-- ===================================== -->
+        <!-- CENTER: Digital Clock (PartText + BitmapFont) -->
+        <!-- ===================================== -->
+        <PartText x="0" y="118" width="450" height="145" name="Time">
+            <Text align="CENTER">
+                <BitmapFont family="custom_digits" size="138" color="#FFFFFF">
+                    <Template>%02d:%02d<Parameter expression="[HOUR_0_23]" /><Parameter expression="[MINUTE]" /></Template>
+                </BitmapFont>
+            </Text>
+            <Variant mode="AMBIENT" target="alpha" value="255" />
+        </PartText>
+
+        <!-- Date Background (centered) -->
+        <PartDraw x="117" y="260" width="215" height="35">
+            <RoundRectangle x="0" y="0" width="215" height="35" cornerRadius="8">
+                <Fill color="#80000000"/>
+            </RoundRectangle>
+        </PartDraw>
+        <!-- Date (Fredoka font) - Format: 2025/12/30 Tue -->
+        <PartText x="120" y="263" width="165" height="35" name="DateNumbers">
+            <Text align="START">
+                <Font family="fredoka" size="28" color="#FFFFFF">
+                    <Template>
+                        <![CDATA[%d/%02d/%02d ]]>
+                        <Parameter expression="[YEAR]" />
+                        <Parameter expression="[MONTH]" />
+                        <Parameter expression="[DAY]" />
+                    </Template>
+                </Font>
+            </Text>
+            <Variant mode="AMBIENT" target="alpha" value="180" />
+        </PartText>
+        <!-- Day of week in English (locale-independent) -->
+        <Condition>
+            <Expressions>
+                <Expression name="dow">[DAY_OF_WEEK]</Expression>
+            </Expressions>
+            <Compare expression="dow" eq="1">
+                <PartText x="285" y="263" width="50" height="35" name="DaySun">
+                    <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Sun</Template></Font></Text>
+                    <Variant mode="AMBIENT" target="alpha" value="180" />
+                </PartText>
+            </Compare>
+            <Compare expression="dow" eq="2">
+                <PartText x="285" y="263" width="50" height="35" name="DayMon">
+                    <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Mon</Template></Font></Text>
+                    <Variant mode="AMBIENT" target="alpha" value="180" />
+                </PartText>
+            </Compare>
+            <Compare expression="dow" eq="3">
+                <PartText x="285" y="263" width="50" height="35" name="DayTue">
+                    <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Tue</Template></Font></Text>
+                    <Variant mode="AMBIENT" target="alpha" value="180" />
+                </PartText>
+            </Compare>
+            <Compare expression="dow" eq="4">
+                <PartText x="285" y="263" width="50" height="35" name="DayWed">
+                    <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Wed</Template></Font></Text>
+                    <Variant mode="AMBIENT" target="alpha" value="180" />
+                </PartText>
+            </Compare>
+            <Compare expression="dow" eq="5">
+                <PartText x="285" y="263" width="50" height="35" name="DayThu">
+                    <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Thu</Template></Font></Text>
+                    <Variant mode="AMBIENT" target="alpha" value="180" />
+                </PartText>
+            </Compare>
+            <Compare expression="dow" eq="6">
+                <PartText x="285" y="263" width="50" height="35" name="DayFri">
+                    <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Fri</Template></Font></Text>
+                    <Variant mode="AMBIENT" target="alpha" value="180" />
+                </PartText>
+            </Compare>
+            <Compare expression="dow" eq="7">
+                <PartText x="285" y="263" width="50" height="35" name="DaySat">
+                    <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Sat</Template></Font></Text>
+                    <Variant mode="AMBIENT" target="alpha" value="180" />
+                </PartText>
+            </Compare>
+        </Condition>
+
+        <!-- Moon Phase Icon (after day of week) -->
+        <PartText x="335" y="245" width="64" height="64" name="MoonPhaseIcon">
+            <Text align="CENTER">
+                <BitmapFont family="moon_icons" size="64">
+                    <Template><![CDATA[%s]]><Parameter expression="[MOON_PHASE_TYPE]" /></Template>
+                </BitmapFont>
+            </Text>
+            <Variant mode="AMBIENT" target="alpha" value="150" />
+        </PartText>
+
+        <!-- ===================================== -->
+        <!-- AMBIENT-HIDDEN ELEMENTS               -->
+        <!-- (alpha=0 in ambient mode)             -->
+        <!-- Placed at end for memory optimization -->
+        <!-- ===================================== -->
+
+        <!-- Step Count with circular arc (left) - Tap to open Fitbit -->
+        <Group x="55" y="315" width="80" height="80" name="StepGroup">
+            <Launcher target="HEALTH"/>
+            <PartDraw x="0" y="0" width="80" height="80" name="StepArc">
+                <!-- Background track -->
+                <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="150">
+                    <Stroke thickness="6" color="#333333" cap="ROUND"/>
+                </Arc>
+                <!-- Step progress toward goal -->
+                <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="-150">
+                    <Stroke thickness="6" color="#90EE90" cap="ROUND"/>
+                    <Transform target="endAngle" value="-150 + (clamp([STEP_COUNT], 0, [STEP_GOAL]) / [STEP_GOAL]) * 300"/>
+                </Arc>
+            </PartDraw>
+            <PartImage x="24" y="10" width="32" height="32" name="StepIcon">
+                <Image resource="ic_step" />
+            </PartImage>
+            <!-- Text background -->
+            <PartDraw x="10" y="40" width="60" height="26">
+                <RoundRectangle x="0" y="0" width="60" height="26" cornerRadius="6">
+                    <Fill color="#99000000"/>
+                </RoundRectangle>
+            </PartDraw>
+            <PartText x="0" y="42" width="80" height="25" name="StepText">
+                <Text align="CENTER">
+                    <Font family="fredoka" size="18" color="#90EE90">
+                        <Template><![CDATA[%d]]><Parameter expression="[STEP_COUNT]" /></Template>
+                    </Font>
+                </Text>
+            </PartText>
+            <Variant mode="AMBIENT" target="alpha" value="0" />
+        </Group>
+
+        <!-- Heart Rate with circular arc (center) - Tap to open Fitbit -->
+        <!-- Max heart rate: ~200bpm (general human maximum) -->
+        <Group x="185" y="320" width="80" height="80" name="HeartGroup">
+            <Launcher target="HEALTH"/>
+            <PartDraw x="0" y="0" width="80" height="80" name="HeartArc">
+                <!-- Background track -->
+                <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="150">
+                    <Stroke thickness="6" color="#333333" cap="ROUND"/>
+                </Arc>
+                <!-- Heart rate indicator (0-200bpm range) -->
+                <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="-150">
+                    <Stroke thickness="6" color="#FF6B6B" cap="ROUND"/>
+                    <Transform target="endAngle" value="-150 + (clamp([HEART_RATE], 0, 200) / 200.0) * 300"/>
+                </Arc>
+            </PartDraw>
+            <PartImage x="24" y="10" width="32" height="32" name="HeartIcon">
+                <Image resource="ic_heart" />
+            </PartImage>
+            <!-- Text background -->
+            <PartDraw x="10" y="40" width="60" height="26">
+                <RoundRectangle x="0" y="0" width="60" height="26" cornerRadius="6">
+                    <Fill color="#99000000"/>
+                </RoundRectangle>
+            </PartDraw>
+            <PartText x="0" y="42" width="80" height="25" name="HeartText">
+                <Text align="CENTER">
+                    <Font family="fredoka" size="18" color="#FF6B6B">
+                        <Template><![CDATA[%d]]><Parameter expression="[HEART_RATE]" /></Template>
+                    </Font>
+                </Text>
+            </PartText>
+            <Variant mode="AMBIENT" target="alpha" value="0" />
+        </Group>
+
+        <!-- Battery with circular arc (right) -->
+        <Group x="315" y="315" width="80" height="80" name="BatteryGroup">
+            <PartDraw x="0" y="0" width="80" height="80" name="BatteryArc">
+                <!-- Background track -->
+                <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="150">
+                    <Stroke thickness="6" color="#333333" cap="ROUND"/>
+                </Arc>
+                <!-- Battery level indicator -->
+                <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="-150">
+                    <Stroke thickness="6" color="#FFD700" cap="ROUND"/>
+                    <Transform target="endAngle" value="-150 + ([BATTERY_PERCENT] / 100.0) * 300"/>
+                </Arc>
+            </PartDraw>
+            <PartImage x="24" y="10" width="32" height="32" name="BatteryIcon">
+                <Image resource="ic_battery" />
+            </PartImage>
+            <!-- Text background -->
+            <PartDraw x="10" y="40" width="60" height="26">
+                <RoundRectangle x="0" y="0" width="60" height="26" cornerRadius="6">
+                    <Fill color="#99000000"/>
+                </RoundRectangle>
+            </PartDraw>
+            <PartText x="0" y="42" width="80" height="25" name="BatteryText">
+                <Text align="CENTER">
+                    <Font family="fredoka" size="18" color="#FFD700">
+                        <Template><![CDATA[%d%%]]><Parameter expression="[BATTERY_PERCENT]" /></Template>
+                    </Font>
+                </Text>
+            </PartText>
+            <Variant mode="AMBIENT" target="alpha" value="0" />
+        </Group>
+
+    </Scene>
+
+</WatchFace>

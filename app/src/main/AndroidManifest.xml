@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Required for Wear OS watch face -->
+    <uses-feature android:name="android.hardware.type.watch" />
+
+    <!-- Permissions for watch face data sources -->
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+
+    <!-- WFF is resource-only, no code execution -->
+    <application
+        android:allowBackup="true"
+        android:hasCode="false"
+        android:icon="@drawable/preview"
+        android:label="@string/app_name"
+        android:supportsRtl="true">
+
+        <!-- Watch Face Format version (required) -->
+        <!-- Version 2 is required for weather data -->
+        <property
+            android:name="com.google.wear.watchface.format.version"
+            android:value="2" />
+
+        <!-- Standalone watch app (no phone app required) -->
+        <meta-data
+            android:name="com.google.android.wearable.standalone"
+            android:value="true" />
+
+    </application>
+
+</manifest>
