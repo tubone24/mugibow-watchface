@@ -46,6 +46,17 @@
             <Word name="14" resource="ic_partly_cloudy_day" width="96" height="96" />
             <Word name="15" resource="ic_windy" width="96" height="96" />
         </BitmapFont>
+        <!-- Moon phase icons (0-7) -->
+        <BitmapFont name="moon_icons">
+            <Character name="0" resource="ic_moon_0" width="64" height="64" />
+            <Character name="1" resource="ic_moon_1" width="64" height="64" />
+            <Character name="2" resource="ic_moon_2" width="64" height="64" />
+            <Character name="3" resource="ic_moon_3" width="64" height="64" />
+            <Character name="4" resource="ic_moon_4" width="64" height="64" />
+            <Character name="5" resource="ic_moon_5" width="64" height="64" />
+            <Character name="6" resource="ic_moon_6" width="64" height="64" />
+            <Character name="7" resource="ic_moon_7" width="64" height="64" />
+        </BitmapFont>
         <!-- Night icons -->
         <BitmapFont name="weather_icons_night">
             <Character name="0" resource="ic_unknown" width="96" height="96" />
@@ -256,14 +267,14 @@
             </Compare>
         </Condition>
 
-        <!-- Moon Phase -->
-        <PartText x="125" y="295" width="200" height="25" name="MoonPhase">
+        <!-- Moon Phase Icon (after day of week) -->
+        <PartText x="330" y="267" width="28" height="28" name="MoonPhaseIcon">
             <Text align="CENTER">
-                <Font family="fredoka" size="14" color="#AAAAAA">
-                    <Template><![CDATA[🌙 %s]]><Parameter expression="[MOON_PHASE_TYPE_STRING]" /></Template>
-                </Font>
+                <BitmapFont family="moon_icons" size="24">
+                    <Template><![CDATA[%s]]><Parameter expression="[MOON_PHASE_TYPE]" /></Template>
+                </BitmapFont>
             </Text>
-            <Variant mode="AMBIENT" target="alpha" value="100" />
+            <Variant mode="AMBIENT" target="alpha" value="150" />
         </PartText>
 
         <!-- ===================================== -->
