@@ -167,10 +167,16 @@
                 <Expression name="weather_avail">[WEATHER.IS_AVAILABLE]</Expression>
             </Expressions>
             <Compare expression="weather_avail">
+                <!-- Background -->
+                <PartDraw x="125" y="70" width="200" height="58">
+                    <RoundRectangle x="0" y="0" width="200" height="58" cornerRadius="8">
+                        <Fill color="#80000000"/>
+                    </RoundRectangle>
+                </PartDraw>
                 <!-- Low / High Temperature -->
                 <PartText x="125" y="70" width="200" height="28" name="WeatherTempRange">
                     <Text align="CENTER">
-                        <Font family="fredoka" size="20" color="#FFFFFF">
+                        <Font family="fredoka" size="22" color="#FFFFFF">
                             <Template><![CDATA[%s°C / %s°C]]>
                                 <Parameter expression="[WEATHER.DAY_TEMPERATURE_LOW]" />
                                 <Parameter expression="[WEATHER.DAY_TEMPERATURE_HIGH]" />
@@ -180,9 +186,9 @@
                     <Variant mode="AMBIENT" target="alpha" value="150" />
                 </PartText>
                 <!-- Precipitation % / UV Index -->
-                <PartText x="125" y="98" width="200" height="28" name="WeatherPrecipUV">
+                <PartText x="125" y="100" width="200" height="28" name="WeatherPrecipUV">
                     <Text align="CENTER">
-                        <Font family="fredoka" size="20" color="#FFFFFF">
+                        <Font family="fredoka" size="22" color="#FFFFFF">
                             <Template><![CDATA[💧%s%%  ☀UV%s]]>
                                 <Parameter expression="[WEATHER.CHANCE_OF_PRECIPITATION]" />
                                 <Parameter expression="[WEATHER.UV_INDEX]" />
@@ -230,6 +236,12 @@
             </Complication>
         </ComplicationSlot>
 
+        <!-- Date Background -->
+        <PartDraw x="115" y="265" width="215" height="35">
+            <RoundRectangle x="0" y="0" width="215" height="35" cornerRadius="8">
+                <Fill color="#80000000"/>
+            </RoundRectangle>
+        </PartDraw>
         <!-- Date (Fredoka font) - Format: 2025/12/30 Tue -->
         <PartText x="118" y="265" width="165" height="50" name="DateNumbers">
             <Text align="START">
