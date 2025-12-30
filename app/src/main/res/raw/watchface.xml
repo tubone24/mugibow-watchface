@@ -266,16 +266,18 @@
         <!-- PROGRESS ARCS                         -->
         <!-- ===================================== -->
 
-        <!-- Battery Progress Arc -->
+        <!-- Battery Progress Arc (top right, 315° to 45°) -->
         <PartDraw x="0" y="0" width="450" height="450" name="BatteryArc">
+            <!-- Background track -->
             <Arc x="10" y="10" width="430" height="430"
-                startAngle="0" endAngle="45" direction="CLOCKWISE">
-                <Stroke color="#333333" thickness="10" cap="ROUND" />
+                startAngle="315" endAngle="45" direction="CLOCKWISE">
+                <Stroke color="#333333" thickness="8" cap="ROUND" />
             </Arc>
+            <!-- Battery level indicator -->
             <Arc x="10" y="10" width="430" height="430"
-                startAngle="0" direction="CLOCKWISE">
-                <Stroke color="#FFD700" thickness="10" cap="ROUND" />
-                <Transform target="endAngle" value="([BATTERY_PERCENT] / 100.0) * 45" />
+                startAngle="315" endAngle="315" direction="CLOCKWISE">
+                <Stroke color="#FFD700" thickness="8" cap="ROUND" />
+                <Transform target="endAngle" value="315 + ([BATTERY_PERCENT] / 100.0) * 90" />
             </Arc>
             <Variant mode="AMBIENT" target="alpha" value="0" />
         </PartDraw>
