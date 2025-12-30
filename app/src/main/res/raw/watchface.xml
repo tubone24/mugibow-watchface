@@ -166,7 +166,7 @@
         <!-- Next Alarm (if set) -->
         <Condition>
             <Expressions>
-                <Expression name="alarm_set">[NEXT_ALARM.IS_SET]</Expression>
+                <Expression name="alarm_set">[NEXT_ALARM.HAS_VALUE]</Expression>
             </Expressions>
             <Compare expression="alarm_set">
                 <PartImage x="155" y="240" width="20" height="20" name="AlarmIcon">
