@@ -102,48 +102,25 @@
     <Scene>
 
         <!-- ===================================== -->
-        <!-- BACKGROUND - Design dependent         -->
+        <!-- BACKGROUND - Day/Night switching (all designs) -->
         <!-- ===================================== -->
-        <ListConfiguration id="design_style">
-            <!-- Mugibow: Day/Night switching background -->
-            <ListOption id="0">
-                <Condition>
-                    <Expressions>
-                        <Expression name="is_daytime">[WEATHER.IS_DAY]</Expression>
-                    </Expressions>
-                    <Compare expression="is_daytime">
-                        <PartImage x="0" y="0" width="450" height="450" name="BackgroundDay">
-                            <Image resource="background_day" />
-                            <Variant mode="AMBIENT" target="alpha" value="100" />
-                        </PartImage>
-                    </Compare>
-                    <Default>
-                        <PartImage x="0" y="0" width="450" height="450" name="BackgroundNight">
-                            <Image resource="background_night" />
-                            <Variant mode="AMBIENT" target="alpha" value="100" />
-                        </PartImage>
-                    </Default>
-                </Condition>
-            </ListOption>
-            <!-- Simple: Solid dark background -->
-            <ListOption id="1">
-                <PartDraw x="0" y="0" width="450" height="450" name="BackgroundSimple">
-                    <RoundRectangle x="0" y="0" width="450" height="450" cornerRadius="225">
-                        <Fill color="#1A1A1A"/>
-                    </RoundRectangle>
+        <Condition>
+            <Expressions>
+                <Expression name="is_daytime">[WEATHER.IS_DAY]</Expression>
+            </Expressions>
+            <Compare expression="is_daytime">
+                <PartImage x="0" y="0" width="450" height="450" name="BackgroundDay">
+                    <Image resource="background_day" />
                     <Variant mode="AMBIENT" target="alpha" value="100" />
-                </PartDraw>
-            </ListOption>
-            <!-- Minimal: Solid dark background -->
-            <ListOption id="2">
-                <PartDraw x="0" y="0" width="450" height="450" name="BackgroundMinimal">
-                    <RoundRectangle x="0" y="0" width="450" height="450" cornerRadius="225">
-                        <Fill color="#0A0A0A"/>
-                    </RoundRectangle>
+                </PartImage>
+            </Compare>
+            <Default>
+                <PartImage x="0" y="0" width="450" height="450" name="BackgroundNight">
+                    <Image resource="background_night" />
                     <Variant mode="AMBIENT" target="alpha" value="100" />
-                </PartDraw>
-            </ListOption>
-        </ListConfiguration>
+                </PartImage>
+            </Default>
+        </Condition>
 
         <!-- ===================================== -->
         <!-- WEATHER - Mugibow only                -->
