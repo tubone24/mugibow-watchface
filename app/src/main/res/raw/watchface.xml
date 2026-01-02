@@ -22,10 +22,10 @@
             id="design_style"
             displayName="Design"
             icon="ic_battery"
-            defaultValue="mugibow">
-            <ListOption id="mugibow" displayName="Mugibow" icon="ic_sunny" />
-            <ListOption id="simple" displayName="Simple" icon="ic_moon_0" />
-            <ListOption id="minimal" displayName="Minimal" icon="ic_clear" />
+            defaultValue="0">
+            <ListOption id="0" displayName="Mugibow" icon="ic_sunny" />
+            <ListOption id="1" displayName="Simple" icon="ic_moon_0" />
+            <ListOption id="2" displayName="Minimal" icon="ic_clear" />
         </ListConfiguration>
     </UserConfigurations>
 
@@ -108,7 +108,7 @@
                 <Expression name="design">[CONFIGURATION.design_style]</Expression>
             </Expressions>
             <!-- Mugibow: Day/Night switching background -->
-            <Compare expression="design" eq="mugibow">
+            <Compare expression="design" eq="0">
                 <Condition>
                     <Expressions>
                         <Expression name="is_daytime">[WEATHER.IS_DAY]</Expression>
@@ -145,7 +145,7 @@
             <Expressions>
                 <Expression name="design">[CONFIGURATION.design_style]</Expression>
             </Expressions>
-            <Compare expression="design" eq="mugibow">
+            <Compare expression="design" eq="0">
                 <!-- Weather icon + temperature (tap to open weather) -->
                 <Group x="150" y="15" width="150" height="60" name="WeatherGroup">
                     <Launcher target="WEATHER"/>
@@ -253,7 +253,7 @@
                 <Expression name="design">[CONFIGURATION.design_style]</Expression>
             </Expressions>
             <!-- Mugibow: Clock at original position -->
-            <Compare expression="design" eq="mugibow">
+            <Compare expression="design" eq="0">
                 <PartText x="0" y="118" width="450" height="145" name="TimeMugibow">
                     <Text align="CENTER">
                         <BitmapFont family="custom_digits" size="138" color="#FFFFFF">
@@ -264,7 +264,7 @@
                 </PartText>
             </Compare>
             <!-- Simple: Clock slightly higher with date below -->
-            <Compare expression="design" eq="simple">
+            <Compare expression="design" eq="1">
                 <PartText x="0" y="145" width="450" height="145" name="TimeSimple">
                     <Text align="CENTER">
                         <BitmapFont family="custom_digits" size="138" color="#FFFFFF">
@@ -295,7 +295,7 @@
                 <Expression name="design">[CONFIGURATION.design_style]</Expression>
             </Expressions>
             <!-- Mugibow: Full date with moon phase -->
-            <Compare expression="design" eq="mugibow">
+            <Compare expression="design" eq="0">
                 <!-- Date Background (centered) -->
                 <PartDraw x="117" y="260" width="215" height="35">
                     <RoundRectangle x="0" y="0" width="215" height="35" cornerRadius="8">
@@ -375,7 +375,7 @@
                 </PartText>
             </Compare>
             <!-- Simple: Centered date below clock -->
-            <Compare expression="design" eq="simple">
+            <Compare expression="design" eq="1">
                 <!-- Date Background (centered) -->
                 <PartDraw x="100" y="285" width="250" height="40">
                     <RoundRectangle x="0" y="0" width="250" height="40" cornerRadius="10">
@@ -456,7 +456,7 @@
             <Expressions>
                 <Expression name="design">[CONFIGURATION.design_style]</Expression>
             </Expressions>
-            <Compare expression="design" eq="mugibow">
+            <Compare expression="design" eq="0">
                 <!-- Step Count with circular arc (left) - Tap to open Fitbit -->
                 <Group x="55" y="315" width="80" height="80" name="StepGroup">
                     <Launcher target="HEALTH"/>
