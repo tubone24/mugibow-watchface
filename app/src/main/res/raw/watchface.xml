@@ -6,8 +6,29 @@
     Using:
     - Custom digit images (digit_0.png ~ digit_9.png, digit_colon.png)
     - Fredoka font for text elements
+
+    Designs:
+    - 0: Mugibow - Full featured with weather, health metrics, and more
+    - 1: Simple - Time and date only
+    - 2: Minimal - Time only, centered
 -->
 <WatchFace width="450" height="450" clipShape="CIRCLE">
+
+    <!-- ========================================= -->
+    <!-- USER CONFIGURATION - Design selection     -->
+    <!-- ========================================= -->
+    <UserConfigurations>
+        <ListConfiguration
+            id="design_style"
+            displayName="Design"
+            screenReaderText="Design"
+            icon="ic_battery"
+            defaultValue="0">
+            <ListOption id="0" displayName="Mugibow" icon="ic_sunny" />
+            <ListOption id="1" displayName="Simple" icon="ic_moon_0" />
+            <ListOption id="2" displayName="Minimal" icon="ic_clear" />
+        </ListConfiguration>
+    </UserConfigurations>
 
     <!-- ========================================= -->
     <!-- BITMAP FONTS - Custom digit images        -->
@@ -80,7 +101,9 @@
 
     <Scene>
 
-        <!-- BACKGROUND (Day/Night switching) -->
+        <!-- ===================================== -->
+        <!-- BACKGROUND - Day/Night switching (all designs) -->
+        <!-- ===================================== -->
         <Condition>
             <Expressions>
                 <Expression name="is_daytime">[WEATHER.IS_DAY]</Expression>
@@ -100,301 +123,424 @@
         </Condition>
 
         <!-- ===================================== -->
-        <!-- TOP: Weather icon + temperature (tap to open weather) -->
+        <!-- WEATHER - Mugibow only                -->
         <!-- ===================================== -->
-        <Group x="150" y="15" width="150" height="60" name="WeatherGroup">
-            <Launcher target="WEATHER"/>
-            <Condition>
-                <Expressions>
-                    <Expression name="weather_available">[WEATHER.IS_AVAILABLE]</Expression>
-                </Expressions>
-                <Compare expression="weather_available">
-                    <!-- Weather icon - Day/Night switching (centered) -->
+        <ListConfiguration id="design_style">
+            <ListOption id="0">
+                <!-- Weather icon + temperature (tap to open weather) -->
+                <Group x="150" y="15" width="150" height="60" name="WeatherGroup">
+                    <Launcher target="WEATHER"/>
                     <Condition>
                         <Expressions>
-                            <Expression name="is_day">[WEATHER.IS_DAY]</Expression>
+                            <Expression name="weather_available">[WEATHER.IS_AVAILABLE]</Expression>
                         </Expressions>
-                        <Compare expression="is_day">
-                            <PartText x="10" y="5" width="50" height="50" name="WeatherIconDay">
-                                <Text align="CENTER">
-                                    <BitmapFont family="weather_icons_day" size="45">
-                                        <Template><![CDATA[%s]]><Parameter expression="[WEATHER.CONDITION] == 1 ? 8 : ([WEATHER.CONDITION] &lt;= 15 ? [WEATHER.CONDITION] : 0)" /></Template>
-                                    </BitmapFont>
+                        <Compare expression="weather_available">
+                            <!-- Weather icon - Day/Night switching (centered) -->
+                            <Condition>
+                                <Expressions>
+                                    <Expression name="is_day">[WEATHER.IS_DAY]</Expression>
+                                </Expressions>
+                                <Compare expression="is_day">
+                                    <PartText x="10" y="5" width="50" height="50" name="WeatherIconDay">
+                                        <Text align="CENTER">
+                                            <BitmapFont family="weather_icons_day" size="45">
+                                                <Template><![CDATA[%s]]><Parameter expression="[WEATHER.CONDITION] == 1 ? 8 : ([WEATHER.CONDITION] &lt;= 15 ? [WEATHER.CONDITION] : 0)" /></Template>
+                                            </BitmapFont>
+                                        </Text>
+                                        <Variant mode="AMBIENT" target="alpha" value="180" />
+                                    </PartText>
+                                </Compare>
+                                <Default>
+                                    <PartText x="10" y="5" width="50" height="50" name="WeatherIconNight">
+                                        <Text align="CENTER">
+                                            <BitmapFont family="weather_icons_night" size="45">
+                                                <Template><![CDATA[%s]]><Parameter expression="[WEATHER.CONDITION] &lt;= 15 ? [WEATHER.CONDITION] : 0" /></Template>
+                                            </BitmapFont>
+                                        </Text>
+                                        <Variant mode="AMBIENT" target="alpha" value="180" />
+                                    </PartText>
+                                </Default>
+                            </Condition>
+                            <!-- Temperature -->
+                            <PartText x="60" y="10" width="80" height="40" name="WeatherTemp">
+                                <Text align="START">
+                                    <Font family="fredoka" size="28" color="#FFFFFF">
+                                        <Template><![CDATA[%s°C]]><Parameter expression="[WEATHER.TEMPERATURE]" /></Template>
+                                    </Font>
                                 </Text>
                                 <Variant mode="AMBIENT" target="alpha" value="180" />
                             </PartText>
                         </Compare>
                         <Default>
-                            <PartText x="10" y="5" width="50" height="50" name="WeatherIconNight">
+                            <!-- Weather not available -->
+                            <PartText x="0" y="15" width="150" height="40" name="WeatherUnavailable">
                                 <Text align="CENTER">
-                                    <BitmapFont family="weather_icons_night" size="45">
-                                        <Template><![CDATA[%s]]><Parameter expression="[WEATHER.CONDITION] &lt;= 15 ? [WEATHER.CONDITION] : 0" /></Template>
-                                    </BitmapFont>
+                                    <Font family="fredoka" size="24" color="#888888">
+                                        <Template>--°C</Template>
+                                    </Font>
                                 </Text>
                                 <Variant mode="AMBIENT" target="alpha" value="180" />
                             </PartText>
                         </Default>
                     </Condition>
-                    <!-- Temperature -->
-                    <PartText x="60" y="10" width="80" height="40" name="WeatherTemp">
-                        <Text align="START">
-                            <Font family="fredoka" size="28" color="#FFFFFF">
-                                <Template><![CDATA[%s°C]]><Parameter expression="[WEATHER.TEMPERATURE]" /></Template>
-                            </Font>
-                        </Text>
-                        <Variant mode="AMBIENT" target="alpha" value="180" />
-                    </PartText>
-                </Compare>
-                <Default>
-                    <!-- Weather not available -->
-                    <PartText x="0" y="15" width="150" height="40" name="WeatherUnavailable">
-                        <Text align="CENTER">
-                            <Font family="fredoka" size="24" color="#888888">
-                                <Template>--°C</Template>
-                            </Font>
-                        </Text>
-                        <Variant mode="AMBIENT" target="alpha" value="180" />
-                    </PartText>
-                </Default>
-            </Condition>
-        </Group>
+                </Group>
+
+                <!-- Weather Details (Low/High, Precipitation, UV) -->
+                <Condition>
+                    <Expressions>
+                        <Expression name="weather_avail">[WEATHER.IS_AVAILABLE]</Expression>
+                    </Expressions>
+                    <Compare expression="weather_avail">
+                        <!-- Background -->
+                        <PartDraw x="125" y="65" width="200" height="58">
+                            <RoundRectangle x="0" y="0" width="200" height="58" cornerRadius="8">
+                                <Fill color="#80000000"/>
+                            </RoundRectangle>
+                        </PartDraw>
+                        <!-- Low / High Temperature -->
+                        <PartText x="125" y="65" width="200" height="28" name="WeatherTempRange">
+                            <Text align="CENTER">
+                                <Font family="fredoka" size="22" color="#FFFFFF">
+                                    <Template><![CDATA[%s°C / %s°C]]>
+                                        <Parameter expression="[WEATHER.DAY_TEMPERATURE_LOW]" />
+                                        <Parameter expression="[WEATHER.DAY_TEMPERATURE_HIGH]" />
+                                    </Template>
+                                </Font>
+                            </Text>
+                            <Variant mode="AMBIENT" target="alpha" value="150" />
+                        </PartText>
+                        <!-- Precipitation % / UV Index -->
+                        <PartText x="125" y="95" width="200" height="28" name="WeatherPrecipUV">
+                            <Text align="CENTER">
+                                <Font family="fredoka" size="22" color="#FFFFFF">
+                                    <Template><![CDATA[💧%s%%  ☀UV%s]]>
+                                        <Parameter expression="[WEATHER.CHANCE_OF_PRECIPITATION]" />
+                                        <Parameter expression="[WEATHER.UV_INDEX]" />
+                                    </Template>
+                                </Font>
+                            </Text>
+                            <Variant mode="AMBIENT" target="alpha" value="150" />
+                        </PartText>
+                    </Compare>
+                </Condition>
+            </ListOption>
+            <!-- Simple and Minimal: No weather -->
+            <ListOption id="1">
+            </ListOption>
+            <ListOption id="2">
+            </ListOption>
+        </ListConfiguration>
 
         <!-- ===================================== -->
-        <!-- Weather Details (Low/High, Precipitation, UV) -->
+        <!-- DIGITAL CLOCK - All designs           -->
         <!-- ===================================== -->
-        <Condition>
-            <Expressions>
-                <Expression name="weather_avail">[WEATHER.IS_AVAILABLE]</Expression>
-            </Expressions>
-            <Compare expression="weather_avail">
-                <!-- Background -->
-                <PartDraw x="125" y="65" width="200" height="58">
-                    <RoundRectangle x="0" y="0" width="200" height="58" cornerRadius="8">
+        <ListConfiguration id="design_style">
+            <!-- Mugibow: Clock at original position -->
+            <ListOption id="0">
+                <PartText x="0" y="118" width="450" height="145" name="TimeMugibow">
+                    <Text align="CENTER">
+                        <BitmapFont family="custom_digits" size="138" color="#FFFFFF">
+                            <Template>%02d:%02d<Parameter expression="[HOUR_0_23]" /><Parameter expression="[MINUTE]" /></Template>
+                        </BitmapFont>
+                    </Text>
+                    <Variant mode="AMBIENT" target="alpha" value="255" />
+                </PartText>
+            </ListOption>
+            <!-- Simple: Clock slightly higher with date below -->
+            <ListOption id="1">
+                <PartText x="0" y="145" width="450" height="145" name="TimeSimple">
+                    <Text align="CENTER">
+                        <BitmapFont family="custom_digits" size="138" color="#FFFFFF">
+                            <Template>%02d:%02d<Parameter expression="[HOUR_0_23]" /><Parameter expression="[MINUTE]" /></Template>
+                        </BitmapFont>
+                    </Text>
+                    <Variant mode="AMBIENT" target="alpha" value="255" />
+                </PartText>
+            </ListOption>
+            <!-- Minimal: Clock centered vertically -->
+            <ListOption id="2">
+                <PartText x="0" y="155" width="450" height="145" name="TimeMinimal">
+                    <Text align="CENTER">
+                        <BitmapFont family="custom_digits" size="138" color="#FFFFFF">
+                            <Template>%02d:%02d<Parameter expression="[HOUR_0_23]" /><Parameter expression="[MINUTE]" /></Template>
+                        </BitmapFont>
+                    </Text>
+                    <Variant mode="AMBIENT" target="alpha" value="255" />
+                </PartText>
+            </ListOption>
+        </ListConfiguration>
+
+        <!-- ===================================== -->
+        <!-- DATE - Mugibow and Simple only        -->
+        <!-- ===================================== -->
+        <ListConfiguration id="design_style">
+            <!-- Mugibow: Full date with moon phase -->
+            <ListOption id="0">
+                <!-- Date Background (centered) -->
+                <PartDraw x="117" y="260" width="215" height="35">
+                    <RoundRectangle x="0" y="0" width="215" height="35" cornerRadius="8">
                         <Fill color="#80000000"/>
                     </RoundRectangle>
                 </PartDraw>
-                <!-- Low / High Temperature -->
-                <PartText x="125" y="65" width="200" height="28" name="WeatherTempRange">
-                    <Text align="CENTER">
-                        <Font family="fredoka" size="22" color="#FFFFFF">
-                            <Template><![CDATA[%s°C / %s°C]]>
-                                <Parameter expression="[WEATHER.DAY_TEMPERATURE_LOW]" />
-                                <Parameter expression="[WEATHER.DAY_TEMPERATURE_HIGH]" />
+                <!-- Date (Fredoka font) - Format: 2025/12/30 Tue -->
+                <PartText x="120" y="263" width="165" height="35" name="DateNumbers">
+                    <Text align="START">
+                        <Font family="fredoka" size="28" color="#FFFFFF">
+                            <Template>
+                                <![CDATA[%d/%02d/%02d ]]>
+                                <Parameter expression="[YEAR]" />
+                                <Parameter expression="[MONTH]" />
+                                <Parameter expression="[DAY]" />
                             </Template>
                         </Font>
                     </Text>
-                    <Variant mode="AMBIENT" target="alpha" value="150" />
+                    <Variant mode="AMBIENT" target="alpha" value="180" />
                 </PartText>
-                <!-- Precipitation % / UV Index -->
-                <PartText x="125" y="95" width="200" height="28" name="WeatherPrecipUV">
+                <!-- Day of week in English (locale-independent) -->
+                <Condition>
+                    <Expressions>
+                        <Expression name="dow">[DAY_OF_WEEK]</Expression>
+                    </Expressions>
+                    <Compare expression="dow" eq="1">
+                        <PartText x="285" y="263" width="50" height="35" name="DaySun">
+                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Sun</Template></Font></Text>
+                            <Variant mode="AMBIENT" target="alpha" value="180" />
+                        </PartText>
+                    </Compare>
+                    <Compare expression="dow" eq="2">
+                        <PartText x="285" y="263" width="50" height="35" name="DayMon">
+                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Mon</Template></Font></Text>
+                            <Variant mode="AMBIENT" target="alpha" value="180" />
+                        </PartText>
+                    </Compare>
+                    <Compare expression="dow" eq="3">
+                        <PartText x="285" y="263" width="50" height="35" name="DayTue">
+                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Tue</Template></Font></Text>
+                            <Variant mode="AMBIENT" target="alpha" value="180" />
+                        </PartText>
+                    </Compare>
+                    <Compare expression="dow" eq="4">
+                        <PartText x="285" y="263" width="50" height="35" name="DayWed">
+                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Wed</Template></Font></Text>
+                            <Variant mode="AMBIENT" target="alpha" value="180" />
+                        </PartText>
+                    </Compare>
+                    <Compare expression="dow" eq="5">
+                        <PartText x="285" y="263" width="50" height="35" name="DayThu">
+                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Thu</Template></Font></Text>
+                            <Variant mode="AMBIENT" target="alpha" value="180" />
+                        </PartText>
+                    </Compare>
+                    <Compare expression="dow" eq="6">
+                        <PartText x="285" y="263" width="50" height="35" name="DayFri">
+                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Fri</Template></Font></Text>
+                            <Variant mode="AMBIENT" target="alpha" value="180" />
+                        </PartText>
+                    </Compare>
+                    <Compare expression="dow" eq="7">
+                        <PartText x="285" y="263" width="50" height="35" name="DaySat">
+                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Sat</Template></Font></Text>
+                            <Variant mode="AMBIENT" target="alpha" value="180" />
+                        </PartText>
+                    </Compare>
+                </Condition>
+                <!-- Moon Phase Icon (after day of week) -->
+                <PartText x="335" y="245" width="64" height="64" name="MoonPhaseIcon">
                     <Text align="CENTER">
-                        <Font family="fredoka" size="22" color="#FFFFFF">
-                            <Template><![CDATA[💧%s%%  ☀UV%s]]>
-                                <Parameter expression="[WEATHER.CHANCE_OF_PRECIPITATION]" />
-                                <Parameter expression="[WEATHER.UV_INDEX]" />
-                            </Template>
-                        </Font>
+                        <BitmapFont family="moon_icons" size="64">
+                            <Template><![CDATA[%s]]><Parameter expression="[MOON_PHASE_TYPE]" /></Template>
+                        </BitmapFont>
                     </Text>
                     <Variant mode="AMBIENT" target="alpha" value="150" />
                 </PartText>
-            </Compare>
-        </Condition>
+            </ListOption>
+            <!-- Simple: Centered date below clock -->
+            <ListOption id="1">
+                <!-- Date Background (centered) -->
+                <PartDraw x="100" y="285" width="250" height="40">
+                    <RoundRectangle x="0" y="0" width="250" height="40" cornerRadius="10">
+                        <Fill color="#40000000"/>
+                    </RoundRectangle>
+                </PartDraw>
+                <!-- Date centered - Format: 2025/12/30 Tue -->
+                <PartText x="0" y="290" width="450" height="35" name="DateSimple">
+                    <Text align="CENTER">
+                        <Font family="fredoka" size="28" color="#FFFFFF">
+                            <Template>
+                                <![CDATA[%d/%02d/%02d]]>
+                                <Parameter expression="[YEAR]" />
+                                <Parameter expression="[MONTH]" />
+                                <Parameter expression="[DAY]" />
+                            </Template>
+                        </Font>
+                    </Text>
+                    <Variant mode="AMBIENT" target="alpha" value="180" />
+                </PartText>
+                <!-- Day of week centered below date -->
+                <Condition>
+                    <Expressions>
+                        <Expression name="dow">[DAY_OF_WEEK]</Expression>
+                    </Expressions>
+                    <Compare expression="dow" eq="1">
+                        <PartText x="0" y="320" width="450" height="35" name="DaySunSimple">
+                            <Text align="CENTER"><Font family="fredoka" size="24" color="#AAAAAA"><Template>Sunday</Template></Font></Text>
+                            <Variant mode="AMBIENT" target="alpha" value="150" />
+                        </PartText>
+                    </Compare>
+                    <Compare expression="dow" eq="2">
+                        <PartText x="0" y="320" width="450" height="35" name="DayMonSimple">
+                            <Text align="CENTER"><Font family="fredoka" size="24" color="#AAAAAA"><Template>Monday</Template></Font></Text>
+                            <Variant mode="AMBIENT" target="alpha" value="150" />
+                        </PartText>
+                    </Compare>
+                    <Compare expression="dow" eq="3">
+                        <PartText x="0" y="320" width="450" height="35" name="DayTueSimple">
+                            <Text align="CENTER"><Font family="fredoka" size="24" color="#AAAAAA"><Template>Tuesday</Template></Font></Text>
+                            <Variant mode="AMBIENT" target="alpha" value="150" />
+                        </PartText>
+                    </Compare>
+                    <Compare expression="dow" eq="4">
+                        <PartText x="0" y="320" width="450" height="35" name="DayWedSimple">
+                            <Text align="CENTER"><Font family="fredoka" size="24" color="#AAAAAA"><Template>Wednesday</Template></Font></Text>
+                            <Variant mode="AMBIENT" target="alpha" value="150" />
+                        </PartText>
+                    </Compare>
+                    <Compare expression="dow" eq="5">
+                        <PartText x="0" y="320" width="450" height="35" name="DayThuSimple">
+                            <Text align="CENTER"><Font family="fredoka" size="24" color="#AAAAAA"><Template>Thursday</Template></Font></Text>
+                            <Variant mode="AMBIENT" target="alpha" value="150" />
+                        </PartText>
+                    </Compare>
+                    <Compare expression="dow" eq="6">
+                        <PartText x="0" y="320" width="450" height="35" name="DayFriSimple">
+                            <Text align="CENTER"><Font family="fredoka" size="24" color="#AAAAAA"><Template>Friday</Template></Font></Text>
+                            <Variant mode="AMBIENT" target="alpha" value="150" />
+                        </PartText>
+                    </Compare>
+                    <Compare expression="dow" eq="7">
+                        <PartText x="0" y="320" width="450" height="35" name="DaySatSimple">
+                            <Text align="CENTER"><Font family="fredoka" size="24" color="#AAAAAA"><Template>Saturday</Template></Font></Text>
+                            <Variant mode="AMBIENT" target="alpha" value="150" />
+                        </PartText>
+                    </Compare>
+                </Condition>
+            </ListOption>
+            <!-- Minimal: No date shown -->
+            <ListOption id="2">
+            </ListOption>
+        </ListConfiguration>
 
         <!-- ===================================== -->
-        <!-- CENTER: Digital Clock (PartText + BitmapFont) -->
-        <!-- ===================================== -->
-        <PartText x="0" y="118" width="450" height="145" name="Time">
-            <Text align="CENTER">
-                <BitmapFont family="custom_digits" size="138" color="#FFFFFF">
-                    <Template>%02d:%02d<Parameter expression="[HOUR_0_23]" /><Parameter expression="[MINUTE]" /></Template>
-                </BitmapFont>
-            </Text>
-            <Variant mode="AMBIENT" target="alpha" value="255" />
-        </PartText>
-
-        <!-- Date Background (centered) -->
-        <PartDraw x="117" y="260" width="215" height="35">
-            <RoundRectangle x="0" y="0" width="215" height="35" cornerRadius="8">
-                <Fill color="#80000000"/>
-            </RoundRectangle>
-        </PartDraw>
-        <!-- Date (Fredoka font) - Format: 2025/12/30 Tue -->
-        <PartText x="120" y="263" width="165" height="35" name="DateNumbers">
-            <Text align="START">
-                <Font family="fredoka" size="28" color="#FFFFFF">
-                    <Template>
-                        <![CDATA[%d/%02d/%02d ]]>
-                        <Parameter expression="[YEAR]" />
-                        <Parameter expression="[MONTH]" />
-                        <Parameter expression="[DAY]" />
-                    </Template>
-                </Font>
-            </Text>
-            <Variant mode="AMBIENT" target="alpha" value="180" />
-        </PartText>
-        <!-- Day of week in English (locale-independent) -->
-        <Condition>
-            <Expressions>
-                <Expression name="dow">[DAY_OF_WEEK]</Expression>
-            </Expressions>
-            <Compare expression="dow" eq="1">
-                <PartText x="285" y="263" width="50" height="35" name="DaySun">
-                    <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Sun</Template></Font></Text>
-                    <Variant mode="AMBIENT" target="alpha" value="180" />
-                </PartText>
-            </Compare>
-            <Compare expression="dow" eq="2">
-                <PartText x="285" y="263" width="50" height="35" name="DayMon">
-                    <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Mon</Template></Font></Text>
-                    <Variant mode="AMBIENT" target="alpha" value="180" />
-                </PartText>
-            </Compare>
-            <Compare expression="dow" eq="3">
-                <PartText x="285" y="263" width="50" height="35" name="DayTue">
-                    <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Tue</Template></Font></Text>
-                    <Variant mode="AMBIENT" target="alpha" value="180" />
-                </PartText>
-            </Compare>
-            <Compare expression="dow" eq="4">
-                <PartText x="285" y="263" width="50" height="35" name="DayWed">
-                    <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Wed</Template></Font></Text>
-                    <Variant mode="AMBIENT" target="alpha" value="180" />
-                </PartText>
-            </Compare>
-            <Compare expression="dow" eq="5">
-                <PartText x="285" y="263" width="50" height="35" name="DayThu">
-                    <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Thu</Template></Font></Text>
-                    <Variant mode="AMBIENT" target="alpha" value="180" />
-                </PartText>
-            </Compare>
-            <Compare expression="dow" eq="6">
-                <PartText x="285" y="263" width="50" height="35" name="DayFri">
-                    <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Fri</Template></Font></Text>
-                    <Variant mode="AMBIENT" target="alpha" value="180" />
-                </PartText>
-            </Compare>
-            <Compare expression="dow" eq="7">
-                <PartText x="285" y="263" width="50" height="35" name="DaySat">
-                    <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Sat</Template></Font></Text>
-                    <Variant mode="AMBIENT" target="alpha" value="180" />
-                </PartText>
-            </Compare>
-        </Condition>
-
-        <!-- Moon Phase Icon (after day of week) -->
-        <PartText x="335" y="245" width="64" height="64" name="MoonPhaseIcon">
-            <Text align="CENTER">
-                <BitmapFont family="moon_icons" size="64">
-                    <Template><![CDATA[%s]]><Parameter expression="[MOON_PHASE_TYPE]" /></Template>
-                </BitmapFont>
-            </Text>
-            <Variant mode="AMBIENT" target="alpha" value="150" />
-        </PartText>
-
-        <!-- ===================================== -->
-        <!-- AMBIENT-HIDDEN ELEMENTS               -->
+        <!-- HEALTH METRICS - Mugibow only         -->
         <!-- (alpha=0 in ambient mode)             -->
-        <!-- Placed at end for memory optimization -->
         <!-- ===================================== -->
+        <ListConfiguration id="design_style">
+            <ListOption id="0">
+                <!-- Step Count with circular arc (left) - Tap to open Fitbit -->
+                <Group x="55" y="315" width="80" height="80" name="StepGroup">
+                    <Launcher target="HEALTH"/>
+                    <PartDraw x="0" y="0" width="80" height="80" name="StepArc">
+                        <!-- Background track -->
+                        <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="150">
+                            <Stroke thickness="6" color="#333333" cap="ROUND"/>
+                        </Arc>
+                        <!-- Step progress toward goal -->
+                        <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="-150">
+                            <Stroke thickness="6" color="#90EE90" cap="ROUND"/>
+                            <Transform target="endAngle" value="-150 + (clamp([STEP_COUNT], 0, [STEP_GOAL]) / [STEP_GOAL]) * 300"/>
+                        </Arc>
+                    </PartDraw>
+                    <PartImage x="24" y="10" width="32" height="32" name="StepIcon">
+                        <Image resource="ic_step" />
+                    </PartImage>
+                    <!-- Text background -->
+                    <PartDraw x="10" y="40" width="60" height="26">
+                        <RoundRectangle x="0" y="0" width="60" height="26" cornerRadius="6">
+                            <Fill color="#99000000"/>
+                        </RoundRectangle>
+                    </PartDraw>
+                    <PartText x="0" y="42" width="80" height="25" name="StepText">
+                        <Text align="CENTER">
+                            <Font family="fredoka" size="18" color="#90EE90">
+                                <Template><![CDATA[%d]]><Parameter expression="[STEP_COUNT]" /></Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                    <Variant mode="AMBIENT" target="alpha" value="0" />
+                </Group>
 
-        <!-- Step Count with circular arc (left) - Tap to open Fitbit -->
-        <Group x="55" y="315" width="80" height="80" name="StepGroup">
-            <Launcher target="HEALTH"/>
-            <PartDraw x="0" y="0" width="80" height="80" name="StepArc">
-                <!-- Background track -->
-                <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="150">
-                    <Stroke thickness="6" color="#333333" cap="ROUND"/>
-                </Arc>
-                <!-- Step progress toward goal -->
-                <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="-150">
-                    <Stroke thickness="6" color="#90EE90" cap="ROUND"/>
-                    <Transform target="endAngle" value="-150 + (clamp([STEP_COUNT], 0, [STEP_GOAL]) / [STEP_GOAL]) * 300"/>
-                </Arc>
-            </PartDraw>
-            <PartImage x="24" y="10" width="32" height="32" name="StepIcon">
-                <Image resource="ic_step" />
-            </PartImage>
-            <!-- Text background -->
-            <PartDraw x="10" y="40" width="60" height="26">
-                <RoundRectangle x="0" y="0" width="60" height="26" cornerRadius="6">
-                    <Fill color="#99000000"/>
-                </RoundRectangle>
-            </PartDraw>
-            <PartText x="0" y="42" width="80" height="25" name="StepText">
-                <Text align="CENTER">
-                    <Font family="fredoka" size="18" color="#90EE90">
-                        <Template><![CDATA[%d]]><Parameter expression="[STEP_COUNT]" /></Template>
-                    </Font>
-                </Text>
-            </PartText>
-            <Variant mode="AMBIENT" target="alpha" value="0" />
-        </Group>
+                <!-- Heart Rate with circular arc (center) - Tap to open Fitbit -->
+                <!-- Max heart rate: ~200bpm (general human maximum) -->
+                <Group x="185" y="320" width="80" height="80" name="HeartGroup">
+                    <Launcher target="HEALTH"/>
+                    <PartDraw x="0" y="0" width="80" height="80" name="HeartArc">
+                        <!-- Background track -->
+                        <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="150">
+                            <Stroke thickness="6" color="#333333" cap="ROUND"/>
+                        </Arc>
+                        <!-- Heart rate indicator (0-200bpm range) -->
+                        <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="-150">
+                            <Stroke thickness="6" color="#FF6B6B" cap="ROUND"/>
+                            <Transform target="endAngle" value="-150 + (clamp([HEART_RATE], 0, 200) / 200.0) * 300"/>
+                        </Arc>
+                    </PartDraw>
+                    <PartImage x="24" y="10" width="32" height="32" name="HeartIcon">
+                        <Image resource="ic_heart" />
+                    </PartImage>
+                    <!-- Text background -->
+                    <PartDraw x="10" y="40" width="60" height="26">
+                        <RoundRectangle x="0" y="0" width="60" height="26" cornerRadius="6">
+                            <Fill color="#99000000"/>
+                        </RoundRectangle>
+                    </PartDraw>
+                    <PartText x="0" y="42" width="80" height="25" name="HeartText">
+                        <Text align="CENTER">
+                            <Font family="fredoka" size="18" color="#FF6B6B">
+                                <Template><![CDATA[%d]]><Parameter expression="[HEART_RATE]" /></Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                    <Variant mode="AMBIENT" target="alpha" value="0" />
+                </Group>
 
-        <!-- Heart Rate with circular arc (center) - Tap to open Fitbit -->
-        <!-- Max heart rate: ~200bpm (general human maximum) -->
-        <Group x="185" y="320" width="80" height="80" name="HeartGroup">
-            <Launcher target="HEALTH"/>
-            <PartDraw x="0" y="0" width="80" height="80" name="HeartArc">
-                <!-- Background track -->
-                <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="150">
-                    <Stroke thickness="6" color="#333333" cap="ROUND"/>
-                </Arc>
-                <!-- Heart rate indicator (0-200bpm range) -->
-                <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="-150">
-                    <Stroke thickness="6" color="#FF6B6B" cap="ROUND"/>
-                    <Transform target="endAngle" value="-150 + (clamp([HEART_RATE], 0, 200) / 200.0) * 300"/>
-                </Arc>
-            </PartDraw>
-            <PartImage x="24" y="10" width="32" height="32" name="HeartIcon">
-                <Image resource="ic_heart" />
-            </PartImage>
-            <!-- Text background -->
-            <PartDraw x="10" y="40" width="60" height="26">
-                <RoundRectangle x="0" y="0" width="60" height="26" cornerRadius="6">
-                    <Fill color="#99000000"/>
-                </RoundRectangle>
-            </PartDraw>
-            <PartText x="0" y="42" width="80" height="25" name="HeartText">
-                <Text align="CENTER">
-                    <Font family="fredoka" size="18" color="#FF6B6B">
-                        <Template><![CDATA[%d]]><Parameter expression="[HEART_RATE]" /></Template>
-                    </Font>
-                </Text>
-            </PartText>
-            <Variant mode="AMBIENT" target="alpha" value="0" />
-        </Group>
-
-        <!-- Battery with circular arc (right) -->
-        <Group x="315" y="315" width="80" height="80" name="BatteryGroup">
-            <PartDraw x="0" y="0" width="80" height="80" name="BatteryArc">
-                <!-- Background track -->
-                <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="150">
-                    <Stroke thickness="6" color="#333333" cap="ROUND"/>
-                </Arc>
-                <!-- Battery level indicator -->
-                <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="-150">
-                    <Stroke thickness="6" color="#FFD700" cap="ROUND"/>
-                    <Transform target="endAngle" value="-150 + ([BATTERY_PERCENT] / 100.0) * 300"/>
-                </Arc>
-            </PartDraw>
-            <PartImage x="24" y="10" width="32" height="32" name="BatteryIcon">
-                <Image resource="ic_battery" />
-            </PartImage>
-            <!-- Text background -->
-            <PartDraw x="10" y="40" width="60" height="26">
-                <RoundRectangle x="0" y="0" width="60" height="26" cornerRadius="6">
-                    <Fill color="#99000000"/>
-                </RoundRectangle>
-            </PartDraw>
-            <PartText x="0" y="42" width="80" height="25" name="BatteryText">
-                <Text align="CENTER">
-                    <Font family="fredoka" size="18" color="#FFD700">
-                        <Template><![CDATA[%d%%]]><Parameter expression="[BATTERY_PERCENT]" /></Template>
-                    </Font>
-                </Text>
-            </PartText>
-            <Variant mode="AMBIENT" target="alpha" value="0" />
-        </Group>
+                <!-- Battery with circular arc (right) -->
+                <Group x="315" y="315" width="80" height="80" name="BatteryGroup">
+                    <PartDraw x="0" y="0" width="80" height="80" name="BatteryArc">
+                        <!-- Background track -->
+                        <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="150">
+                            <Stroke thickness="6" color="#333333" cap="ROUND"/>
+                        </Arc>
+                        <!-- Battery level indicator -->
+                        <Arc centerX="40" centerY="40" width="76" height="76" startAngle="-150" endAngle="-150">
+                            <Stroke thickness="6" color="#FFD700" cap="ROUND"/>
+                            <Transform target="endAngle" value="-150 + ([BATTERY_PERCENT] / 100.0) * 300"/>
+                        </Arc>
+                    </PartDraw>
+                    <PartImage x="24" y="10" width="32" height="32" name="BatteryIcon">
+                        <Image resource="ic_battery" />
+                    </PartImage>
+                    <!-- Text background -->
+                    <PartDraw x="10" y="40" width="60" height="26">
+                        <RoundRectangle x="0" y="0" width="60" height="26" cornerRadius="6">
+                            <Fill color="#99000000"/>
+                        </RoundRectangle>
+                    </PartDraw>
+                    <PartText x="0" y="42" width="80" height="25" name="BatteryText">
+                        <Text align="CENTER">
+                            <Font family="fredoka" size="18" color="#FFD700">
+                                <Template><![CDATA[%d%%]]><Parameter expression="[BATTERY_PERCENT]" /></Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                    <Variant mode="AMBIENT" target="alpha" value="0" />
+                </Group>
+            </ListOption>
+            <!-- Simple and Minimal: No health metrics -->
+            <ListOption id="1">
+            </ListOption>
+            <ListOption id="2">
+            </ListOption>
+        </ListConfiguration>
 
     </Scene>
 
