@@ -8,9 +8,9 @@
     - Fredoka font for text elements
 
     Designs:
-    - Mugibow: Full featured with weather, health metrics, and more
-    - Simple: Time and date only
-    - Minimal: Time only, centered
+    - 0: Mugibow - Full featured with weather, health metrics, and more
+    - 1: Simple - Time and date only
+    - 2: Minimal - Time only, centered
 -->
 <WatchFace width="450" height="450" clipShape="CIRCLE">
 
@@ -21,6 +21,7 @@
         <ListConfiguration
             id="design_style"
             displayName="Design"
+            screenReaderText="Design"
             icon="ic_battery"
             defaultValue="0">
             <ListOption id="0" displayName="Mugibow" icon="ic_sunny" />
@@ -103,12 +104,9 @@
         <!-- ===================================== -->
         <!-- BACKGROUND - Design dependent         -->
         <!-- ===================================== -->
-        <Condition>
-            <Expressions>
-                <Expression name="design">[CONFIGURATION.design_style]</Expression>
-            </Expressions>
+        <ListConfiguration id="design_style">
             <!-- Mugibow: Day/Night switching background -->
-            <Compare expression="design" eq="0">
+            <ListOption id="0">
                 <Condition>
                     <Expressions>
                         <Expression name="is_daytime">[WEATHER.IS_DAY]</Expression>
@@ -126,26 +124,32 @@
                         </PartImage>
                     </Default>
                 </Condition>
-            </Compare>
-            <!-- Simple/Minimal: Solid dark background -->
-            <Default>
+            </ListOption>
+            <!-- Simple: Solid dark background -->
+            <ListOption id="1">
                 <PartDraw x="0" y="0" width="450" height="450" name="BackgroundSimple">
                     <RoundRectangle x="0" y="0" width="450" height="450" cornerRadius="225">
                         <Fill color="#1A1A1A"/>
                     </RoundRectangle>
                     <Variant mode="AMBIENT" target="alpha" value="100" />
                 </PartDraw>
-            </Default>
-        </Condition>
+            </ListOption>
+            <!-- Minimal: Solid dark background -->
+            <ListOption id="2">
+                <PartDraw x="0" y="0" width="450" height="450" name="BackgroundMinimal">
+                    <RoundRectangle x="0" y="0" width="450" height="450" cornerRadius="225">
+                        <Fill color="#0A0A0A"/>
+                    </RoundRectangle>
+                    <Variant mode="AMBIENT" target="alpha" value="100" />
+                </PartDraw>
+            </ListOption>
+        </ListConfiguration>
 
         <!-- ===================================== -->
-        <!-- MUGIBOW DESIGN - Weather section      -->
+        <!-- WEATHER - Mugibow only                -->
         <!-- ===================================== -->
-        <Condition>
-            <Expressions>
-                <Expression name="design">[CONFIGURATION.design_style]</Expression>
-            </Expressions>
-            <Compare expression="design" eq="0">
+        <ListConfiguration id="design_style">
+            <ListOption id="0">
                 <!-- Weather icon + temperature (tap to open weather) -->
                 <Group x="150" y="15" width="150" height="60" name="WeatherGroup">
                     <Launcher target="WEATHER"/>
@@ -242,18 +246,20 @@
                         </PartText>
                     </Compare>
                 </Condition>
-            </Compare>
-        </Condition>
+            </ListOption>
+            <!-- Simple and Minimal: No weather -->
+            <ListOption id="1">
+            </ListOption>
+            <ListOption id="2">
+            </ListOption>
+        </ListConfiguration>
 
         <!-- ===================================== -->
         <!-- DIGITAL CLOCK - All designs           -->
         <!-- ===================================== -->
-        <Condition>
-            <Expressions>
-                <Expression name="design">[CONFIGURATION.design_style]</Expression>
-            </Expressions>
+        <ListConfiguration id="design_style">
             <!-- Mugibow: Clock at original position -->
-            <Compare expression="design" eq="0">
+            <ListOption id="0">
                 <PartText x="0" y="118" width="450" height="145" name="TimeMugibow">
                     <Text align="CENTER">
                         <BitmapFont family="custom_digits" size="138" color="#FFFFFF">
@@ -262,9 +268,9 @@
                     </Text>
                     <Variant mode="AMBIENT" target="alpha" value="255" />
                 </PartText>
-            </Compare>
+            </ListOption>
             <!-- Simple: Clock slightly higher with date below -->
-            <Compare expression="design" eq="1">
+            <ListOption id="1">
                 <PartText x="0" y="145" width="450" height="145" name="TimeSimple">
                     <Text align="CENTER">
                         <BitmapFont family="custom_digits" size="138" color="#FFFFFF">
@@ -273,9 +279,9 @@
                     </Text>
                     <Variant mode="AMBIENT" target="alpha" value="255" />
                 </PartText>
-            </Compare>
+            </ListOption>
             <!-- Minimal: Clock centered vertically -->
-            <Default>
+            <ListOption id="2">
                 <PartText x="0" y="155" width="450" height="145" name="TimeMinimal">
                     <Text align="CENTER">
                         <BitmapFont family="custom_digits" size="138" color="#FFFFFF">
@@ -284,18 +290,15 @@
                     </Text>
                     <Variant mode="AMBIENT" target="alpha" value="255" />
                 </PartText>
-            </Default>
-        </Condition>
+            </ListOption>
+        </ListConfiguration>
 
         <!-- ===================================== -->
         <!-- DATE - Mugibow and Simple only        -->
         <!-- ===================================== -->
-        <Condition>
-            <Expressions>
-                <Expression name="design">[CONFIGURATION.design_style]</Expression>
-            </Expressions>
+        <ListConfiguration id="design_style">
             <!-- Mugibow: Full date with moon phase -->
-            <Compare expression="design" eq="0">
+            <ListOption id="0">
                 <!-- Date Background (centered) -->
                 <PartDraw x="117" y="260" width="215" height="35">
                     <RoundRectangle x="0" y="0" width="215" height="35" cornerRadius="8">
@@ -373,9 +376,9 @@
                     </Text>
                     <Variant mode="AMBIENT" target="alpha" value="150" />
                 </PartText>
-            </Compare>
+            </ListOption>
             <!-- Simple: Centered date below clock -->
-            <Compare expression="design" eq="1">
+            <ListOption id="1">
                 <!-- Date Background (centered) -->
                 <PartDraw x="100" y="285" width="250" height="40">
                     <RoundRectangle x="0" y="0" width="250" height="40" cornerRadius="10">
@@ -444,19 +447,18 @@
                         </PartText>
                     </Compare>
                 </Condition>
-            </Compare>
-            <!-- Minimal: No date shown (empty Default) -->
-        </Condition>
+            </ListOption>
+            <!-- Minimal: No date shown -->
+            <ListOption id="2">
+            </ListOption>
+        </ListConfiguration>
 
         <!-- ===================================== -->
         <!-- HEALTH METRICS - Mugibow only         -->
         <!-- (alpha=0 in ambient mode)             -->
         <!-- ===================================== -->
-        <Condition>
-            <Expressions>
-                <Expression name="design">[CONFIGURATION.design_style]</Expression>
-            </Expressions>
-            <Compare expression="design" eq="0">
+        <ListConfiguration id="design_style">
+            <ListOption id="0">
                 <!-- Step Count with circular arc (left) - Tap to open Fitbit -->
                 <Group x="55" y="315" width="80" height="80" name="StepGroup">
                     <Launcher target="HEALTH"/>
@@ -555,8 +557,13 @@
                     </PartText>
                     <Variant mode="AMBIENT" target="alpha" value="0" />
                 </Group>
-            </Compare>
-        </Condition>
+            </ListOption>
+            <!-- Simple and Minimal: No health metrics -->
+            <ListOption id="1">
+            </ListOption>
+            <ListOption id="2">
+            </ListOption>
+        </ListConfiguration>
 
     </Scene>
 
