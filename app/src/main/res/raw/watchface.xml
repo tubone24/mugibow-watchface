@@ -296,11 +296,12 @@
                     </Text>
                     <Variant mode="AMBIENT" target="alpha" value="180" />
                 </PartText>
-                <!-- Day of week using DAY_OF_WEEK_S (short name like Mon, Tue, etc.) -->
+                <!-- Day of week in English using ternary expressions -->
+                <!-- DAY_OF_WEEK: 1=Sun, 2=Mon, 3=Tue, 4=Wed, 5=Thu, 6=Fri, 7=Sat -->
                 <PartText x="283" y="263" width="50" height="35" name="DayOfWeek">
                     <Text align="START">
                         <Font family="fredoka" size="28" color="#FFFFFF">
-                            <Template>%s<Parameter expression="[DAY_OF_WEEK_S]"/></Template>
+                            <Template><![CDATA[%s%s%s%s%s%s%s]]><Parameter expression="(([DAY_OF_WEEK]==1)?&quot;Sun&quot;:&quot;&quot;)"/><Parameter expression="(([DAY_OF_WEEK]==2)?&quot;Mon&quot;:&quot;&quot;)"/><Parameter expression="(([DAY_OF_WEEK]==3)?&quot;Tue&quot;:&quot;&quot;)"/><Parameter expression="(([DAY_OF_WEEK]==4)?&quot;Wed&quot;:&quot;&quot;)"/><Parameter expression="(([DAY_OF_WEEK]==5)?&quot;Thu&quot;:&quot;&quot;)"/><Parameter expression="(([DAY_OF_WEEK]==6)?&quot;Fri&quot;:&quot;&quot;)"/><Parameter expression="(([DAY_OF_WEEK]==7)?&quot;Sat&quot;:&quot;&quot;)"/></Template>
                         </Font>
                     </Text>
                     <Variant mode="AMBIENT" target="alpha" value="180" />
@@ -337,11 +338,12 @@
                     </Text>
                     <Variant mode="AMBIENT" target="alpha" value="180" />
                 </PartText>
-                <!-- Day of week using DAY_OF_WEEK_F (full name like Monday, Tuesday, etc.) -->
+                <!-- Day of week in English (full name) using ternary expressions -->
+                <!-- DAY_OF_WEEK: 1=Sun, 2=Mon, 3=Tue, 4=Wed, 5=Thu, 6=Fri, 7=Sat -->
                 <PartText x="0" y="320" width="450" height="35" name="DayOfWeekSimple">
                     <Text align="CENTER">
                         <Font family="fredoka" size="24" color="#AAAAAA">
-                            <Template>%s<Parameter expression="[DAY_OF_WEEK_F]"/></Template>
+                            <Template><![CDATA[%s%s%s%s%s%s%s]]><Parameter expression="(([DAY_OF_WEEK]==1)?&quot;Sunday&quot;:&quot;&quot;)"/><Parameter expression="(([DAY_OF_WEEK]==2)?&quot;Monday&quot;:&quot;&quot;)"/><Parameter expression="(([DAY_OF_WEEK]==3)?&quot;Tuesday&quot;:&quot;&quot;)"/><Parameter expression="(([DAY_OF_WEEK]==4)?&quot;Wednesday&quot;:&quot;&quot;)"/><Parameter expression="(([DAY_OF_WEEK]==5)?&quot;Thursday&quot;:&quot;&quot;)"/><Parameter expression="(([DAY_OF_WEEK]==6)?&quot;Friday&quot;:&quot;&quot;)"/><Parameter expression="(([DAY_OF_WEEK]==7)?&quot;Saturday&quot;:&quot;&quot;)"/></Template>
                         </Font>
                     </Text>
                     <Variant mode="AMBIENT" target="alpha" value="150" />
