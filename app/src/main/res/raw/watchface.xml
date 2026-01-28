@@ -277,13 +277,13 @@
             <!-- Mugibow: Full date with moon phase -->
             <ListOption id="0">
                 <!-- Date Background (centered) -->
-                <PartDraw x="115" y="260" width="217" height="35">
-                    <RoundRectangle x="0" y="0" width="217" height="35" cornerRadius="8">
+                <PartDraw x="113" y="260" width="219" height="35">
+                    <RoundRectangle x="0" y="0" width="219" height="35" cornerRadius="8">
                         <Fill color="#80000000"/>
                     </RoundRectangle>
                 </PartDraw>
                 <!-- Date (Fredoka font) - Format: 2025/12/30 Tue -->
-                <PartText x="118" y="263" width="165" height="35" name="DateNumbers">
+                <PartText x="116" y="263" width="165" height="35" name="DateNumbers">
                     <Text align="START">
                         <Font family="fredoka" size="28" color="#FFFFFF">
                             <Template>
@@ -298,7 +298,7 @@
                 </PartText>
                 <!-- Day of week in English using ternary expressions -->
                 <!-- DAY_OF_WEEK: 1=Sun, 2=Mon, 3=Tue, 4=Wed, 5=Thu, 6=Fri, 7=Sat -->
-                <PartText x="283" y="263" width="50" height="35" name="DayOfWeek">
+                <PartText x="281" y="263" width="50" height="35" name="DayOfWeek">
                     <Text align="START">
                         <Font family="fredoka" size="28" color="#FFFFFF">
                             <Template><![CDATA[%s%s%s%s%s%s%s]]><Parameter expression="(([DAY_OF_WEEK]==1)?&quot;Sun&quot;:&quot;&quot;)"/><Parameter expression="(([DAY_OF_WEEK]==2)?&quot;Mon&quot;:&quot;&quot;)"/><Parameter expression="(([DAY_OF_WEEK]==3)?&quot;Tue&quot;:&quot;&quot;)"/><Parameter expression="(([DAY_OF_WEEK]==4)?&quot;Wed&quot;:&quot;&quot;)"/><Parameter expression="(([DAY_OF_WEEK]==5)?&quot;Thu&quot;:&quot;&quot;)"/><Parameter expression="(([DAY_OF_WEEK]==6)?&quot;Fri&quot;:&quot;&quot;)"/><Parameter expression="(([DAY_OF_WEEK]==7)?&quot;Sat&quot;:&quot;&quot;)"/></Template>
