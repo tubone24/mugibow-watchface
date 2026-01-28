@@ -277,13 +277,13 @@
             <!-- Mugibow: Full date with moon phase -->
             <ListOption id="0">
                 <!-- Date Background (centered) -->
-                <PartDraw x="117" y="260" width="215" height="35">
-                    <RoundRectangle x="0" y="0" width="215" height="35" cornerRadius="8">
+                <PartDraw x="115" y="260" width="217" height="35">
+                    <RoundRectangle x="0" y="0" width="217" height="35" cornerRadius="8">
                         <Fill color="#80000000"/>
                     </RoundRectangle>
                 </PartDraw>
                 <!-- Date (Fredoka font) - Format: 2025/12/30 Tue -->
-                <PartText x="120" y="263" width="165" height="35" name="DateNumbers">
+                <PartText x="118" y="263" width="165" height="35" name="DateNumbers">
                     <Text align="START">
                         <Font family="fredoka" size="28" color="#FFFFFF">
                             <Template>
@@ -297,50 +297,50 @@
                     <Variant mode="AMBIENT" target="alpha" value="180" />
                 </PartText>
                 <!-- Day of week in English (locale-independent) -->
-                <!-- DAY_OF_WEEK follows ISO 8601: 1=Mon, 2=Tue, ..., 7=Sun -->
+                <!-- DAY_OF_WEEK follows Java Calendar: 1=Sun, 2=Mon, ..., 7=Sat -->
                 <Condition>
                     <Expressions>
                         <Expression name="dow">[DAY_OF_WEEK]</Expression>
                     </Expressions>
                     <Compare expression="dow" eq="1">
-                        <PartText x="285" y="263" width="50" height="35" name="DayMon">
-                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Mon</Template></Font></Text>
+                        <PartText x="283" y="263" width="50" height="35" name="DaySun">
+                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Sun</Template></Font></Text>
                             <Variant mode="AMBIENT" target="alpha" value="180" />
                         </PartText>
                     </Compare>
                     <Compare expression="dow" eq="2">
-                        <PartText x="285" y="263" width="50" height="35" name="DayTue">
-                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Tue</Template></Font></Text>
+                        <PartText x="283" y="263" width="50" height="35" name="DayMon">
+                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Mon</Template></Font></Text>
                             <Variant mode="AMBIENT" target="alpha" value="180" />
                         </PartText>
                     </Compare>
                     <Compare expression="dow" eq="3">
-                        <PartText x="285" y="263" width="50" height="35" name="DayWed">
-                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Wed</Template></Font></Text>
+                        <PartText x="283" y="263" width="50" height="35" name="DayTue">
+                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Tue</Template></Font></Text>
                             <Variant mode="AMBIENT" target="alpha" value="180" />
                         </PartText>
                     </Compare>
                     <Compare expression="dow" eq="4">
-                        <PartText x="285" y="263" width="50" height="35" name="DayThu">
-                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Thu</Template></Font></Text>
+                        <PartText x="283" y="263" width="50" height="35" name="DayWed">
+                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Wed</Template></Font></Text>
                             <Variant mode="AMBIENT" target="alpha" value="180" />
                         </PartText>
                     </Compare>
                     <Compare expression="dow" eq="5">
-                        <PartText x="285" y="263" width="50" height="35" name="DayFri">
-                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Fri</Template></Font></Text>
+                        <PartText x="283" y="263" width="50" height="35" name="DayThu">
+                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Thu</Template></Font></Text>
                             <Variant mode="AMBIENT" target="alpha" value="180" />
                         </PartText>
                     </Compare>
                     <Compare expression="dow" eq="6">
-                        <PartText x="285" y="263" width="50" height="35" name="DaySat">
-                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Sat</Template></Font></Text>
+                        <PartText x="283" y="263" width="50" height="35" name="DayFri">
+                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Fri</Template></Font></Text>
                             <Variant mode="AMBIENT" target="alpha" value="180" />
                         </PartText>
                     </Compare>
                     <Compare expression="dow" eq="7">
-                        <PartText x="285" y="263" width="50" height="35" name="DaySun">
-                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Sun</Template></Font></Text>
+                        <PartText x="283" y="263" width="50" height="35" name="DaySat">
+                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Sat</Template></Font></Text>
                             <Variant mode="AMBIENT" target="alpha" value="180" />
                         </PartText>
                     </Compare>
@@ -378,50 +378,50 @@
                     <Variant mode="AMBIENT" target="alpha" value="180" />
                 </PartText>
                 <!-- Day of week centered below date -->
-                <!-- DAY_OF_WEEK follows ISO 8601: 1=Mon, 2=Tue, ..., 7=Sun -->
+                <!-- DAY_OF_WEEK follows Java Calendar: 1=Sun, 2=Mon, ..., 7=Sat -->
                 <Condition>
                     <Expressions>
                         <Expression name="dow">[DAY_OF_WEEK]</Expression>
                     </Expressions>
                     <Compare expression="dow" eq="1">
+                        <PartText x="0" y="320" width="450" height="35" name="DaySunSimple">
+                            <Text align="CENTER"><Font family="fredoka" size="24" color="#AAAAAA"><Template>Sunday</Template></Font></Text>
+                            <Variant mode="AMBIENT" target="alpha" value="150" />
+                        </PartText>
+                    </Compare>
+                    <Compare expression="dow" eq="2">
                         <PartText x="0" y="320" width="450" height="35" name="DayMonSimple">
                             <Text align="CENTER"><Font family="fredoka" size="24" color="#AAAAAA"><Template>Monday</Template></Font></Text>
                             <Variant mode="AMBIENT" target="alpha" value="150" />
                         </PartText>
                     </Compare>
-                    <Compare expression="dow" eq="2">
+                    <Compare expression="dow" eq="3">
                         <PartText x="0" y="320" width="450" height="35" name="DayTueSimple">
                             <Text align="CENTER"><Font family="fredoka" size="24" color="#AAAAAA"><Template>Tuesday</Template></Font></Text>
                             <Variant mode="AMBIENT" target="alpha" value="150" />
                         </PartText>
                     </Compare>
-                    <Compare expression="dow" eq="3">
+                    <Compare expression="dow" eq="4">
                         <PartText x="0" y="320" width="450" height="35" name="DayWedSimple">
                             <Text align="CENTER"><Font family="fredoka" size="24" color="#AAAAAA"><Template>Wednesday</Template></Font></Text>
                             <Variant mode="AMBIENT" target="alpha" value="150" />
                         </PartText>
                     </Compare>
-                    <Compare expression="dow" eq="4">
+                    <Compare expression="dow" eq="5">
                         <PartText x="0" y="320" width="450" height="35" name="DayThuSimple">
                             <Text align="CENTER"><Font family="fredoka" size="24" color="#AAAAAA"><Template>Thursday</Template></Font></Text>
                             <Variant mode="AMBIENT" target="alpha" value="150" />
                         </PartText>
                     </Compare>
-                    <Compare expression="dow" eq="5">
+                    <Compare expression="dow" eq="6">
                         <PartText x="0" y="320" width="450" height="35" name="DayFriSimple">
                             <Text align="CENTER"><Font family="fredoka" size="24" color="#AAAAAA"><Template>Friday</Template></Font></Text>
                             <Variant mode="AMBIENT" target="alpha" value="150" />
                         </PartText>
                     </Compare>
-                    <Compare expression="dow" eq="6">
+                    <Compare expression="dow" eq="7">
                         <PartText x="0" y="320" width="450" height="35" name="DaySatSimple">
                             <Text align="CENTER"><Font family="fredoka" size="24" color="#AAAAAA"><Template>Saturday</Template></Font></Text>
-                            <Variant mode="AMBIENT" target="alpha" value="150" />
-                        </PartText>
-                    </Compare>
-                    <Compare expression="dow" eq="7">
-                        <PartText x="0" y="320" width="450" height="35" name="DaySunSimple">
-                            <Text align="CENTER"><Font family="fredoka" size="24" color="#AAAAAA"><Template>Sunday</Template></Font></Text>
                             <Variant mode="AMBIENT" target="alpha" value="150" />
                         </PartText>
                     </Compare>
