@@ -296,55 +296,15 @@
                     </Text>
                     <Variant mode="AMBIENT" target="alpha" value="180" />
                 </PartText>
-                <!-- Day of week in English (locale-independent) -->
-                <!-- DAY_OF_WEEK follows Java Calendar: 1=Sun, 2=Mon, ..., 7=Sat -->
-                <Condition>
-                    <Expressions>
-                        <Expression name="dow">[DAY_OF_WEEK]</Expression>
-                    </Expressions>
-                    <Compare expression="dow" eq="1">
-                        <PartText x="283" y="263" width="50" height="35" name="DaySun">
-                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Sun</Template></Font></Text>
-                            <Variant mode="AMBIENT" target="alpha" value="180" />
-                        </PartText>
-                    </Compare>
-                    <Compare expression="dow" eq="2">
-                        <PartText x="283" y="263" width="50" height="35" name="DayMon">
-                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Mon</Template></Font></Text>
-                            <Variant mode="AMBIENT" target="alpha" value="180" />
-                        </PartText>
-                    </Compare>
-                    <Compare expression="dow" eq="3">
-                        <PartText x="283" y="263" width="50" height="35" name="DayTue">
-                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Tue</Template></Font></Text>
-                            <Variant mode="AMBIENT" target="alpha" value="180" />
-                        </PartText>
-                    </Compare>
-                    <Compare expression="dow" eq="4">
-                        <PartText x="283" y="263" width="50" height="35" name="DayWed">
-                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Wed</Template></Font></Text>
-                            <Variant mode="AMBIENT" target="alpha" value="180" />
-                        </PartText>
-                    </Compare>
-                    <Compare expression="dow" eq="5">
-                        <PartText x="283" y="263" width="50" height="35" name="DayThu">
-                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Thu</Template></Font></Text>
-                            <Variant mode="AMBIENT" target="alpha" value="180" />
-                        </PartText>
-                    </Compare>
-                    <Compare expression="dow" eq="6">
-                        <PartText x="283" y="263" width="50" height="35" name="DayFri">
-                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Fri</Template></Font></Text>
-                            <Variant mode="AMBIENT" target="alpha" value="180" />
-                        </PartText>
-                    </Compare>
-                    <Compare expression="dow" eq="7">
-                        <PartText x="283" y="263" width="50" height="35" name="DaySat">
-                            <Text align="START"><Font family="fredoka" size="28" color="#FFFFFF"><Template>Sat</Template></Font></Text>
-                            <Variant mode="AMBIENT" target="alpha" value="180" />
-                        </PartText>
-                    </Compare>
-                </Condition>
+                <!-- Day of week using DAY_OF_WEEK_S (short name like Mon, Tue, etc.) -->
+                <PartText x="283" y="263" width="50" height="35" name="DayOfWeek">
+                    <Text align="START">
+                        <Font family="fredoka" size="28" color="#FFFFFF">
+                            <Template>%s<Parameter expression="[DAY_OF_WEEK_S]"/></Template>
+                        </Font>
+                    </Text>
+                    <Variant mode="AMBIENT" target="alpha" value="180" />
+                </PartText>
                 <!-- Moon Phase Icon (after day of week) -->
                 <PartText x="335" y="245" width="64" height="64" name="MoonPhaseIcon">
                     <Text align="CENTER">
@@ -377,55 +337,15 @@
                     </Text>
                     <Variant mode="AMBIENT" target="alpha" value="180" />
                 </PartText>
-                <!-- Day of week centered below date -->
-                <!-- DAY_OF_WEEK follows Java Calendar: 1=Sun, 2=Mon, ..., 7=Sat -->
-                <Condition>
-                    <Expressions>
-                        <Expression name="dow">[DAY_OF_WEEK]</Expression>
-                    </Expressions>
-                    <Compare expression="dow" eq="1">
-                        <PartText x="0" y="320" width="450" height="35" name="DaySunSimple">
-                            <Text align="CENTER"><Font family="fredoka" size="24" color="#AAAAAA"><Template>Sunday</Template></Font></Text>
-                            <Variant mode="AMBIENT" target="alpha" value="150" />
-                        </PartText>
-                    </Compare>
-                    <Compare expression="dow" eq="2">
-                        <PartText x="0" y="320" width="450" height="35" name="DayMonSimple">
-                            <Text align="CENTER"><Font family="fredoka" size="24" color="#AAAAAA"><Template>Monday</Template></Font></Text>
-                            <Variant mode="AMBIENT" target="alpha" value="150" />
-                        </PartText>
-                    </Compare>
-                    <Compare expression="dow" eq="3">
-                        <PartText x="0" y="320" width="450" height="35" name="DayTueSimple">
-                            <Text align="CENTER"><Font family="fredoka" size="24" color="#AAAAAA"><Template>Tuesday</Template></Font></Text>
-                            <Variant mode="AMBIENT" target="alpha" value="150" />
-                        </PartText>
-                    </Compare>
-                    <Compare expression="dow" eq="4">
-                        <PartText x="0" y="320" width="450" height="35" name="DayWedSimple">
-                            <Text align="CENTER"><Font family="fredoka" size="24" color="#AAAAAA"><Template>Wednesday</Template></Font></Text>
-                            <Variant mode="AMBIENT" target="alpha" value="150" />
-                        </PartText>
-                    </Compare>
-                    <Compare expression="dow" eq="5">
-                        <PartText x="0" y="320" width="450" height="35" name="DayThuSimple">
-                            <Text align="CENTER"><Font family="fredoka" size="24" color="#AAAAAA"><Template>Thursday</Template></Font></Text>
-                            <Variant mode="AMBIENT" target="alpha" value="150" />
-                        </PartText>
-                    </Compare>
-                    <Compare expression="dow" eq="6">
-                        <PartText x="0" y="320" width="450" height="35" name="DayFriSimple">
-                            <Text align="CENTER"><Font family="fredoka" size="24" color="#AAAAAA"><Template>Friday</Template></Font></Text>
-                            <Variant mode="AMBIENT" target="alpha" value="150" />
-                        </PartText>
-                    </Compare>
-                    <Compare expression="dow" eq="7">
-                        <PartText x="0" y="320" width="450" height="35" name="DaySatSimple">
-                            <Text align="CENTER"><Font family="fredoka" size="24" color="#AAAAAA"><Template>Saturday</Template></Font></Text>
-                            <Variant mode="AMBIENT" target="alpha" value="150" />
-                        </PartText>
-                    </Compare>
-                </Condition>
+                <!-- Day of week using DAY_OF_WEEK_F (full name like Monday, Tuesday, etc.) -->
+                <PartText x="0" y="320" width="450" height="35" name="DayOfWeekSimple">
+                    <Text align="CENTER">
+                        <Font family="fredoka" size="24" color="#AAAAAA">
+                            <Template>%s<Parameter expression="[DAY_OF_WEEK_F]"/></Template>
+                        </Font>
+                    </Text>
+                    <Variant mode="AMBIENT" target="alpha" value="150" />
+                </PartText>
             </ListOption>
             <!-- Minimal: No date shown -->
             <ListOption id="2">
